@@ -1,14 +1,14 @@
-### Performance Comparison (as of Tue Nov 15 17:47:53 UTC 2022)
+### Performance Comparison (as of Tue Nov 15 18:25:41 UTC 2022)
 ## Compilation time
 Algorithm                 | python                    | pythran                   | pyccel                    | pyccel_c                 
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 3.00                      | 1.54                      | 1.38                     
-Bellman Ford              | -                         | 3.31                      | 2.12                      | 2.03                     
-Dijkstra                  | -                         | 3.36                      | 2.31                      | -                        
+Ackermann                 | -                         | 2.56                      | 1.30                      | 1.18                     
+Bellman Ford              | -                         | 2.86                      | 1.88                      | 1.78                     
+Dijkstra                  | -                         | 2.93                      | 1.95                      | -                        
 
 ## Execution time
 Algorithm                 | python                    | pythran                   | pyccel                    | pyccel_c                 
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 464.00 $\pm$ 14.00        | 12.30 $\pm$ 0.40          | 3.58 $\pm$ 0.09           | 3.60 $\pm$ 0.14          
-Bellman Ford (ns)         | 63700.00 $\pm$ 2500.00    | 421.00 $\pm$ 21.00        | 252.00 $\pm$ 9.00         | 517.00 $\pm$ 20.00       
-Dijkstra (ns)             | 29600.00 $\pm$ 900.00     | 378.00 $\pm$ 13.00        | 297.00 $\pm$ 11.00        | -                        
+Ackermann (ms)            | 416.00 $\pm$ 2.00         | 22.00 $\pm$ 0.20          | 14.30 $\pm$ 0.10          | 13.80 $\pm$ 0.10         
+Bellman Ford (ns)         | 56400.00 $\pm$ 200.00     | 368.00 $\pm$ 2.00         | 230.00 $\pm$ 2.00         | 472.00 $\pm$ 3.00        
+Dijkstra (ns)             | 27700.00 $\pm$ 100.00     | 360.00 $\pm$ 2.00         | 259.00 $\pm$ 4.00         | -                        
