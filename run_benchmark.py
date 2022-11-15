@@ -26,6 +26,10 @@ parser.add_argument('--no_execution', action='store_false', dest='execution', \
                         help="Don't time the execution step")
 parser.add_argument('--intel', action='store_true', help='Run test cases with intel compiler')
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
+parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
+parser.add_argument('--no_pythran', action='store_true', help="Don't run pythran tests")
+parser.add_argument('--no_pyccel_f', action='store_true', help="Don't run pyccel fortran tests")
+parser.add_argument('--no_pyccel_c', action='store_true', help="Don't run pyccel c tests")
 parser.add_argument('--output', choices=('latex', 'markdown'), \
                         help='Format of the output table (default=markdown)',default='markdown')
 parser.add_argument('--verbose', action='store_true', help='Enables verbose mode.')
@@ -42,13 +46,19 @@ time_execution = args.execution
 test_cases = ['python']
 if args.pypy:
     test_cases += ['pypy']
-test_cases += ['pythran']
-test_cases += ['numba']
-test_cases += ['pyccel']
-test_cases += ['pyccel_c']
+if not args.no_pythran:
+    test_cases += ['pythran']
+if not args.no_numba:
+    test_cases += ['numba']
+if not args.no_pyccel_f:
+    test_cases += ['pyccel']
+if not args.no_pyccel_c:
+    test_cases += ['pyccel_c']
 if args.intel:
-    test_cases += ['pyccel_intel']
-    test_cases += ['pyccel_intel_c']
+    if not args.no_pyccel_f:
+        test_cases += ['pyccel_intel']
+    if not args.no_pyccel_c:
+        test_cases += ['pyccel_intel_c']
 
 tests = [
     TestInfo('Ackermann',
