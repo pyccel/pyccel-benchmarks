@@ -189,6 +189,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Start writing README
         run: |
+          git branch
+          git pull
           cat intro.md > README.md
           cat test_details.md >> README.md
           echo "## Python 3.7 results" >> README.md
