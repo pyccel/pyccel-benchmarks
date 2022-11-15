@@ -151,11 +151,17 @@ jobs:
           python-version: 3.11
       - name: Install dependencies
         uses: ./.github/actions/linux_install
-      - name: Install python dependencies
+      - name: Install python dependencies (numba doesn't support 3.11 yet)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install wheel
+          python -m pip install pyccel
+          python -m pip install pythran
+          python -m pip install pyperf
         uses: ./.github/actions/pip_installation
       - name: Benchmark
         run: |
-          python run_benchmark.py --pyperf --verbose
+          python run_benchmark.py --pyperf --verbose --no_numba
           echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_311.md
           cat bench.out >> version_specific_results/pypi_performance_311.md
         shell: bash
