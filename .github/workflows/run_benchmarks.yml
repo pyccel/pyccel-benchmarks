@@ -158,7 +158,6 @@ jobs:
           python -m pip install pyccel
           python -m pip install pythran
           python -m pip install pyperf
-        uses: ./.github/actions/pip_installation
       - name: Benchmark
         run: |
           python run_benchmark.py --pyperf --verbose --no_numba
