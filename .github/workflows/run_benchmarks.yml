@@ -188,6 +188,7 @@ jobs:
     steps:
       - name: Start writing README
         run: |
+          ls
           cat intro.md > README.md
           cat test_details.md >> README.md
           echo "## Python 3.7 results" >> README.md
