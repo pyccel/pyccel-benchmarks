@@ -40,12 +40,7 @@ def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
                     d = d + rij[k] ** 2
 
                 d = sqrt ( d )
-                # TODO BUG
-#                d2 = min ( d, pi / 2.0 )
-                if d < pi/2.0:
-                    d2 = d
-                else:
-                    d2 = pi/2.0
+                d2 = min ( d, pi / 2.0 )
 
                 #  Attribute half of the total potential energy to particle J.
                 potential = potential + 0.5 * sin ( d2 ) * sin ( d2 )
