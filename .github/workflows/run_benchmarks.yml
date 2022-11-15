@@ -1,0 +1,167 @@
+name: Benchmarks
+
+on:
+  workflow_dispatch:
+    inputs:
+      new_version:
+        description: 'Indicates if pyccel has created a new version'
+        required: true
+        type: boolean
+
+jobs:
+
+  Benchmark_37:
+
+    runs-on: ubuntu-latest
+    if: ${{ inputs.new_version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        uses: ./.github/actions/pip_installation
+      - name: Benchmark
+        run: |
+          python run_benchmark.py --pyperf --verbose
+          echo "# Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_37.md
+          cat bench.out >> version_specific_results/pypi_performance_37.md
+        shell: bash
+        working-directory: ./.
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: 'Update performance comparison'
+          add: 'version_specific_results/pypi_performance_37.md'
+          default_author: github_actions
+
+  Benchmark_38:
+
+    runs-on: ubuntu-latest
+    if: ${{ inputs.new_version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        uses: ./.github/actions/pip_installation
+      - name: Benchmark
+        run: |
+          python run_benchmark.py --pyperf --verbose
+          echo "# Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_38.md
+          cat bench.out >> version_specific_results/pypi_performance_38.md
+        shell: bash
+        working-directory: ./.
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: 'Update performance comparison'
+          add: 'version_specific_results/pypi_performance_38.md'
+          default_author: github_actions
+
+  Benchmark_39:
+
+    runs-on: ubuntu-latest
+    if: ${{ inputs.new_version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        uses: ./.github/actions/pip_installation
+      - name: Benchmark
+        run: |
+          python run_benchmark.py --pyperf --verbose
+          echo "# Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_39.md
+          cat bench.out >> version_specific_results/pypi_performance_39.md
+        shell: bash
+        working-directory: ./.
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: 'Update performance comparison'
+          add: 'version_specific_results/pypi_performance_39.md'
+          default_author: github_actions
+
+  Benchmark_310:
+
+    runs-on: ubuntu-latest
+    if: ${{ inputs.new_version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        uses: ./.github/actions/pip_installation
+      - name: Benchmark
+        run: |
+          python run_benchmark.py --pyperf --verbose
+          echo "# Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_310.md
+          cat bench.out >> version_specific_results/pypi_performance_310.md
+        shell: bash
+        working-directory: ./.
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: 'Update performance comparison'
+          add: 'version_specific_results/pypi_performance_310.md'
+          default_author: github_actions
+
+  Benchmark_311:
+
+    runs-on: ubuntu-latest
+    if: ${{ inputs.new_version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        uses: ./.github/actions/pip_installation
+      - name: Benchmark
+        run: |
+          python run_benchmark.py --pyperf --verbose
+          echo "# Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_311.md
+          cat bench.out >> version_specific_results/pypi_performance_311.md
+        shell: bash
+        working-directory: ./.
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: 'Update performance comparison'
+          add: 'version_specific_results/pypi_performance_311.md'
+          default_author: github_actions
+
+  BuildReadme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: 'Update performance comparison'
+          add: 'performance.md'
+          default_author: github_actions
