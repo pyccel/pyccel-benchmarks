@@ -190,6 +190,7 @@ jobs:
           cat version_specific_results/pypi_performance_310.md >> README.md
           echo "## Python 3.11 results" >> README.md
           cat version_specific_results/pypi_performance_311.md >> README.md
+        working-directory: ./.
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.0.0
         with:
