@@ -37,8 +37,7 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
         u = e[1][j]
         v = e[0][j]
         if ( v_weight[u] + e_weight[j] < v_weight[v] ):
-            # TODO BUG
-            #print ( '' )
+            print ( '' )
             print ( 'BELLMAN_FORD - Fatal error!' )
             print ( '  Graph contains a cycle with negative weight.' )
             return 1

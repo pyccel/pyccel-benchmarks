@@ -7,6 +7,7 @@
 Functions for running a small molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 To be accelerated with pyccel or pythran
 """
+import sys
 from numpy import zeros
 from numpy import sqrt
 from numpy import pi
@@ -94,11 +95,10 @@ def r8mat_uniform_ab ( r: 'double[:,:]', m: int, n: int, a: float, b: float, see
         seed = seed + i4_huge
 
     elif ( seed == 0 ):
-#        print ( '' ) # TODO error in Pyccel
+        print ( '' )
         print ( 'R8MAT_UNIFORM_AB - Fatal error!' )
         print ( '  Input SEED = 0!' )
-        # TODO must stop here
-#        sys.exit ( 'R8MAT_UNIFORM_AB - Fatal error!' )
+        sys.exit ( 'R8MAT_UNIFORM_AB - Fatal error!' )
 
     elif ( seed > 0 ):
 
