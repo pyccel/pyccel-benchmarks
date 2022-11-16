@@ -33,7 +33,7 @@ jobs:
 
   Benchmark_main:
     runs-on: ubuntu-latest
-    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
+    if: ${{ "${{needs.Check_Pyccel_Version.outputs.old_version}}" == "${{needs.Check_Pyccel_Version.outputs.new_version}}" }}
     needs: Check_Pyccel_Version
 
     steps:
