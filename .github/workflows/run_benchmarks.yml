@@ -25,8 +25,8 @@ jobs:
         run: |
           old_version=$(cat current_version.txt)
           new_version=$(python3 -c "from pyccel import __version__; print(__version__)")
-          echo "old_version=${old_version}" >> $GITHUB_OUTPUT
-          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+          echo "old_version='${old_version}'" >> $GITHUB_OUTPUT
+          echo "new_version='${new_version}'" >> $GITHUB_OUTPUT
           echo "'${old_version}'"
           echo "'${new_version}'"
           echo $GITHUB_OUTPUT
