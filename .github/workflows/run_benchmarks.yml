@@ -257,7 +257,7 @@ jobs:
   BuildReadme:
     runs-on: ubuntu-latest
     if: ${{ always() && contains(github.event.head_commit.message, 'Benchmark of pyccel')}}
-    needs: [Benchmark_37, Benchmark_38, Benchmark_39, Benchmark_310, Benchmark_311, Benchmark_main]
+    needs: [Check_Pyccel_Version, Benchmark_37, Benchmark_38, Benchmark_39, Benchmark_310, Benchmark_311, Benchmark_main]
 
     steps:
       - uses: actions/checkout@v3
