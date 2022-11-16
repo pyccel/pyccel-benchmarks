@@ -36,7 +36,7 @@ jobs:
         run: echo "Python 3.7 benchmarks failed!" > version_specific_results/pypi_performance_37.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9.0.0
+        uses: EndBug/add-and-commit@v9
         with:
           message: 'Update performance comparison'
           add: 'version_specific_results/pypi_performance_37.md'
@@ -70,7 +70,7 @@ jobs:
         run: echo "Python 3.8 benchmarks failed!" > version_specific_results/pypi_performance_37.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9.0.0
+        uses: EndBug/add-and-commit@v9
         with:
           message: 'Update performance comparison'
           add: 'version_specific_results/pypi_performance_38.md'
@@ -104,7 +104,7 @@ jobs:
         run: echo "Python 3.9 benchmarks failed!" > version_specific_results/pypi_performance_37.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9.0.0
+        uses: EndBug/add-and-commit@v9
         with:
           message: 'Update performance comparison'
           add: 'version_specific_results/pypi_performance_39.md'
@@ -138,7 +138,7 @@ jobs:
         run: echo "Python 3.10 benchmarks failed!" > version_specific_results/pypi_performance_37.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9.0.0
+        uses: EndBug/add-and-commit@v9
         with:
           message: 'Update performance comparison'
           add: 'version_specific_results/pypi_performance_310.md'
@@ -177,7 +177,7 @@ jobs:
         run: echo "Python 3.11 benchmarks failed!" > version_specific_results/pypi_performance_37.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9.0.0
+        uses: EndBug/add-and-commit@v9
         with:
           message: 'Update performance comparison'
           add: 'version_specific_results/pypi_performance_311.md'
@@ -209,7 +209,7 @@ jobs:
           cat version_specific_results/pypi_performance_311.md >> README.md
         working-directory: ./.
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9.0.0
+        uses: EndBug/add-and-commit@v9
         with:
           message: 'Update README'
           add: 'README.md'
