@@ -282,7 +282,7 @@ jobs:
         working-directory: ./.
       - name: Save newly analysed version
         run:
-          echo ${{needs.Check_Pyccel_Version.outputs.new_version }} > current_version.txt
+          echo "${{needs.Check_Pyccel_Version.outputs.new_version }}" > current_version.txt
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
         with:
