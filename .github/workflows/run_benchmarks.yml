@@ -47,6 +47,7 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
+    needs: [Benchmark_37]
 
     steps:
       - uses: actions/checkout@v3
@@ -80,6 +81,7 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
+    needs: [Benchmark_38]
 
     steps:
       - uses: actions/checkout@v3
@@ -113,6 +115,7 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
+    needs: [Benchmark_39]
 
     steps:
       - uses: actions/checkout@v3
@@ -146,6 +149,7 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
+    needs: [Benchmark_310]
 
     steps:
       - uses: actions/checkout@v3
