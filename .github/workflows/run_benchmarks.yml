@@ -9,6 +9,7 @@ jobs:
     outputs:
       old_version: ${{ steps.check_version.outputs.old_version }}
       new_version: ${{ steps.check_version.outputs.new_version }}
+      version_changed: ${{ steps.check_version.outputs.new_version }}
 
     steps:
       - uses: actions/checkout@v3
@@ -22,6 +23,7 @@ jobs:
           python -m pip install wheel
           python -m pip install pyccel
       - name: Check Version
+        id: check_version
         run: |
           old_version=$(cat current_version.txt)
           new_version=$(python3 -c "from pyccel import __version__; print(__version__)")
@@ -29,10 +31,10 @@ jobs:
           echo "new_version='${new_version}'" >> $GITHUB_OUTPUT
           if [ "${old_version}" == "${new_version}" ]; then
             echo "Versions are equal"
-            echo "version_changed='true'" >> $GITHUB_OUTPUT
+            echo "version_changed='false'" >> $GITHUB_OUTPUT
           else
             echo "Versions are different"
-            echo "version_changed='false'" >> $GITHUB_OUTPUT
+            echo "version_changed='true'" >> $GITHUB_OUTPUT
           fi
           echo "'${old_version}'"
           echo "'${new_version}'"
