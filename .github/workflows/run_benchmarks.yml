@@ -27,13 +27,20 @@ jobs:
           new_version=$(python3 -c "from pyccel import __version__; print(__version__)")
           echo "old_version='${old_version}'" >> $GITHUB_OUTPUT
           echo "new_version='${new_version}'" >> $GITHUB_OUTPUT
+          if [ "${old_version}" == "${new_version}"]; then
+            echo "Versions are equal"
+            echo "version_changed='true'" >> $GITHUB_OUTPUT
+          else
+            echo "Versions are different"
+            echo "version_changed='false'" >> $GITHUB_OUTPUT
+          fi
           echo "'${old_version}'"
           echo "'${new_version}'"
           cat $GITHUB_OUTPUT
 
   Benchmark_main:
     runs-on: ubuntu-latest
-    if: ${{ "${{needs.Check_Pyccel_Version.outputs.old_version}}" == "${{needs.Check_Pyccel_Version.outputs.new_version}}" }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
