@@ -61,7 +61,7 @@ Solves a 2D Laplace problem using Finite Differences methods. The code is adapte
 
 Runs a molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 ## Development branch results
-Devel branch benchmarks failed on python 3.11!
+Devel branch benchmarks failed on python 3.10!
 ## Python 3.7 results
 ### Performance Comparison (as of Wed Nov 16 12:31:43 UTC 2022)
 ## Compilation time
