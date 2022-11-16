@@ -8,6 +8,7 @@ Additional options can be used with this script to add additional comparisons, c
 
 Run `python3 run_benchmarks.py --help` for more details.
 
+The results below are presented for the current state of the development branch of pyccel, as well as the most recent version of pyccel available on pypi.
 ## Tests used
 
 The tests used can be found in the [benchmark_code/](./benchmark_code) directory
@@ -59,6 +60,8 @@ Solves a 2D Laplace problem using Finite Differences methods. The code is adapte
 ### MD
 
 Runs a molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
+## Development branch results
+Devel branch benchmarks failed on python 3.11!
 ## Python 3.7 results
 ### Performance Comparison (as of Wed Nov 16 12:31:43 UTC 2022)
 ## Compilation time
