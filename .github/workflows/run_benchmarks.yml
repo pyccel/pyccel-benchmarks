@@ -29,7 +29,7 @@ jobs:
 
   Benchmark_main:
     runs-on: ubuntu-latest
-    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} != ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version != needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
@@ -69,7 +69,7 @@ jobs:
   Benchmark_37:
 
     runs-on: ubuntu-latest
-    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} == ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
@@ -104,7 +104,7 @@ jobs:
   Benchmark_38:
 
     runs-on: ubuntu-latest
-    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} == ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
@@ -139,7 +139,7 @@ jobs:
   Benchmark_39:
 
     runs-on: ubuntu-latest
-    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} == ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
@@ -174,7 +174,7 @@ jobs:
   Benchmark_310:
 
     runs-on: ubuntu-latest
-    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} == ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
@@ -209,7 +209,7 @@ jobs:
   Benchmark_311:
 
     runs-on: ubuntu-latest
-    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} == ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
