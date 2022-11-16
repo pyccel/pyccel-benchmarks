@@ -272,8 +272,8 @@ jobs:
           echo "## Python 3.11 results" >> README.md
           cat version_specific_results/pypi_performance_311.md >> README.md
         working-directory: ./.
-      - name: Save newly analysed version:
-        run: |
+      - name: Save newly analysed version
+        run:
           echo ${{needs.Check_Pyccel_Version.outputs.new_version }} > current_version.txt
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
