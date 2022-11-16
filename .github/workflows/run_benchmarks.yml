@@ -27,6 +27,45 @@ jobs:
           echo "old_version=${old_version}" >> $GITHUB_OUTPUT
           echo "new_version=${new_version}" >> $GITHUB_OUTPUT
 
+  Benchmark_main:
+    runs-on: ubuntu-latest
+    if: ${{ ${{needs.Check_Pyccel_Version.outputs.old_version}} != ${{needs.Check_Pyccel_Version.outputs.new_version}} }}
+    needs: Check_Pyccel_Version
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install pyccel from source
+        run: |
+          git clone git@github.com:pyccel/pyccel.git
+          cd pyccel
+          pip3 install .
+      - name: Install python dependencies
+        uses: ./.github/actions/pip_installation
+      - name: Benchmark
+        run: |
+          python run_benchmark.py --verbose
+          echo "### Performance Comparison (as of $(time))" > version_specific_results/devel_performance_39.md
+          cat bench.out >> version_specific_results/devel_performance_39.md
+          cat version_specific_results/devel_performance_39.md
+        shell: bash
+        working-directory: ./.
+      - name: Record Failure
+        run: echo "Devel branch benchmarks failed on python 3.9!" > version_specific_results/devel_performance_39.md
+        if: ${{ failure() }}
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update performance comparison'
+          add: 'version_specific_results/devel_performance_39.md'
+          default_author: github_actions
+          pull: '--rebase --autostash'
+
   Benchmark_37:
 
     runs-on: ubuntu-latest
@@ -46,7 +85,7 @@ jobs:
       - name: Benchmark
         run: |
           python run_benchmark.py --pyperf --verbose
-          echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_37.md
+          echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > version_specific_results/pypi_performance_37.md
           cat bench.out >> version_specific_results/pypi_performance_37.md
           cat version_specific_results/pypi_performance_37.md
         shell: bash
@@ -81,7 +120,7 @@ jobs:
       - name: Benchmark
         run: |
           python run_benchmark.py --pyperf --verbose
-          echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_38.md
+          echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > version_specific_results/pypi_performance_38.md
           cat bench.out >> version_specific_results/pypi_performance_38.md
           cat version_specific_results/pypi_performance_38.md
         shell: bash
@@ -116,7 +155,7 @@ jobs:
       - name: Benchmark
         run: |
           python run_benchmark.py --pyperf --verbose
-          echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_39.md
+          echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > version_specific_results/pypi_performance_39.md
           cat bench.out >> version_specific_results/pypi_performance_39.md
           cat version_specific_results/pypi_performance_39.md
         shell: bash
@@ -151,7 +190,7 @@ jobs:
       - name: Benchmark
         run: |
           python run_benchmark.py --pyperf --verbose
-          echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_310.md
+          echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > version_specific_results/pypi_performance_310.md
           cat bench.out >> version_specific_results/pypi_performance_310.md
           cat version_specific_results/pypi_performance_310.md
         shell: bash
@@ -191,7 +230,7 @@ jobs:
       - name: Benchmark
         run: |
           python run_benchmark.py --pyperf --verbose --no_numba
-          echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_311.md
+          echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > version_specific_results/pypi_performance_311.md
           cat bench.out >> version_specific_results/pypi_performance_311.md
           cat version_specific_results/pypi_performance_311.md
         shell: bash
@@ -210,7 +249,7 @@ jobs:
   BuildReadme:
     runs-on: ubuntu-latest
     if: ${{ always() }}
-    needs: [Benchmark_37, Benchmark_38, Benchmark_39, Benchmark_310, Benchmark_311]
+    needs: [Benchmark_37, Benchmark_38, Benchmark_39, Benchmark_310, Benchmark_311, Benchmark_main]
 
     steps:
       - uses: actions/checkout@v3
@@ -220,6 +259,8 @@ jobs:
           git pull
           cat intro.md > README.md
           cat test_details.md >> README.md
+          echo "## Development branch results" >> README.md
+          cat version_specific_results/devel_performance_39.md >> README.md
           echo "## Python 3.7 results" >> README.md
           cat version_specific_results/pypi_performance_37.md >> README.md
           echo "## Python 3.8 results" >> README.md
@@ -233,7 +274,7 @@ jobs:
         working-directory: ./.
       - name: Save newly analysed version:
         run: |
-          echo $new_version > current_version.txt
+          echo ${{needs.Check_Pyccel_Version.outputs.new_version }} > current_version.txt
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
         with:
