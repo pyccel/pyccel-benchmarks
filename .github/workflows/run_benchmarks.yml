@@ -30,6 +30,7 @@ jobs:
           python run_benchmark.py --pyperf --verbose
           echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_37.md
           cat bench.out >> version_specific_results/pypi_performance_37.md
+          cat version_specific_results/pypi_performance_37.md
         shell: bash
         working-directory: ./.
       - name: Record Failure
@@ -47,7 +48,6 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
-    needs: [Benchmark_37]
 
     steps:
       - uses: actions/checkout@v3
@@ -64,10 +64,11 @@ jobs:
           python run_benchmark.py --pyperf --verbose
           echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_38.md
           cat bench.out >> version_specific_results/pypi_performance_38.md
+          cat version_specific_results/pypi_performance_38.md
         shell: bash
         working-directory: ./.
       - name: Record Failure
-        run: echo "Python 3.8 benchmarks failed!" > version_specific_results/pypi_performance_37.md
+        run: echo "Python 3.8 benchmarks failed!" > version_specific_results/pypi_performance_38.md
         if: ${{ failure() }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
@@ -81,7 +82,6 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
-    needs: [Benchmark_38]
 
     steps:
       - uses: actions/checkout@v3
@@ -98,10 +98,11 @@ jobs:
           python run_benchmark.py --pyperf --verbose
           echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_39.md
           cat bench.out >> version_specific_results/pypi_performance_39.md
+          cat version_specific_results/pypi_performance_39.md
         shell: bash
         working-directory: ./.
       - name: Record Failure
-        run: echo "Python 3.9 benchmarks failed!" > version_specific_results/pypi_performance_37.md
+        run: echo "Python 3.9 benchmarks failed!" > version_specific_results/pypi_performance_39.md
         if: ${{ failure() }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
@@ -115,7 +116,6 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
-    needs: [Benchmark_39]
 
     steps:
       - uses: actions/checkout@v3
@@ -132,10 +132,11 @@ jobs:
           python run_benchmark.py --pyperf --verbose
           echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_310.md
           cat bench.out >> version_specific_results/pypi_performance_310.md
+          cat version_specific_results/pypi_performance_310.md
         shell: bash
         working-directory: ./.
       - name: Record Failure
-        run: echo "Python 3.10 benchmarks failed!" > version_specific_results/pypi_performance_37.md
+        run: echo "Python 3.10 benchmarks failed!" > version_specific_results/pypi_performance_310.md
         if: ${{ failure() }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
@@ -149,7 +150,6 @@ jobs:
 
     runs-on: ubuntu-latest
     if: ${{ inputs.new_version }}
-    needs: [Benchmark_310]
 
     steps:
       - uses: actions/checkout@v3
@@ -171,10 +171,11 @@ jobs:
           python run_benchmark.py --pyperf --verbose --no_numba
           echo "### Performance Comparison (as of $(date))" > version_specific_results/pypi_performance_311.md
           cat bench.out >> version_specific_results/pypi_performance_311.md
+          cat version_specific_results/pypi_performance_311.md
         shell: bash
         working-directory: ./.
       - name: Record Failure
-        run: echo "Python 3.11 benchmarks failed!" > version_specific_results/pypi_performance_37.md
+        run: echo "Python 3.11 benchmarks failed!" > version_specific_results/pypi_performance_311.md
         if: ${{ failure() }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
