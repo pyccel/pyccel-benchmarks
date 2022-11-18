@@ -24,7 +24,7 @@ runs:
       run:
         sudo apt-get install libomp-dev libomp5
       shell: bash
-    - name: Install Valgrind
+    - name: Install Fonts
       run:
-        sudo apt-get install valgrind
+        sudo apt-get install msttcorefonts
       shell: bash
