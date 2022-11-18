@@ -93,6 +93,7 @@ FD - NL Convection (ms)   | 2010.00                   | 1.46                    
 FD - Poisson (ms)         | 3310.00                   | 1.53                      | 7.60                      | 2.65                      | 1.37                     
 FD - Laplace (\textmu s)  | 32.40                     | 2.08                      | 5470.00                   | 1.27                      | -                        
 M-D (ms)                  | 39100.00                  | -                         | 160.00                    | 133.00                    | 146.00                   
+
 ![Development compilation results](./version_specific_results/devel_performance_310_compilation.png)
 ![Development execution results](./version_specific_results/devel_performance_310_execution.png)
 ## Python 3.7 results
@@ -128,6 +129,7 @@ FD - NL Convection (ms)   | 3030.00 $\pm$ 100.00      | 1.82 $\pm$ 0.01         
 FD - Poisson (ms)         | 4370.00 $\pm$ 20.00       | 2.29 $\pm$ 0.01           | 10.90 $\pm$ 0.10          | 3.87 $\pm$ 0.00           | 2.01 $\pm$ 0.00          
 FD - Laplace (\textmu s)  | 51.50 $\pm$ 0.40          | 2.43 $\pm$ 0.01           | 8.85 $\pm$ 0.08           | 2.19 $\pm$ 0.01           | -                        
 M-D (s)                   | 59.30 $\pm$ 0.50          | -                         | 0.23 $\pm$ 0.00           | -                         | -                        
+
 ![Python 3.7 compilation results](./version_specific_results/pypi_performance_37_1.6.1_compilation.png)
 ![Python 3.7 execution results](./version_specific_results/pypi_performance_37_1.6.1_execution.png)
 ## Python 3.8 results
@@ -163,6 +165,7 @@ FD - NL Convection (ms)   | 3450.00 $\pm$ 90.00       | 2.09 $\pm$ 0.05         
 FD - Poisson (ms)         | 5040.00 $\pm$ 140.00      | 2.33 $\pm$ 0.06           | 12.70 $\pm$ 0.40          | 4.70 $\pm$ 0.16           | 2.13 $\pm$ 0.08          
 FD - Laplace (\textmu s)  | 62.10 $\pm$ 1.10          | 2.88 $\pm$ 0.08           | 10.40 $\pm$ 0.40          | 2.50 $\pm$ 0.10           | -                        
 M-D (s)                   | 54.80 $\pm$ 1.30          | -                         | 0.26 $\pm$ 0.01           | -                         | -                        
+
 ![Python 3.8 compilation results](./version_specific_results/pypi_performance_38_1.6.1_compilation.png)
 ![Python 3.8 execution results](./version_specific_results/pypi_performance_38_1.6.1_execution.png)
 ## Python 3.9 results
@@ -198,6 +201,7 @@ FD - NL Convection (ms)   | 3300.00 $\pm$ 70.00       | 1.97 $\pm$ 0.04         
 FD - Poisson (ms)         | 5050.00 $\pm$ 130.00      | 2.36 $\pm$ 0.05           | 12.40 $\pm$ 0.20          | 4.74 $\pm$ 0.08           | 2.10 $\pm$ 0.02          
 FD - Laplace (\textmu s)  | 65.10 $\pm$ 1.10          | 2.69 $\pm$ 0.06           | 10.30 $\pm$ 0.20          | 2.61 $\pm$ 0.07           | -                        
 M-D (s)                   | 51.70 $\pm$ 1.10          | -                         | 0.26 $\pm$ 0.01           | -                         | -                        
+
 ![Python 3.9 compilation results](./version_specific_results/pypi_performance_39_1.6.1_compilation.png)
 ![Python 3.9 execution results](./version_specific_results/pypi_performance_39_1.6.1_execution.png)
 ## Python 3.10 results
@@ -233,6 +237,7 @@ FD - NL Convection (ms)   | 3230.00 $\pm$ 60.00       | 1.44 $\pm$ 0.06         
 FD - Poisson (ms)         | 4900.00 $\pm$ 70.00       | 1.58 $\pm$ 0.01           | 9.93 $\pm$ 0.04           | 2.77 $\pm$ 0.02           | 1.31 $\pm$ 0.02          
 FD - Laplace (\textmu s)  | 56.80 $\pm$ 1.00          | 2.21 $\pm$ 0.01           | 6.84 $\pm$ 0.05           | 1.77 $\pm$ 0.03           | -                        
 M-D (s)                   | 56.70 $\pm$ 1.30          | -                         | 0.20 $\pm$ 0.00           | -                         | -                        
+
 ![Python 3.10 compilation results](./version_specific_results/pypi_performance_310_1.6.1_compilation.png)
 ![Python 3.10 execution results](./version_specific_results/pypi_performance_310_1.6.1_execution.png)
 ## Python 3.11 results
@@ -268,5 +273,6 @@ FD - NL Convection (ms)   | 3090.00 $\pm$ 40.00       | 2.26 $\pm$ 0.02         
 FD - Poisson (ms)         | 5040.00 $\pm$ 50.00       | 2.44 $\pm$ 0.01           | 4.66 $\pm$ 0.03           | 2.11 $\pm$ 0.01          
 FD - Laplace (\textmu s)  | 63.00 $\pm$ 1.00          | 2.81 $\pm$ 0.04           | 2.68 $\pm$ 0.02           | -                        
 M-D (s)                   | 53.70 $\pm$ 1.60          | -                         | -                         | -                        
+
 ![Python 3.11 compilation results](./version_specific_results/pypi_performance_311_1.6.1_compilation.png)
 ![Python 3.11 execution results](./version_specific_results/pypi_performance_311_1.6.1_execution.png)
