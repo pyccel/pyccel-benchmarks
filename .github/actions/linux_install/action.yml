@@ -26,5 +26,5 @@ runs:
       shell: bash
     - name: Install Fonts
       run:
-        sudo apt-get install msttcorefonts
+        sudo apt-get install msttcorefonts -qq
       shell: bash
