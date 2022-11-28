@@ -36,6 +36,8 @@ if __name__ == '__main__':
         fig, ax = plot_bar_chart(build_execution_entries(execution_body), execution_keys, 0)
         ax.set_ylabel('Speedup')
         ax.set_yscale('log')
+        ylim = ax.get_ylim()
+        ax.set_ylim(1,ylim[1])
         fig.tight_layout()
 
         plt.savefig(execution_filename)

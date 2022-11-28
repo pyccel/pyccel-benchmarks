@@ -25,6 +25,8 @@ def plot_bar_chart(results, result_keys, normalise_key = -1):
     fig, ax = plt.subplots(figsize=(7,2))
     start = x-width/2
     for i, (lab, c) in enumerate(result_keys.items()):
+        if lab == 'Python':
+            continue
         ax.bar(start + i*width, unpacked_results[i], width, label=lab, color='C'+str(c))
 
     ax.set_xticks(x)
