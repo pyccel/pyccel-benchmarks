@@ -21,15 +21,17 @@ def plot_bar_chart(results, result_keys, normalise_key = -1):
 
     x = np.arange(len(results))
     width = 0.75/len(result_keys)
+    shift = width
 
     fig, ax = plt.subplots(figsize=(7,2))
     start = x-width/2
     for i, (lab, c) in enumerate(result_keys.items()):
         if lab == 'Python':
+            shift += width
             continue
         ax.bar(start + i*width, unpacked_results[i], width, label=lab, color='C'+str(c))
 
-    ax.set_xticks(x)
+    ax.set_xticks(x + shift)
     ax.set_xticklabels(labels, rotation=30, ha='right', rotation_mode="anchor")
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
