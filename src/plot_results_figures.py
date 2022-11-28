@@ -23,21 +23,26 @@ if __name__ == '__main__':
         dirname = os.path.dirname(f)
         basename = os.path.splitext(os.path.basename(f))[0]
 
-        compilation_filename = os.path.join(dirname, basename+'_compilation.png')
-        execution_filename = os.path.join(dirname, basename+'_execution.png')
+        compilation_filename = os.path.join(dirname, basename + '_compilation.png')
+        execution_filename   = os.path.join(dirname, basename + '_execution.png')
 
         fig, ax = plot_bar_chart(build_compilation_entries(compilation_body), compilation_keys)
         ax.set_ylabel('Compilation time [s]')
         ax.set_yscale('linear')
+        ax.grid(True, which='major', axis='y', alpha=0.5, linewidth=0.50)
+        ax.set_axisbelow(True)
         fig.tight_layout()
 
-        plt.savefig(compilation_filename)
+        plt.savefig(compilation_filename, dpi=150)
 
         fig, ax = plot_bar_chart(build_execution_entries(execution_body), execution_keys, 0)
         ax.set_ylabel('Speedup')
         ax.set_yscale('log')
         ylim = ax.get_ylim()
         ax.set_ylim(1,ylim[1])
+        ax.grid(True, which='major', axis='y', alpha=0.5, linewidth=0.50)
+        ax.grid(True, which='minor', axis='y', alpha=0.5, linewidth=0.25)
+        ax.set_axisbelow(True)
         fig.tight_layout()
 
-        plt.savefig(execution_filename)
+        plt.savefig(execution_filename, dpi=150)
