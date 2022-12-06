@@ -3,6 +3,8 @@
 Several tests are available for the user to benchmark Pyccel against other common accelerators, notably [pythran](https://pythran.readthedocs.io/en/latest/) and [numba](https://numba.pydata.org/).
 The same code is used for all tests, only the decorators change.
 
+The dependencies can be installed using the command `python3 -m pip install .`
+
 The code can be executed by running the script `run_benchmarks.py`.
 Additional options can be used with this script to add additional comparisons, change the output format, or change what is generated.
 
