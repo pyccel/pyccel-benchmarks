@@ -51,7 +51,7 @@ jobs:
         run: pip3 install .
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmark.py --verbose
+          python benchmarks/run_benchmarks.py --verbose
           FILE=version_specific_results/devel_performance_310.md
           echo "### Performance Comparison (as of $(date))" > ${FILE}
           cat bench.out >> ${FILE}
@@ -88,7 +88,7 @@ jobs:
         run: pip3 install .
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmarks.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -125,7 +125,7 @@ jobs:
         run: pip3 install .
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmarks.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -162,7 +162,7 @@ jobs:
         run: pip3 install .
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmarks.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -199,7 +199,7 @@ jobs:
         run: pip3 install .
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmarks.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -243,7 +243,7 @@ jobs:
           python -m pip install matplotlib
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmark.py --pyperf --verbose --no_numba
+          python benchmarks/run_benchmarks.py --pyperf --verbose --no_numba
           FILE=version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
