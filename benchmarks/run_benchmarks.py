@@ -188,7 +188,7 @@ latex_units = ['s','ms','\\textmu s','ns']
 
 start_dir = os.getcwd()
 
-code_folder = os.path.join(os.path.dirname(__file__), 'benchmark_code')
+code_folder = os.path.join(os.path.dirname(__file__), 'tests')
 
 for t in tests:
     print("===========================================", file=log_file, flush=True)
