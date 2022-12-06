@@ -48,7 +48,7 @@ jobs:
           cd pyccel
           pip3 install .
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
           python benchmarks/run_benchmark.py --verbose
@@ -85,7 +85,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
           python benchmarks/run_benchmark.py --pyperf --verbose
@@ -122,7 +122,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
           python benchmarks/run_benchmark.py --pyperf --verbose
@@ -159,7 +159,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
           python benchmarks/run_benchmark.py --pyperf --verbose
@@ -196,7 +196,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
           python benchmarks/run_benchmark.py --pyperf --verbose
