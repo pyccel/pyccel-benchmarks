@@ -213,6 +213,7 @@ def run_process(cmd: "List[str]", time_compilation: "bool"=False):
     ])
     return p, out, err, cpu_time
 
+
 for t in tests:
     print("===========================================", file=log_file, flush=True)
     print("   ",t.name, file=log_file, flush=True)

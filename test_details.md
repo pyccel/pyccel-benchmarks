@@ -1,6 +1,6 @@
 ## Tests used
 
-The tests used can be found in the [benchmark_code/](./benchmark_code) directory
+The tests used can be found in the [benchmarks/tests](./benchmarks/tests) directory.
 
 ### Ackermann
 
