@@ -1,0 +1,11 @@
+[build-system]
+requires = [
+    "setuptools >= 37, < 61",
+    "pyccel",
+    "pythran",
+    "numba",
+    "pyperf",
+    "numpy",
+    "matplotlib",
+]
+build-backend = "setuptools.build_meta"
