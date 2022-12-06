@@ -48,14 +48,14 @@ jobs:
           cd pyccel
           pip3 install .
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
-          python run_benchmark.py --verbose
+          python benchmarks/run_benchmark.py --verbose
           FILE=version_specific_results/devel_performance_310.md
           echo "### Performance Comparison (as of $(date))" > ${FILE}
           cat bench.out >> ${FILE}
-          python src/plot_results_figures.py ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
       - name: Record Failure
@@ -85,14 +85,14 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
-          python run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmark.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
-          python src/plot_results_figures.py ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
       - name: Record Failure
@@ -122,14 +122,14 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
-          python run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmark.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
-          python src/plot_results_figures.py ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
       - name: Record Failure
@@ -159,14 +159,14 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
-          python run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmark.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
-          python src/plot_results_figures.py ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
       - name: Record Failure
@@ -196,14 +196,14 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        uses: ./.github/actions/pip_installation
+        run: pip3 install .
       - name: Benchmark
         run: |
-          python run_benchmark.py --pyperf --verbose
+          python benchmarks/run_benchmark.py --pyperf --verbose
           FILE=version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
-          python src/plot_results_figures.py ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
       - name: Record Failure
@@ -243,11 +243,11 @@ jobs:
           python -m pip install matplotlib
       - name: Benchmark
         run: |
-          python run_benchmark.py --pyperf --verbose --no_numba
+          python benchmarks/run_benchmark.py --pyperf --verbose --no_numba
           FILE=version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
-          python src/plot_results_figures.py ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
       - name: Record Failure
