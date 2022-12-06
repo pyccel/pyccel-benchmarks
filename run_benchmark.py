@@ -230,7 +230,7 @@ for t in tests:
             cmd = accelerator_commands[case].copy()+[basename]
 
             if time_compilation:
-                cmd = ['time'] + cmd
+                cmd = [shutil.which('time')] + cmd
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
