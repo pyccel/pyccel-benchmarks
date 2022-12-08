@@ -10,9 +10,14 @@ from argparse import ArgumentParser
 from collections import namedtuple
 import os
 import re
+import resource
 import shutil
 import subprocess
 import sys
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import List
 
 TestInfo = namedtuple('TestInfo', 'name basename imports setup call')
 
@@ -190,6 +195,25 @@ start_dir = os.getcwd()
 
 code_folder = os.path.join(os.path.dirname(__file__), 'tests')
 
+def run_process(cmd: "List[str]", time_compilation: "bool"=False):
+    if not time_compilation:
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                universal_newlines=True)
+        out, err = p.communicate()
+        return p, out, err, 0.0
+
+    usage_start = resource.getrusage(resource.RUSAGE_CHILDREN)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            universal_newlines=True)
+    out, err = p.communicate()
+    usage_end = resource.getrusage(resource.RUSAGE_CHILDREN)
+    cpu_time = sum([
+        usage_end.ru_utime - usage_start.ru_utime,
+        usage_end.ru_stime - usage_start.ru_stime
+    ])
+    return p, out, err, cpu_time
+
+
 for t in tests:
     print("===========================================", file=log_file, flush=True)
     print("   ",t.name, file=log_file, flush=True)
@@ -229,15 +253,10 @@ for t in tests:
         if case in accelerator_commands:
             cmd = accelerator_commands[case].copy()+[basename]
 
-            if time_compilation:
-                cmd = ['time'] + cmd
-
             if verbose:
                 print(cmd, file=log_file, flush=True)
 
-            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    universal_newlines=True)
-            out, err = p.communicate()
+            p, out, err, cpu_time = run_process(cmd, time_compilation)
 
             if p.returncode != 0:
                 print("Compilation Error!", file=log_file, flush=True)
@@ -248,11 +267,6 @@ for t in tests:
                 continue
 
             if time_compilation:
-                regexp = re.compile('([0-9.]*)user\s*([0-9.]*)system')
-                r = regexp.findall(err)
-                assert len(r) == 1
-                times = [float(ri) for ri in r[0]]
-                cpu_time = sum(times)
                 print("Compilation CPU time : ", cpu_time, file=log_file)
                 comp_times.append('{:.2f}'.format(float(cpu_time)))
 
@@ -266,9 +280,9 @@ for t in tests:
             if verbose:
                 print(cmd, file=log_file, flush=True)
 
-            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    universal_newlines=True)
-            out, err = p.communicate()
+            # don't use `run_process` time_compilation here
+            # because the command executed uses the `time` module
+            p, out, err, _ = run_process(cmd)
 
             if p.returncode != 0:
                 print("Execution Error!", file=log_file, flush=True)
@@ -289,9 +303,7 @@ for t in tests:
             if verbose:
                 print(cmd, file=log_file, flush=True)
 
-            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    universal_newlines=True)
-            out, err = p.communicate()
+            p, out, err, _ = run_process(cmd)
 
             if p.returncode != 0:
                 print("Execution Error!", file=log_file, flush=True)
