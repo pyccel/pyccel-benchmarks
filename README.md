@@ -12,6 +12,14 @@ Run `python3 benchmarks/run_benchmarks.py --help` for more details.
 
 The results below are presented for the current state of the development branch of pyccel, as well as the most recent version of pyccel available on pypi.
 
+A requirements.txt file providing the necessary packages to reproduce the tests run can be found in the `version_specific_results` folder.
+The environment can be reproduced using the following commands:
+```
+python3 -m venv my_virtual_environment
+source my_virtual_environment/bin/activate
+pip3 -r requirements.txt
+```
+
 ## Tests used
 
 The tests used can be found in the [benchmarks/tests](./benchmarks/tests) directory.
@@ -64,41 +72,41 @@ Solves a 2D Laplace problem using Finite Differences methods. The code is adapte
 
 Runs a molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 ## Development branch results
-### Performance Comparison (as of Sun Dec 11 17:22:56 UTC 2022)
+### Performance Comparison (as of Sun Dec 11 10:06:28 UTC 2022)
 ## Compilation time
 Algorithm                 | python                    | pythran                   | numba                     | pyccel                    | pyccel_c                 
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 2.15                      | 0.31                      | 1.29                      | 1.24                     
-Bellman Ford              | -                         | 2.62                      | 0.85                      | 1.80                      | 1.75                     
-Dijkstra                  | -                         | 2.51                      | 1.14                      | 1.86                      | 1.76                     
-Euler                     | -                         | 2.95                      | 1.18                      | 1.82                      | 1.80                     
-Midpoint Explicit         | -                         | 3.51                      | 1.80                      | 2.13                      | 2.07                     
-Midpoint Fixed            | -                         | 3.99                      | 2.07                      | 2.19                      | 2.16                     
-RK4                       | -                         | 4.21                      | 2.15                      | 2.64                      | 2.58                     
-FD - L Convection         | -                         | 2.29                      | 0.29                      | 1.68                      | 1.70                     
-FD - NL Convection        | -                         | 2.27                      | 0.29                      | 1.73                      | 1.74                     
-FD - Poisson              | -                         | 6.66                      | 0.70                      | 1.84                      | 1.82                     
-FD - Laplace              | -                         | 9.97                      | 1.58                      | 2.35                      | -                        
-M-D                       | -                         | -                         | 4.76                      | 2.75                      | 2.49                     
+Ackermann                 | -                         | 2.04                      | 0.33                      | 1.27                      | 1.21                     
+Bellman Ford              | -                         | 2.62                      | 0.93                      | 1.89                      | 1.81                     
+Dijkstra                  | -                         | 2.68                      | 1.24                      | 1.97                      | 1.87                     
+Euler                     | -                         | 3.17                      | 1.31                      | 1.92                      | 1.86                     
+Midpoint Explicit         | -                         | 3.66                      | 2.00                      | 2.24                      | 2.19                     
+Midpoint Fixed            | -                         | 4.17                      | 2.35                      | 2.30                      | 2.27                     
+RK4                       | -                         | 4.31                      | 2.36                      | 2.81                      | 2.77                     
+FD - L Convection         | -                         | 2.44                      | 0.33                      | 1.79                      | 1.79                     
+FD - NL Convection        | -                         | 2.42                      | 0.32                      | 1.82                      | 1.82                     
+FD - Poisson              | -                         | 6.90                      | 0.76                      | 1.88                      | 1.88                     
+FD - Laplace              | -                         | 10.11                     | 1.71                      | 2.52                      | -                        
+M-D                       | -                         | -                         | 5.30                      | 3.03                      | 2.68                     
 
 ## Execution time
 Algorithm                 | python                    | pythran                   | numba                     | pyccel                    | pyccel_c                 
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 359.00                    | 6.95                      | 30.60                     | 2.88                      | 3.33                     
-Bellman Ford (ns)         | 58800.00                  | 325.00                    | 600.00                    | 187.00                    | 426.00                   
-Dijkstra (ns)             | 25900.00                  | 275.00                    | 400.00                    | 225.00                    | 406.00                   
-Euler (ms)                | 44.30                     | 0.61                      | 1.01                      | 0.12                      | 2.66                     
-Midpoint Explicit (ms)    | 86.70                     | 1.37                      | 2.57                      | 0.20                      | 4.75                     
-Midpoint Fixed (ms)       | 435.00                    | 8.24                      | 14.00                     | 0.83                      | 20.90                    
-RK4 (ms)                  | 215.00                    | 1.70                      | 5.05                      | 0.24                      | 5.69                     
-FD - L Convection (ms)    | 1820.00                   | 1.56                      | 8.35                      | 1.50                      | 1.43                     
-FD - NL Convection (ms)   | 2300.00                   | 1.70                      | 8.17                      | 1.48                      | 1.50                     
-FD - Poisson (ms)         | 3820.00                   | 1.84                      | 9.24                      | 3.42                      | 1.60                     
-FD - Laplace (\textmu s)  | 41.30                     | 2.22                      | 7330.00                   | 1.86                      | -                        
-M-D (ms)                  | 42000.00                  | -                         | 199.00                    | 245.00                    | 249.00                   
+Ackermann (ms)            | 394.00                    | 9.71                      | 31.70                     | 3.20                      | 3.33                     
+Bellman Ford (ns)         | 56500.00                  | 346.00                    | 700.00                    | 214.00                    | 476.00                   
+Dijkstra (ns)             | 29100.00                  | 318.00                    | 500.00                    | 228.00                    | 449.00                   
+Euler (ms)                | 50.50                     | 0.63                      | 1.21                      | 0.14                      | 2.55                     
+Midpoint Explicit (ms)    | 102.00                    | 1.41                      | 3.12                      | 0.24                      | 4.61                     
+Midpoint Fixed (ms)       | 515.00                    | 8.75                      | 17.40                     | 0.95                      | 19.90                    
+RK4 (ms)                  | 257.00                    | 2.08                      | 6.31                      | 0.32                      | 5.48                     
+FD - L Convection (ms)    | 1930.00                   | 1.84                      | 9.06                      | 1.79                      | 1.56                     
+FD - NL Convection (ms)   | 2420.00                   | 1.92                      | 9.41                      | 1.59                      | 1.56                     
+FD - Poisson (ms)         | 4290.00                   | 2.36                      | 10.90                     | 3.95                      | 2.04                     
+FD - Laplace (\textmu s)  | 43.00                     | 2.46                      | 8410.00                   | 2.09                      | -                        
+M-D (ms)                  | 50900.00                  | -                         | 230.00                    | 303.00                    | 303.00                   
 
-![Development compilation results](./version_specific_results/devel_performance_310_compilation.png)
-![Development execution results](./version_specific_results/devel_performance_310_execution.png)
+![Development compilation results](./version_specific_results/devel_performance_310_compilation.svg)
+![Development execution results](./version_specific_results/devel_performance_310_execution.svg)
 ## Python 3.7 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -133,8 +141,8 @@ FD - Poisson (ms)         | 5190.00 $\pm$ 90.00       | 2.35 $\pm$ 0.04         
 FD - Laplace (\textmu s)  | 58.30 $\pm$ 1.60          | 2.69 $\pm$ 0.05           | 10.20 $\pm$ 0.20          | 2.31 $\pm$ 0.04           | -                        
 M-D (ms)                  | 61500.00 $\pm$ 900.00     | -                         | 253.00 $\pm$ 6.00         | 199.00 $\pm$ 4.00         | 208.00 $\pm$ 4.00        
 
-![Python 3.7 compilation results](./version_specific_results/pypi_performance_37_1.7.0_compilation.png)
-![Python 3.7 execution results](./version_specific_results/pypi_performance_37_1.7.0_execution.png)
+![Python 3.7 compilation results](./version_specific_results/pypi_performance_37_1.7.0_compilation.svg)
+![Python 3.7 execution results](./version_specific_results/pypi_performance_37_1.7.0_execution.svg)
 ## Python 3.8 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -169,8 +177,8 @@ FD - Poisson (ms)         | 5210.00 $\pm$ 90.00       | 3.86 $\pm$ 0.08         
 FD - Laplace (\textmu s)  | 113.00 $\pm$ 5.00         | 2.97 $\pm$ 0.12           | 11.50 $\pm$ 0.20          | 2.65 $\pm$ 0.05           | -                        
 M-D (ms)                  | 58800.00 $\pm$ 3000.00    | -                         | 281.00 $\pm$ 11.00        | 228.00 $\pm$ 6.00         | 235.00 $\pm$ 4.00        
 
-![Python 3.8 compilation results](./version_specific_results/pypi_performance_38_1.7.0_compilation.png)
-![Python 3.8 execution results](./version_specific_results/pypi_performance_38_1.7.0_execution.png)
+![Python 3.8 compilation results](./version_specific_results/pypi_performance_38_1.7.0_compilation.svg)
+![Python 3.8 execution results](./version_specific_results/pypi_performance_38_1.7.0_execution.svg)
 ## Python 3.9 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -205,8 +213,8 @@ FD - Poisson (ms)         | 5420.00 $\pm$ 50.00       | 4.24 $\pm$ 0.08         
 FD - Laplace (\textmu s)  | 127.00 $\pm$ 10.00        | 3.31 $\pm$ 0.09           | 12.40 $\pm$ 0.40          | 2.93 $\pm$ 0.04           | -                        
 M-D (ms)                  | 57100.00 $\pm$ 1800.00    | -                         | 298.00 $\pm$ 4.00         | 243.00 $\pm$ 2.00         | 254.00 $\pm$ 4.00        
 
-![Python 3.9 compilation results](./version_specific_results/pypi_performance_39_1.7.0_compilation.png)
-![Python 3.9 execution results](./version_specific_results/pypi_performance_39_1.7.0_execution.png)
+![Python 3.9 compilation results](./version_specific_results/pypi_performance_39_1.7.0_compilation.svg)
+![Python 3.9 execution results](./version_specific_results/pypi_performance_39_1.7.0_execution.svg)
 ## Python 3.10 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -241,8 +249,8 @@ FD - Poisson (ms)         | 4250.00 $\pm$ 30.00       | 2.05 $\pm$ 0.00         
 FD - Laplace (\textmu s)  | 55.50 $\pm$ 0.70          | 2.34 $\pm$ 0.02           | 8.74 $\pm$ 0.11           | 2.08 $\pm$ 0.04           | -                        
 M-D (ms)                  | 45700.00 $\pm$ 1100.00    | -                         | 221.00 $\pm$ 2.00         | 174.00 $\pm$ 1.00         | 181.00 $\pm$ 1.00        
 
-![Python 3.10 compilation results](./version_specific_results/pypi_performance_310_1.7.0_compilation.png)
-![Python 3.10 execution results](./version_specific_results/pypi_performance_310_1.7.0_execution.png)
+![Python 3.10 compilation results](./version_specific_results/pypi_performance_310_1.7.0_compilation.svg)
+![Python 3.10 execution results](./version_specific_results/pypi_performance_310_1.7.0_execution.svg)
 ## Python 3.11 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -277,5 +285,5 @@ FD - Poisson (ms)         | 5080.00 $\pm$ 50.00       | 2.45 $\pm$ 0.01         
 FD - Laplace (\textmu s)  | 63.70 $\pm$ 0.80          | 2.82 $\pm$ 0.03           | 2.55 $\pm$ 0.15           | -                        
 M-D (ms)                  | 54400.00 $\pm$ 600.00     | -                         | 209.00 $\pm$ 1.00         | 216.00 $\pm$ 1.00        
 
-![Python 3.11 compilation results](./version_specific_results/pypi_performance_311_1.7.0_compilation.png)
-![Python 3.11 execution results](./version_specific_results/pypi_performance_311_1.7.0_execution.png)
+![Python 3.11 compilation results](./version_specific_results/pypi_performance_311_1.7.0_compilation.svg)
+![Python 3.11 execution results](./version_specific_results/pypi_performance_311_1.7.0_execution.svg)
