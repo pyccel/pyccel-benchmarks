@@ -23,8 +23,8 @@ if __name__ == '__main__':
         dirname = os.path.dirname(f)
         basename = os.path.splitext(os.path.basename(f))[0]
 
-        compilation_filename = os.path.join(dirname, basename + '_compilation.png')
-        execution_filename   = os.path.join(dirname, basename + '_execution.png')
+        compilation_filename = os.path.join(dirname, basename + '_compilation.svg')
+        execution_filename   = os.path.join(dirname, basename + '_execution.svg')
 
         fig, ax = plot_bar_chart(build_compilation_entries(compilation_body), compilation_keys)
         ax.set_ylabel('Compilation time [s]')
