@@ -12,14 +12,6 @@ Run `python3 benchmarks/run_benchmarks.py --help` for more details.
 
 The results below are presented for the current state of the development branch of pyccel, as well as the most recent version of pyccel available on pypi.
 
-A requirements.txt file providing the necessary packages to reproduce the tests run can be found in the `version_specific_results` folder.
-The environment can be reproduced using the following commands:
-```
-python3 -m venv my_virtual_environment
-source my_virtual_environment/bin/activate
-pip3 -r requirements.txt
-```
-
 ## Tests used
 
 The tests used can be found in the [benchmarks/tests](./benchmarks/tests) directory.
@@ -141,8 +133,8 @@ FD - Poisson (ms)         | 5190.00 $\pm$ 90.00       | 2.35 $\pm$ 0.04         
 FD - Laplace (\textmu s)  | 58.30 $\pm$ 1.60          | 2.69 $\pm$ 0.05           | 10.20 $\pm$ 0.20          | 2.31 $\pm$ 0.04           | -                        
 M-D (ms)                  | 61500.00 $\pm$ 900.00     | -                         | 253.00 $\pm$ 6.00         | 199.00 $\pm$ 4.00         | 208.00 $\pm$ 4.00        
 
-![Python 3.7 compilation results](./version_specific_results/pypi_performance_37_1.7.0_compilation.svg)
-![Python 3.7 execution results](./version_specific_results/pypi_performance_37_1.7.0_execution.svg)
+![Python 3.7 compilation results](./version_specific_results/pypi_performance_37_compilation.svg)
+![Python 3.7 execution results](./version_specific_results/pypi_performance_37_execution.svg)
 ## Python 3.8 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -177,8 +169,8 @@ FD - Poisson (ms)         | 5210.00 $\pm$ 90.00       | 3.86 $\pm$ 0.08         
 FD - Laplace (\textmu s)  | 113.00 $\pm$ 5.00         | 2.97 $\pm$ 0.12           | 11.50 $\pm$ 0.20          | 2.65 $\pm$ 0.05           | -                        
 M-D (ms)                  | 58800.00 $\pm$ 3000.00    | -                         | 281.00 $\pm$ 11.00        | 228.00 $\pm$ 6.00         | 235.00 $\pm$ 4.00        
 
-![Python 3.8 compilation results](./version_specific_results/pypi_performance_38_1.7.0_compilation.svg)
-![Python 3.8 execution results](./version_specific_results/pypi_performance_38_1.7.0_execution.svg)
+![Python 3.8 compilation results](./version_specific_results/pypi_performance_38_compilation.svg)
+![Python 3.8 execution results](./version_specific_results/pypi_performance_38_execution.svg)
 ## Python 3.9 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -213,8 +205,8 @@ FD - Poisson (ms)         | 5420.00 $\pm$ 50.00       | 4.24 $\pm$ 0.08         
 FD - Laplace (\textmu s)  | 127.00 $\pm$ 10.00        | 3.31 $\pm$ 0.09           | 12.40 $\pm$ 0.40          | 2.93 $\pm$ 0.04           | -                        
 M-D (ms)                  | 57100.00 $\pm$ 1800.00    | -                         | 298.00 $\pm$ 4.00         | 243.00 $\pm$ 2.00         | 254.00 $\pm$ 4.00        
 
-![Python 3.9 compilation results](./version_specific_results/pypi_performance_39_1.7.0_compilation.svg)
-![Python 3.9 execution results](./version_specific_results/pypi_performance_39_1.7.0_execution.svg)
+![Python 3.9 compilation results](./version_specific_results/pypi_performance_39_compilation.svg)
+![Python 3.9 execution results](./version_specific_results/pypi_performance_39_execution.svg)
 ## Python 3.10 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -249,8 +241,8 @@ FD - Poisson (ms)         | 4250.00 $\pm$ 30.00       | 2.05 $\pm$ 0.00         
 FD - Laplace (\textmu s)  | 55.50 $\pm$ 0.70          | 2.34 $\pm$ 0.02           | 8.74 $\pm$ 0.11           | 2.08 $\pm$ 0.04           | -                        
 M-D (ms)                  | 45700.00 $\pm$ 1100.00    | -                         | 221.00 $\pm$ 2.00         | 174.00 $\pm$ 1.00         | 181.00 $\pm$ 1.00        
 
-![Python 3.10 compilation results](./version_specific_results/pypi_performance_310_1.7.0_compilation.svg)
-![Python 3.10 execution results](./version_specific_results/pypi_performance_310_1.7.0_execution.svg)
+![Python 3.10 compilation results](./version_specific_results/pypi_performance_310_compilation.svg)
+![Python 3.10 execution results](./version_specific_results/pypi_performance_310_execution.svg)
 ## Python 3.11 results
 ### Performance Comparison (as of 1.7.0)
 ## Compilation time
@@ -285,5 +277,5 @@ FD - Poisson (ms)         | 5080.00 $\pm$ 50.00       | 2.45 $\pm$ 0.01         
 FD - Laplace (\textmu s)  | 63.70 $\pm$ 0.80          | 2.82 $\pm$ 0.03           | 2.55 $\pm$ 0.15           | -                        
 M-D (ms)                  | 54400.00 $\pm$ 600.00     | -                         | 209.00 $\pm$ 1.00         | 216.00 $\pm$ 1.00        
 
-![Python 3.11 compilation results](./version_specific_results/pypi_performance_311_1.7.0_compilation.svg)
-![Python 3.11 execution results](./version_specific_results/pypi_performance_311_1.7.0_execution.svg)
+![Python 3.11 compilation results](./version_specific_results/pypi_performance_311_compilation.svg)
+![Python 3.11 execution results](./version_specific_results/pypi_performance_311_execution.svg)
