@@ -272,7 +272,7 @@ for t in tests:
 
         elif time_compilation and case == "numba":
             cmd = ['pypy'] if case=='pypy' else ['python3']
-            run_str = "{setup}import time; t0 = time.process_time(); {run}; t1 = time.process_time(); {run}; t2 = time.process_time(); print(2*t1-t0-t2)".format(
+            run_str = "{setup}import resource; t0 = resource.getrusage(resource.RUSAGE_SELF); {run}; t1 = resource.getrusage(resource.RUSAGE_SELF); {run}; t2 = resource.getrusage(resource.RUSAGE_SELF); print(2*t1.ru_utime-t0.ru_utime-t2.ru_utime + 2*t1.ru_stime-t0.ru_stime-t2.ru_stime)".format(
                     setup=setup_cmd,
                     run=exec_cmd)
             cmd += ['-c', run_str]
