@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
     outputs:
-      old_version: ${{ steps.check_version.outputs.old_version }}
       new_version: ${{ steps.check_version.outputs.new_version }}
 
     steps:
@@ -24,14 +23,11 @@ jobs:
       - name: Check Version
         id: check_version
         run: |
-          old_version=$(cat current_version.txt)
           new_version=$(python -c "from pyccel import __version__; print(__version__)")
-          echo "old_version=${old_version}" >> $GITHUB_OUTPUT
           echo "new_version=${new_version}" >> $GITHUB_OUTPUT
 
   Benchmark_main:
     runs-on: ubuntu-latest
-    if: ${{ needs.Check_Pyccel_Version.outputs.old_version == needs.Check_Pyccel_Version.outputs.new_version }}
     needs: Check_Pyccel_Version
 
     steps:
