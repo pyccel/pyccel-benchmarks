@@ -231,7 +231,7 @@ jobs:
       - name: Write README
         uses: ./.github/actions/create_readme
         with:
-          version: ${{needs.Check_Pyccel_Version.outputs.new_version }}
+          version: needs.Check_Pyccel_Version.outputs.new_version
       - name: Save newly analysed version
         run:
           echo "${{needs.Check_Pyccel_Version.outputs.new_version }}" > current_version.txt
