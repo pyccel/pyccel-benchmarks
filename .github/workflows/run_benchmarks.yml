@@ -24,6 +24,7 @@ jobs:
         id: check_version
         run: |
           new_version=$(python -c "from pyccel import __version__; print(__version__)")
+          echo ${new_version}
           echo "new_version=${new_version}" >> $GITHUB_OUTPUT
 
   Benchmark_main:
@@ -76,7 +77,7 @@ jobs:
       - name: Write README
         uses: ./.github/actions/create_readme
         with:
-          version: needs.Check_Pyccel_Version.outputs.new_version
+          version: "${{ needs.Check_Pyccel_Version.outputs.new_version }}"
       - name: Save newly analysed version
         run:
           echo "${{needs.Check_Pyccel_Version.outputs.new_version }}" > current_version.txt
