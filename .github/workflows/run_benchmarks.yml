@@ -24,7 +24,6 @@ jobs:
         id: check_version
         run: |
           new_version=$(python -c "from pyccel import __version__; print(__version__)")
-          echo ${new_version}
           echo "new_version=${new_version}" >> $GITHUB_OUTPUT
 
   Benchmark_main:
