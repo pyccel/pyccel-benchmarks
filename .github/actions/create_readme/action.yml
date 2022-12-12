@@ -61,3 +61,4 @@ runs:
         echo "![Python 3.11 compilation results](./${FILE}_compilation.png)" >> README.md
         echo "![Python 3.11 execution results](./${FILE}_execution.png)" >> README.md
       working-directory: ./.
+      shell: bash
