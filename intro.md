@@ -12,3 +12,10 @@ Run `python3 benchmarks/run_benchmarks.py --help` for more details.
 
 The results below are presented for the current state of the development branch of pyccel, as well as the most recent version of pyccel available on pypi.
 
+A requirements.txt file providing the necessary packages to reproduce the tests run can be found in the `version_specific_results` folder.
+The environment can be reproduced using the following commands:
+```
+python3 -m venv my_virtual_environment
+source my_virtual_environment/bin/activate
+pip3 -r requirements.txt
+```
