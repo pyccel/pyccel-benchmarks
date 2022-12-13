@@ -1,0 +1,64 @@
+name: 'Write README file'
+inputs:
+  version:
+    description: 'The most recent pyccel version'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: update the package list
+      run: |
+        git branch
+        git pull
+        cat intro.md > README.md
+        cat test_details.md >> README.md
+        VERSION=${{ inputs.version }}
+        echo "## Development branch results" >> README.md
+        FILE=version_specific_results/devel_performance_310
+        cat ${FILE}.md >> README.md
+        echo "" >> README.md
+        echo "![Development compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Development execution results](./${FILE}_execution.svg)" >> README.md
+
+        echo "## Python 3.7 results" >> README.md
+        FILE=version_specific_results/pypi_performance_37_${VERSION}
+        cat ${FILE}.md >> README.md
+        FILE=version_specific_results/pypi_performance_37
+        echo "" >> README.md
+        echo "![Python 3.7 compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Python 3.7 execution results](./${FILE}_execution.svg)" >> README.md
+
+        echo "## Python 3.8 results" >> README.md
+        FILE=version_specific_results/pypi_performance_38_${VERSION}
+        cat ${FILE}.md >> README.md
+        FILE=version_specific_results/pypi_performance_38
+        echo "" >> README.md
+        echo "![Python 3.8 compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Python 3.8 execution results](./${FILE}_execution.svg)" >> README.md
+
+        echo "## Python 3.9 results" >> README.md
+        FILE=version_specific_results/pypi_performance_39_${VERSION}
+        cat ${FILE}.md >> README.md
+        FILE=version_specific_results/pypi_performance_39
+        echo "" >> README.md
+        echo "![Python 3.9 compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Python 3.9 execution results](./${FILE}_execution.svg)" >> README.md
+
+        echo "## Python 3.10 results" >> README.md
+        FILE=version_specific_results/pypi_performance_310_${VERSION}
+        cat ${FILE}.md >> README.md
+        FILE=version_specific_results/pypi_performance_310
+        echo "" >> README.md
+        echo "![Python 3.10 compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Python 3.10 execution results](./${FILE}_execution.svg)" >> README.md
+
+        echo "## Python 3.11 results" >> README.md
+        FILE=version_specific_results/pypi_performance_311_${VERSION}
+        cat ${FILE}.md >> README.md
+        FILE=version_specific_results/pypi_performance_311
+        echo "" >> README.md
+        echo "![Python 3.11 compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Python 3.11 execution results](./${FILE}_execution.svg)" >> README.md
+      working-directory: ./.
+      shell: bash
