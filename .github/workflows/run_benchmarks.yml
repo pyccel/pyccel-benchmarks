@@ -77,13 +77,10 @@ jobs:
         uses: ./.github/actions/create_readme
         with:
           version: "${{ needs.Check_Pyccel_Version.outputs.new_version }}"
-      - name: Save newly analysed version
-        run:
-          echo "${{needs.Check_Pyccel_Version.outputs.new_version }}" > current_version.txt
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
         with:
           message: 'Update README and version'
-          add: "['README.md', 'current_version.txt']"
+          add: "['README.md']"
           default_author: github_actions
           pull: '--rebase --autostash'
