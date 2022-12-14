@@ -209,7 +209,7 @@ jobs:
           python -m pip install pyperf
           python -m pip install numpy
           python -m pip install matplotlib
-          pip3 freeze > version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+          pip3 freeze > version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --pyperf --verbose --no_numba
