@@ -45,7 +45,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        run: pip3 install .
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --pyperf --verbose
@@ -82,7 +84,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        run: pip3 install .
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --pyperf --verbose
@@ -119,7 +123,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        run: pip3 install .
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --pyperf --verbose
@@ -156,7 +162,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
-        run: pip3 install .
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --pyperf --verbose
@@ -201,6 +209,7 @@ jobs:
           python -m pip install pyperf
           python -m pip install numpy
           python -m pip install matplotlib
+          pip3 freeze > version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --pyperf --verbose --no_numba
