@@ -17,7 +17,7 @@ The environment can be reproduced using the following commands:
 ```
 python3 -m venv my_virtual_environment
 source my_virtual_environment/bin/activate
-pip3 -r requirements.txt
+pip3 install -r requirements.txt
 ```
 ## Tests used
 
