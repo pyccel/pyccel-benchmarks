@@ -31,8 +31,8 @@ parser.add_argument('--no_execution', action='store_false', dest='execution', \
                         help="Don't time the execution step")
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
 parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
-parser.add_argument('--pythran-config-files', type=str, nargs='*', help='Provide configuration files for pythran')
-parser.add_argument('--pyccel-config-files', type=str, nargs='*', help='Provide configuration files for pyccel')
+parser.add_argument('--pythran-config-files', type=str, nargs='*', help='Provide configuration files for pythran', default = [])
+parser.add_argument('--pyccel-config-files', type=str, nargs='*', help='Provide configuration files for pyccel', default = [])
 parser.add_argument('--output', choices=('latex', 'markdown'), \
                         help='Format of the output table (default=markdown)',default='markdown')
 parser.add_argument('--verbose', action='store_true', help='Enables verbose mode.')
@@ -53,9 +53,9 @@ if args.pypy:
     test_cases.append('pypy')
 if not args.no_numba:
     test_cases.append('numba')
-for i in range(pythran_configs):
+for i,_ in enumerate(pythran_configs):
     test_cases.append(f'pythran_{i}')
-for i in range(pyccel_configs):
+for i,_ in enumerate(pyccel_configs):
     test_cases.append(f'pyccel_{i}')
 
 tests = [
