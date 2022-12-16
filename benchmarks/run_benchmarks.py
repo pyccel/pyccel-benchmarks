@@ -238,7 +238,7 @@ for t in tests:
             tag, idx_str = case.split('_')
             idx = int(idx_str)
             if tag == 'pyccel':
-                my_file = pyccel_configs[idx]
+                my_file = os.path.abspath(pyccel_configs[idx])
                 cmd = ['pyccel', '--compiler='+my_file, basename]
                 env = None
             elif tag == 'pythran':
