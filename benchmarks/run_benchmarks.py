@@ -29,12 +29,10 @@ parser.add_argument('--no_compilation', action='store_false', dest='compilation'
                         help="Don't time the compilation step")
 parser.add_argument('--no_execution', action='store_false', dest='execution', \
                         help="Don't time the execution step")
-parser.add_argument('--intel', action='store_true', help='Run test cases with intel compiler')
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
 parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
-parser.add_argument('--no_pythran', action='store_true', help="Don't run pythran tests")
-parser.add_argument('--no_pyccel_f', action='store_true', help="Don't run pyccel fortran tests")
-parser.add_argument('--no_pyccel_c', action='store_true', help="Don't run pyccel c tests")
+parser.add_argument('--pythran-config-files', type=str, nargs='*', metavar='pythran_config', help='Provide configuration files for pythran')
+parser.add_argument('--pyccel-config-files', type=str, nargs='*', metavar='pyccel_config', help='Provide configuration files for pyccel')
 parser.add_argument('--output', choices=('latex', 'markdown'), \
                         help='Format of the output table (default=markdown)',default='markdown')
 parser.add_argument('--verbose', action='store_true', help='Enables verbose mode.')
@@ -47,23 +45,18 @@ output_format = args.output
 pyperf = args.pyperf
 time_compilation = args.compilation
 time_execution = args.execution
+pyccel_configs = args.pyccel_configs
+pythran_configs = args.pythran_configs
 
 test_cases = ['python']
 if args.pypy:
-    test_cases += ['pypy']
-if not args.no_pythran:
-    test_cases += ['pythran']
+    test_cases.append('pypy')
 if not args.no_numba:
-    test_cases += ['numba']
-if not args.no_pyccel_f:
-    test_cases += ['pyccel']
-if not args.no_pyccel_c:
-    test_cases += ['pyccel_c']
-if args.intel:
-    if not args.no_pyccel_f:
-        test_cases += ['pyccel_intel']
-    if not args.no_pyccel_c:
-        test_cases += ['pyccel_intel_c']
+    test_cases.append('numba')
+for i in range(pythran_configs):
+    test_cases.append(f'pythran_{i}')
+for i in range(pyccel_configs):
+    test_cases.append(f'pyccel_{i}')
 
 tests = [
     TestInfo('Ackermann',
@@ -160,16 +153,6 @@ else:
 
 timeit_cmd = ['pyperf', 'timeit', '--copy-env'] if pyperf else ['timeit']
 
-flags = '-O3 -march=native -mtune=native -mavx -ffast-math'
-
-accelerator_commands = {
-        'pyccel'         : ['pyccel', '--language=fortran', '--flags='+flags],
-        'pyccel_c'       : ['pyccel', '--language=c', '--flags='+flags],
-        'pyccel_intel'   : ['pyccel', '--language=fortran', '--compiler=intel', '--flags='+flags],
-        'pyccel_intel_c' : ['pyccel', '--language=c', '--compiler=intel', '--flags='+flags],
-        'pythran'        : ['pythran']+flags.split()
-        }
-
 cell_splitter = {'latex'    : ' & ',
                  'markdown' : ' | '}
 row_splitter  = {'latex'    : '\\\\\n\\hline\n',
@@ -195,10 +178,10 @@ start_dir = os.getcwd()
 
 code_folder = os.path.join(os.path.dirname(__file__), 'tests')
 
-def run_process(cmd: "List[str]", time_compilation: "bool"=False):
+def run_process(cmd: "List[str]", time_compilation: "bool"=False, env = None):
     if not time_compilation:
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                universal_newlines=True)
+                universal_newlines=True, env=None)
         out, err = p.communicate()
         return p, out, err, 0.0
 
@@ -250,8 +233,18 @@ for t in tests:
         print("-------------------", file=log_file, flush=True)
         print("   ",case, file=log_file, flush=True)
         print("-------------------", file=log_file, flush=True)
-        if case in accelerator_commands:
-            cmd = accelerator_commands[case].copy()+[basename]
+        create_shared_lib = case.startswith('pyccel') or case.startswith('pythran')
+        if create_shared_lib:
+            tag, idx_str = case.split('_')
+            idx = int(idx_str)
+            if tag == 'pyccel':
+                my_file = pyccel_configs[idx]
+                cmd = ['pyccel', '--compiler='+my_file, basename]
+                env = None
+            elif tag == 'pythran':
+                my_file = os.path.abspath(pythran_configs[idx])
+                cmd = ['pythran', basename]
+                env = {'PYTHRANRC': my_file}
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
@@ -337,7 +330,7 @@ for t in tests:
 
                 run_units.append(possible_units.index(units))
 
-        if case in accelerator_commands:
+        if create_shared_lib:
             p = subprocess.Popen([shutil.which('pyccel-clean'), '-s'])
 
     if time_compilation:
