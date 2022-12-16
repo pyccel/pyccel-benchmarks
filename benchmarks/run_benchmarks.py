@@ -45,8 +45,8 @@ output_format = args.output
 pyperf = args.pyperf
 time_compilation = args.compilation
 time_execution = args.execution
-pyccel_configs = args.pyccel_config_files
-pythran_configs = args.pythran_config_files
+pyccel_configs = [os.path.abspath(f) for f in args.pyccel_config_files]
+pythran_configs = [os.path.abspath(f) for f in args.pythran_config_files]
 
 test_cases = ['python']
 if args.pypy:
@@ -238,12 +238,12 @@ for t in tests:
             tag, idx_str = case.split('_')
             idx = int(idx_str)
             if tag == 'pyccel':
-                my_file = os.path.abspath(pyccel_configs[idx])
+                my_file = pyccel_configs[idx]
                 assert os.path.exists(pyccel_configs[idx])
                 cmd = ['pyccel', '--compiler='+my_file, basename]
                 env = None
             elif tag == 'pythran':
-                my_file = os.path.abspath(pythran_configs[idx])
+                my_file = pythran_configs[idx]
                 cmd = ['pythran', basename]
                 env = {'PYTHRANRC': my_file}
 
