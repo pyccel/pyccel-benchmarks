@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
         name_parts = basename.split('_')
 
-        basename_without_version = '_'.join(name_parts[:-1])
+        basename_without_version = '_'.join(name_parts[:3])
 
         compilation_filename = os.path.join(dirname, basename_without_version + '_compilation.svg')
         execution_filename   = os.path.join(dirname, basename_without_version + '_execution.svg')
@@ -50,3 +50,5 @@ if __name__ == '__main__':
         fig.tight_layout()
 
         plt.savefig(execution_filename, dpi=150)
+        print(execution_filename, compilation_filename)
+        plt.show()
