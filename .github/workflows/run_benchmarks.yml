@@ -49,7 +49,7 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/config.pythranrc
+          python benchmarks/run_benchmarks.py --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/pythran.config
           FILE=version_specific_results/devel_performance_310.md
           echo "### Performance Comparison (as of $(date))" > ${FILE}
           cat bench.out >> ${FILE}

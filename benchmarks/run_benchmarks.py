@@ -52,14 +52,19 @@ pyccel_language_flags = [json.load(open(f))['language'] for f in pyccel_configs]
 
 
 test_cases = ['python']
+test_case_names = ['python']
 if args.pypy:
     test_cases.append('pypy')
+    test_case_names.append('pypy')
 if not args.no_numba:
     test_cases.append('numba')
-for i,_ in enumerate(pythran_configs):
+    test_case_names.append('numba')
+for i,f in enumerate(pythran_configs):
     test_cases.append(f'pythran_{i}')
-for i,_ in enumerate(pyccel_configs):
+    test_case_names.append(os.path.splitext(os.path.basename(f))[0])
+for i,f in enumerate(pyccel_configs):
     test_cases.append(f'pyccel_{i}')
+    test_case_names.append(os.path.splitext(os.path.basename(f))[0])
 
 tests = [
     TestInfo('Ackermann',
@@ -161,7 +166,7 @@ cell_splitter = {'latex'    : ' & ',
 row_splitter  = {'latex'    : '\\\\\n\\hline\n',
                  'markdown' : '\n'}
 
-test_cases_row = cell_splitter[output_format].join('{0: <25}'.format(s) for s in ['Algorithm']+test_cases)
+test_cases_row = cell_splitter[output_format].join('{0: <25}'.format(s) for s in ['Algorithm']+test_case_names)
 comp_result_table = [test_cases_row]
 exec_result_table = [test_cases_row]
 
