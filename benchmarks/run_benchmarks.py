@@ -8,6 +8,7 @@
 """
 from argparse import ArgumentParser
 from collections import namedtuple
+import json
 import os
 import re
 import resource
@@ -47,6 +48,8 @@ time_compilation = args.compilation
 time_execution = args.execution
 pyccel_configs = [os.path.abspath(f) for f in args.pyccel_config_files]
 pythran_configs = [os.path.abspath(f) for f in args.pythran_config_files]
+pyccel_language_flags = [json.load(open(f))['language'] for f in pyccel_configs]
+
 
 test_cases = ['python']
 if args.pypy:
@@ -239,8 +242,8 @@ for t in tests:
             idx = int(idx_str)
             if tag == 'pyccel':
                 my_file = pyccel_configs[idx]
-                assert os.path.exists(pyccel_configs[idx])
-                cmd = ['pyccel', '--compiler='+my_file, basename]
+                language = pyccel_language_flags[idx]
+                cmd = ['pyccel', '--compiler='+my_file, f'--language={language}', basename]
                 env = None
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
