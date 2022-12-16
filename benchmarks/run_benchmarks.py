@@ -239,6 +239,7 @@ for t in tests:
             idx = int(idx_str)
             if tag == 'pyccel':
                 my_file = os.path.abspath(pyccel_configs[idx])
+                assert os.path.exists(pyccel_configs[idx])
                 cmd = ['pyccel', '--compiler='+my_file, basename]
                 env = None
             elif tag == 'pythran':
