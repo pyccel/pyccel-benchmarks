@@ -4,7 +4,7 @@ runs:
   using: "composite"
   steps:
     - name: Generate default pyccel configurations
-      run:
+      run: |
         pyccel --language=fortran --export-compile-info pyccel_fortran.json
         pyccel --language=c --export-compile-info pyccel_c.json
       shell: bash
