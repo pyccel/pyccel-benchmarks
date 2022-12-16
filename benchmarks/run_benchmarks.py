@@ -31,8 +31,8 @@ parser.add_argument('--no_execution', action='store_false', dest='execution', \
                         help="Don't time the execution step")
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
 parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
-parser.add_argument('--pythran-config-files', type=str, nargs='*', metavar='pythran_config', help='Provide configuration files for pythran')
-parser.add_argument('--pyccel-config-files', type=str, nargs='*', metavar='pyccel_config', help='Provide configuration files for pyccel')
+parser.add_argument('--pythran-config-files', type=str, nargs='*', help='Provide configuration files for pythran')
+parser.add_argument('--pyccel-config-files', type=str, nargs='*', help='Provide configuration files for pyccel')
 parser.add_argument('--output', choices=('latex', 'markdown'), \
                         help='Format of the output table (default=markdown)',default='markdown')
 parser.add_argument('--verbose', action='store_true', help='Enables verbose mode.')
@@ -45,8 +45,8 @@ output_format = args.output
 pyperf = args.pyperf
 time_compilation = args.compilation
 time_execution = args.execution
-pyccel_configs = args.pyccel_configs
-pythran_configs = args.pythran_configs
+pyccel_configs = args.pyccel_config_files
+pythran_configs = args.pythran_config_files
 
 test_cases = ['python']
 if args.pypy:
