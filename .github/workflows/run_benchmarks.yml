@@ -45,6 +45,8 @@ jobs:
         run: |
           pip3 install .
           pip3 freeze > version_specific_results/devel_performance_310_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
           python benchmarks/run_benchmarks.py --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/config.pythranrc
