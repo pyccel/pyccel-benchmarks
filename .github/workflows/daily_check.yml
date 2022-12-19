@@ -52,7 +52,9 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/pythran.config
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -93,7 +95,9 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/pythran.config
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -134,7 +138,9 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/pythran.config
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -175,7 +181,9 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/pythran.config
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
@@ -222,8 +230,10 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files benchmarks/pyccel_fortran.json benchmarks/pyccel_c.json --pythran-config-files benchmarks/pythran.config
-          FILE=version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
+          FILE=../version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
           cat bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
