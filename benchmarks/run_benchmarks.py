@@ -248,7 +248,7 @@ for t in tests:
             if tag == 'pyccel':
                 my_file = pyccel_configs[idx]
                 language = pyccel_language_flags[idx]
-                cmd = ['pyccel', '--compiler='+my_file, f'--language={language}', basename]
+                cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', basename]
                 env = None
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
