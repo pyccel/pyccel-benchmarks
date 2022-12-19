@@ -56,12 +56,12 @@ test_case_names = ['python']
 if args.pypy:
     test_cases.append('pypy')
     test_case_names.append('pypy')
-if not args.no_numba:
-    test_cases.append('numba')
-    test_case_names.append('numba')
 for i,f in enumerate(pythran_configs):
     test_cases.append(f'pythran_{i}')
     test_case_names.append(os.path.splitext(os.path.basename(f))[0])
+if not args.no_numba:
+    test_cases.append('numba')
+    test_case_names.append('numba')
 for i,f in enumerate(pyccel_configs):
     test_cases.append(f'pyccel_{i}')
     test_case_names.append(os.path.splitext(os.path.basename(f))[0])
