@@ -24,7 +24,7 @@ This configuration can then be modified to include additional flags or use diffe
 - `-mavx`
 - `-ffast-math`
 
-Additional options can be used with this script to add additional comparisons, change the output format, or change what is generated.
+Additional options can be used with this script to add further comparisons, change the output format, or change what is generated.
 
 Run `python3 benchmarks/run_benchmarks.py --help` for more details.
 
