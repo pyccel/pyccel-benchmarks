@@ -57,7 +57,7 @@ jobs:
           cd ..
           FILE=version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -100,7 +100,7 @@ jobs:
           cd ..
           FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -143,7 +143,7 @@ jobs:
           cd ..
           FILE=version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -186,7 +186,7 @@ jobs:
           cd ..
           FILE=version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -235,7 +235,7 @@ jobs:
           cd ..
           FILE=../version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.

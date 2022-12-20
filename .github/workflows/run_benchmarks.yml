@@ -54,7 +54,7 @@ jobs:
           cd ..
           FILE=version_specific_results/devel_performance_310.md
           echo "### Performance Comparison (as of $(date))" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
