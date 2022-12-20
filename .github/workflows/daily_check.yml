@@ -53,7 +53,7 @@ jobs:
       - name: Benchmark
         run: |
           cd benchmarks
-          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
           cd ..
           FILE=version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
@@ -96,7 +96,7 @@ jobs:
       - name: Benchmark
         run: |
           cd benchmarks
-          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
           cd ..
           FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
@@ -139,7 +139,7 @@ jobs:
       - name: Benchmark
         run: |
           cd benchmarks
-          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
           cd ..
           FILE=version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
@@ -182,7 +182,7 @@ jobs:
       - name: Benchmark
         run: |
           cd benchmarks
-          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
           cd ..
           FILE=version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
