@@ -89,7 +89,38 @@ Solves a 2D Laplace problem using Finite Differences methods. The code is adapte
 
 Runs a molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 ## Development branch results
-Devel branch benchmarks failed on python 3.10!
+### Performance Comparison (as of Tue Dec 20 08:45:35 UTC 2022)
+## Compilation time
+Algorithm                 | python                    | pythran                   | pyccel_fortran            | pyccel_c                 
+------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
+Ackermann                 | -                         | 2.03                      | 1.24                      | 1.20                     
+Bellman Ford              | -                         | 2.62                      | 1.88                      | 1.81                     
+Dijkstra                  | -                         | 2.64                      | 1.97                      | 1.87                     
+Euler                     | -                         | 3.06                      | 1.91                      | 1.87                     
+Midpoint Explicit         | -                         | 3.59                      | 2.23                      | 2.18                     
+Midpoint Fixed            | -                         | 4.08                      | 2.29                      | 2.26                     
+RK4                       | -                         | 4.25                      | 2.81                      | 2.72                     
+FD - L Convection         | -                         | 2.38                      | 1.78                      | 1.78                     
+FD - NL Convection        | -                         | 2.37                      | 1.78                      | 1.79                     
+FD - Poisson              | -                         | 6.45                      | 1.88                      | 1.88                     
+FD - Laplace              | -                         | 9.38                      | 2.48                      | -                        
+M-D                       | -                         | -                         | 2.92                      | 2.64                     
+
+## Execution time
+Algorithm                 | python                    | pythran                   | pyccel_fortran            | pyccel_c                 
+------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
+Ackermann (ms)            | 390.00 $\pm$ 4.00         | 10.10 $\pm$ 0.00          | 3.28 $\pm$ 0.00           | 3.26 $\pm$ 0.00          
+Bellman Ford (ns)         | 56900.00 $\pm$ 2900.00    | 360.00 $\pm$ 1.00         | 217.00 $\pm$ 1.00         | 484.00 $\pm$ 3.00        
+Dijkstra (ns)             | 29700.00 $\pm$ 200.00     | 319.00 $\pm$ 2.00         | 233.00 $\pm$ 2.00         | 483.00 $\pm$ 6.00        
+Euler (\textmu s)         | 48600.00 $\pm$ 300.00     | 634.00 $\pm$ 10.00        | 140.00 $\pm$ 3.00         | 2620.00 $\pm$ 20.00      
+Midpoint Explicit (ms)    | 98.70 $\pm$ 1.10          | 1.49 $\pm$ 0.03           | 0.24 $\pm$ 0.01           | 4.62 $\pm$ 0.08          
+Midpoint Fixed (ms)       | 493.00 $\pm$ 6.00         | 8.86 $\pm$ 0.08           | 0.95 $\pm$ 0.01           | 19.90 $\pm$ 0.20         
+RK4 (ms)                  | 252.00 $\pm$ 4.00         | 2.40 $\pm$ 0.01           | 0.28 $\pm$ 0.01           | 5.50 $\pm$ 0.13          
+FD - L Convection (ms)    | 1910.00 $\pm$ 20.00       | 2.54 $\pm$ 0.00           | 1.79 $\pm$ 0.07           | 1.71 $\pm$ 0.13          
+FD - NL Convection (ms)   | 2580.00 $\pm$ 180.00      | 4.16 $\pm$ 0.01           | 1.73 $\pm$ 0.07           | 1.80 $\pm$ 0.17          
+FD - Poisson (ms)         | 4260.00 $\pm$ 20.00       | 2.91 $\pm$ 0.00           | 3.95 $\pm$ 0.00           | 2.04 $\pm$ 0.00          
+FD - Laplace (\textmu s)  | 55.20 $\pm$ 0.60          | 5.03 $\pm$ 0.03           | 2.06 $\pm$ 0.05           | -                        
+M-D (ms)                  | 50900.00 $\pm$ 1100.00    | -                         | 303.00 $\pm$ 1.00         | 304.00 $\pm$ 0.00        
 
 ![Development compilation results](./version_specific_results/devel_performance_310_compilation.svg)
 ![Development execution results](./version_specific_results/devel_performance_310_execution.svg)
