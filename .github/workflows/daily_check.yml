@@ -48,12 +48,16 @@ jobs:
         run: |
           pip3 install .
           pip3 freeze > version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_37_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -87,12 +91,16 @@ jobs:
         run: |
           pip3 install .
           pip3 freeze > version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -126,12 +134,16 @@ jobs:
         run: |
           pip3 install .
           pip3 freeze > version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_39_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -165,12 +177,16 @@ jobs:
         run: |
           pip3 install .
           pip3 freeze > version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/pypi_performance_310_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.
@@ -210,12 +226,16 @@ jobs:
           python -m pip install numpy
           python -m pip install matplotlib
           pip3 freeze > version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --pyperf --verbose --no_numba
-          FILE=version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --no_numba --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
+          FILE=../version_specific_results/pypi_performance_311_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
           echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.

@@ -6,7 +6,25 @@ The same code is used for all tests, only the decorators change.
 The dependencies can be installed using the command `python3 -m pip install .`
 
 The code can be executed by running the script `benchmarks/run_benchmarks.py`.
-Additional options can be used with this script to add additional comparisons, change the output format, or change what is generated.
+
+In order to test pyccel and/or pythran, configuration files must be provided. An example configuration for pythran is found in [`benchmarks/config.pythranrc`](./benchmarks/config.pythranrc). This configuration is the default pythran configuration with the following additional flags:
+- `-O3`
+- `-march=native`
+- `-mtune=native`
+- `-mavx`
+- `-ffast-math`
+Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for c generation or other compiler languages, see the [pyccel documentation](https://github.com/pyccel/pyccel/blob/master/tutorial/compiler.md)):
+```
+pyccel --language=fortran --export-compile-info pyccel_fortran.json
+```
+This configuration can then be modified to include additional flags or use different compilers. The tests shown below add the following additional flags (which match the flags added to pythran):
+- `-O3`
+- `-march=native`
+- `-mtune=native`
+- `-mavx`
+- `-ffast-math`
+
+Additional options can be used with this script to add further comparisons, change the output format, or change what is generated.
 
 Run `python3 benchmarks/run_benchmarks.py --help` for more details.
 

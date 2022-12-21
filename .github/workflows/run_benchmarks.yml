@@ -45,12 +45,16 @@ jobs:
         run: |
           pip3 install .
           pip3 freeze > version_specific_results/devel_performance_310_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
-          python benchmarks/run_benchmarks.py --verbose
+          cd benchmarks
+          python run_benchmarks.py --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
           FILE=version_specific_results/devel_performance_310.md
           echo "### Performance Comparison (as of $(date))" > ${FILE}
-          cat bench.out >> ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
           python analysis/plot_results_figures.py ${FILE}
         shell: bash
         working-directory: ./.

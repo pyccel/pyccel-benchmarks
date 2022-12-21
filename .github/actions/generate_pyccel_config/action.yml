@@ -1,0 +1,24 @@
+name: 'Generate pyccel configurations'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate default pyccel configurations
+      run: |
+        pyccel --language=fortran --export-compile-info pyccel_fortran.json
+        pyccel --language=c --export-compile-info pyccel_c.json
+      shell: bash
+      working-directory: ./benchmarks
+    - name: Add improved flags
+      run: |
+        import json
+        config = json.load(open('pyccel_fortran.json'))
+        config['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx', '-ffast-math'])
+        print(json.dumps(config, indent=4),
+                file=open('pyccel_fortran.json','w'))
+        config = json.load(open('pyccel_c.json'))
+        config['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx', '-ffast-math'])
+        print(json.dumps(config, indent=4),
+                file=open('pyccel_c.json','w'))
+      shell: python
+      working-directory: ./benchmarks

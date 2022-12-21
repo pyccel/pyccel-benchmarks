@@ -79,7 +79,7 @@ header_neat_names = {
         'python' : 'Python',
         'numba' : 'Numba',
         'pythran' : 'Pythran',
-        'pyccel' : 'Pyccel (Fortran)',
+        'pyccel_fortran' : 'Pyccel (Fortran)',
         'pyccel_c' : 'Pyccel (C)',
         }
 
