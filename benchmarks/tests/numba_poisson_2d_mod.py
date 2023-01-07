@@ -9,7 +9,7 @@ To be accelerated with pyccel or pythran
 """
 from numba import njit
 
-@njit(fastmath=True)
+@njit
 def poisson_2d(p: 'float[:,:]', pd: 'float[:,:]', b: 'float[:,:]',
                nx: int, ny: int, nt: int, dx: float, dy: float):
     """ Solve the 2D poisson equation

@@ -10,7 +10,7 @@ To be accelerated with numba
 from numba import njit
 import numpy as np
 
-@njit(fastmath=True)
+@njit
 def laplace_2d(p: 'float[:,:]', y: 'float[:]',
                dx: float, dy: float, l1norm_target: float):
     """ Solve the Laplace equation

@@ -10,7 +10,7 @@ To be accelerated with numba
 
 from numba import njit
 
-@njit(fastmath=True)
+@njit
 def nonlinearconv_1d(u: 'float[:]', un: 'float[:]',
                      nt: int, nx: int, dt: float, dx: float):
     """ Solve a non-linear convection equation

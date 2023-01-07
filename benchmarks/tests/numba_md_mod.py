@@ -14,7 +14,7 @@ from numpy import pi
 from numpy import sin
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
              mass: float, force: 'double[:,:]' ):
     """ Calculate the energy and forces associated with the current configuration
@@ -61,7 +61,7 @@ def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
     return potential, kinetic
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def update ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
             force: 'double[:,:]', acc: 'double[:,:]', mass: float, dt: float ):
     """ Update the position, velocity and force of the particles
@@ -82,7 +82,7 @@ def update ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
     acc[:] = force * rmass
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def r8mat_uniform_ab ( r: 'double[:,:]', m: int, n: int, a: float, b: float, seed: int ):
     """ Fill r with random numbers with a uniform distribution
     """
@@ -118,7 +118,7 @@ def r8mat_uniform_ab ( r: 'double[:,:]', m: int, n: int, a: float, b: float, see
     return seed
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def initialize ( pos: 'double[:,:]', p_num: int, d_num: int ):
     """ Initialise the positions of the particles
     """
@@ -127,7 +127,7 @@ def initialize ( pos: 'double[:,:]', p_num: int, d_num: int ):
     seed = r8mat_uniform_ab ( pos, d_num, p_num, 0.0, 10.0, seed )
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def md (d_num: int, p_num: int, step_num: int, dt: float,
         vel: 'double[:,:]', acc: 'double[:,:]',
         force: 'double[:,:]', pos: 'double[:,:]'):
@@ -144,7 +144,7 @@ def md (d_num: int, p_num: int, step_num: int, dt: float,
         compute ( p_num, d_num, pos, vel, mass, force )
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def test_md ( d_num : int = 3, p_num : int = 100, step_num : int = 10, dt : float = 0.1 ):
     """ Run molecular dynamics test
     """

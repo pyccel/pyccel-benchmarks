@@ -9,7 +9,7 @@ from numpy import array
 from numpy import zeros
 
 from numba import njit
-@njit(fastmath=True)
+@njit
 # ================================================================
 def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'real[:]',
                    v_weight: 'real[:]', predecessor: 'int[:]' ):
@@ -49,7 +49,7 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
     return 0
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def bellman_ford_test ( ):
     """ Test bellman ford's algorithm
     """

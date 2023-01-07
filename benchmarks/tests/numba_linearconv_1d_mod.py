@@ -9,7 +9,7 @@ To be accelerated with numba
 """
 from numba import njit
 
-@njit(fastmath=True)
+@njit
 def linearconv_1d(u: 'float[:]', un: 'float[:]',
                   nt: int, nx: int,
                   dt: float, dx: float, c: float):

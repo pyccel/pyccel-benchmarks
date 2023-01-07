@@ -9,7 +9,7 @@ from numba import njit
 from numpy import zeros
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def find_nearest ( nv: int, mind: 'int[:]', connected: 'bool[:]' ):
     """ Find the nearest node
     """
@@ -26,7 +26,7 @@ def find_nearest ( nv: int, mind: 'int[:]', connected: 'bool[:]' ):
     return d, v
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def update_mind ( nv: int, mv: int, connected: 'bool[:]', ohd: 'int[:,:]', mind: 'int[:]' ):
     """ Update the minimum distance
     """
@@ -39,7 +39,7 @@ def update_mind ( nv: int, mv: int, connected: 'bool[:]', ohd: 'int[:,:]', mind:
                 mind[i] = min ( mind[i], mind[mv] + ohd[mv,i] )
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def dijkstra_distance ( nv: int, ohd: 'int[:,:]', mind: 'int[:]' ):
     """ Find the shortest paths between nodes in a graph
     """
@@ -76,7 +76,7 @@ def dijkstra_distance ( nv: int, ohd: 'int[:,:]', mind: 'int[:]' ):
         update_mind ( nv, mv, connected, ohd, mind )
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def init ( nv: int, ohd: 'int[:,:]' ):
     """ Create a graph
     """
@@ -107,7 +107,7 @@ def init ( nv: int, ohd: 'int[:,:]' ):
     ohd[5,4] = 8
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def dijkstra_distance_test ( ):
     """ Test Dijkstra's algorithm
     """

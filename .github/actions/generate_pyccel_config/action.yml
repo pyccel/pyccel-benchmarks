@@ -13,11 +13,11 @@ runs:
       run: |
         import json
         config = json.load(open('pyccel_fortran.json'))
-        config['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx', '-ffast-math'])
+        config['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx'])
         print(json.dumps(config, indent=4),
                 file=open('pyccel_fortran.json','w'))
         config = json.load(open('pyccel_c.json'))
-        config['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx', '-ffast-math'])
+        config['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx'])
         print(json.dumps(config, indent=4),
                 file=open('pyccel_c.json','w'))
       shell: python

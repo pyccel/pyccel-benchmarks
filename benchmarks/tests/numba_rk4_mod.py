@@ -11,7 +11,7 @@ from numba import njit
 from numpy import zeros
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def rk4 (dydt: '()(real, const real[:], real[:])',
          tspan: 'real[:]', y0: 'real[:]', n: int,
          t: 'real[:]', y: 'real[:,:]'):
@@ -43,7 +43,7 @@ def rk4 (dydt: '()(real, const real[:], real[:])',
         y[i+1,:] = y[i,:] + dt * ( f1[:] + 2.0 * f2[:] + 2.0 * f3[:] + f4[:] ) / 6.0
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def humps_fun ( x : float ):
     """
     Humps function
@@ -56,7 +56,7 @@ def humps_fun ( x : float ):
     return y
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
     """
     Derivative of the humps function
@@ -65,7 +65,7 @@ def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
     out[0] = - 2.0 * ( x - 0.3 ) / ( ( x - 0.3 )**2 + 0.01 )**2 - 2.0 * ( x - 0.9 ) / ( ( x - 0.9 )**2 + 0.04 )**2
 
 # ================================================================
-@njit(fastmath=True)
+@njit
 def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
     """
     Run n steps of a fourth-order Runge-Kutta method starting from y0
