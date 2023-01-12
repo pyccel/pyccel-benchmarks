@@ -20,7 +20,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import List
 
-TestInfo = namedtuple('TestInfo', 'name basename imports setup call')
+TestInfo = namedtuple('TestInfo', 'name basename imports setup call nloops')
 
 parser = ArgumentParser(description='Run the benchmarks to compare pyccel with pure python, pythran and numba')
 
@@ -71,37 +71,44 @@ tests = [
         'ackermann_mod.py',
         ['ackermann'],
         'import sys; sys.setrecursionlimit(3000);',
-        'ackermann(3,8)'),
+        'ackermann(3,8)',
+        1),
     TestInfo('Bellman Ford',
         'bellman_ford_mod.py',
         ['bellman_ford_test'],
         '',
-        'bellman_ford_test()'),
+        'bellman_ford_test()',
+        1),
     TestInfo('Dijkstra',
         'dijkstra.py',
         ['dijkstra_distance_test'],
         '',
-        'dijkstra_distance_test()'),
+        'dijkstra_distance_test()',
+        1),
     TestInfo('Euler',
         'euler_mod.py',
         ['euler_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        'euler_humps_test(tspan, y0, 10000)'),
+        'euler_humps_test(tspan, y0, 10000)',
+        10000),
     TestInfo('Midpoint Explicit',
         'midpoint_explicit_mod.py',
         ['midpoint_explicit_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        'midpoint_explicit_humps_test(tspan, y0, 10000)'),
+        'midpoint_explicit_humps_test(tspan, y0, 10000)',
+        10000),
     TestInfo('Midpoint Fixed',
         'midpoint_fixed_mod.py',
         ['midpoint_fixed_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        'midpoint_fixed_humps_test(tspan, y0, 10000)'),
+        'midpoint_fixed_humps_test(tspan, y0, 10000)',
+        10000),
     TestInfo('RK4',
         'rk4_mod.py',
         ['rk4_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        'rk4_humps_test(tspan, y0, 10000)'),
+        'rk4_humps_test(tspan, y0, 10000)',
+        10000),
     TestInfo('FD - L Convection',
         'linearconv_1d_mod.py',
         ['linearconv_1d'],
@@ -112,7 +119,8 @@ tests = [
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;
         u = u0.copy();
         un = np.ones(nx);''',
-        'linearconv_1d(u, un, nt, nx, dt, dx, c)'),
+        'linearconv_1d(u, un, nt, nx, dt, dx, c)',
+        2000),
     TestInfo('FD - NL Convection',
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
@@ -122,7 +130,8 @@ tests = [
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;
         u = u0.copy();
         un = np.ones(nx);''',
-        'nonlinearconv_1d(u, un, nt, nx, dt, dx)'),
+        'nonlinearconv_1d(u, un, nt, nx, dt, dx)',
+        2000),
     TestInfo('FD - Poisson',
         'poisson_2d_mod.py',
         ['poisson_2d'],
@@ -135,7 +144,8 @@ tests = [
            b  = np.zeros((ny, nx));
            x  = np.linspace(xmin, xmax, nx);
            y  = np.linspace(xmin, xmax, ny);''',
-        'poisson_2d(p, pd, b, nx, ny, nt, dx, dy)'),
+        'poisson_2d(p, pd, b, nx, ny, nt, dx, dy)',
+        100),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],
@@ -146,20 +156,20 @@ tests = [
            y = np.linspace(0, 1, ny);
            p[:, 0] = 0; p[:, -1] = y;
            p[0, :] = p[1, :]; p[-1, :] = p[-2, :];''',
-        'laplace_2d(p, y, dx, dy, l1norm_target)'),
+        'laplace_2d(p, y, dx, dy, l1norm_target)',
+        1),
     TestInfo('M-D',
         'md_mod.py',
         ['test_md'],
         '',
-        'test_md(3, 100, 500, 0.1)'),
+        'test_md(3, 100, 500, 0.1)',
+        500),
 ]
 
 if verbose:
     log_file = sys.stdout
 else:
     log_file = open("bench.log",'w')
-
-timeit_cmd = ['pyperf', 'timeit', '--copy-env'] if pyperf else ['timeit']
 
 cell_splitter = {'latex'    : ' & ',
                  'markdown' : ' | '}
@@ -300,7 +310,12 @@ for t in tests:
 
         if time_execution:
             cmd = ['pypy'] if case=='pypy' else ['python3']
-            cmd += ['-m'] + timeit_cmd + ['-s', setup_cmd, exec_cmd]
+            cmd += ['-m']
+            if pyperf:
+                cmd += ['pyperf', 'timeit', '--copy-env', '--inner_loops', str(t.nloops)]
+            else:
+                cmd += ['timeit']
+            cmd += ['-s', setup_cmd, exec_cmd]
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
