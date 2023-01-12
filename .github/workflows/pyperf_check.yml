@@ -1,7 +1,7 @@
 name: Benchmarks
 
 on:
-  push: faster_pyperf
+  push
 
 jobs:
   Benchmark_38:
