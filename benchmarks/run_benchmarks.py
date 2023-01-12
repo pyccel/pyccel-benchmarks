@@ -312,7 +312,7 @@ for t in tests:
             cmd = ['pypy'] if case=='pypy' else ['python3']
             cmd += ['-m']
             if pyperf:
-                cmd += ['pyperf', 'timeit', '--copy-env', '--inner_loops', str(t.nloops)]
+                cmd += ['pyperf', 'timeit', '--copy-env', '--inner-loops', str(t.nloops)]
             else:
                 cmd += ['timeit']
             cmd += ['-s', setup_cmd, exec_cmd]
