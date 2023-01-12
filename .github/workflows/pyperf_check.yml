@@ -1,0 +1,47 @@
+name: Benchmarks
+
+on:
+  push: faster_pyperf
+
+  Benchmark_38:
+
+    runs-on: ubuntu-latest
+    if: ${{ needs.Check_Pyccel_Version.outputs.old_version != needs.Check_Pyccel_Version.outputs.new_version }}
+    needs: Check_Pyccel_Version
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
+      - name: Benchmark
+        run: |
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
+          FILE=version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md
+          echo "### Performance Comparison (as of ${{needs.Check_Pyccel_Version.outputs.new_version }})" > ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
+        shell: bash
+        working-directory: ./.
+      - name: Record Failure
+        run: echo "Python 3.8 benchmarks failed!" > version_specific_results/pypi_performance_38.md
+        if: ${{ failure() }}
+      - name: Add & Commit
+        if: ${{ always() }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update performance comparison'
+          add: "['version_specific_results/pypi_performance_38_${{needs.Check_Pyccel_Version.outputs.new_version }}.md', 'version_specific_results/pypi_performance_38_compilation.svg', 'version_specific_results/pypi_performance_38_execution.svg']"
+          default_author: github_actions
+          pull: '--rebase --autostash'
