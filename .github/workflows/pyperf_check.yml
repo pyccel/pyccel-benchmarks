@@ -1,8 +1,9 @@
 name: Benchmarks
 
 on:
-  push: [ faster_pyperf ]
+  push: faster_pyperf
 
+jobs:
   Benchmark_38:
 
     runs-on: ubuntu-latest
