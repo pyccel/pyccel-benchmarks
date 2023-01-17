@@ -159,7 +159,7 @@ if verbose:
 else:
     log_file = open("bench.log",'w')
 
-timeit_cmd = ['pyperf', 'timeit', '--copy-env'] if pyperf else ['timeit']
+timeit_cmd = ['pyperf', 'timeit', '--copy-env', '-p', '1', '-l', '5'] if pyperf else ['timeit']
 
 cell_splitter = {'latex'    : ' & ',
                  'markdown' : ' | '}
