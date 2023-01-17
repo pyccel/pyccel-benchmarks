@@ -139,7 +139,7 @@ tests = [
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],
-        '''import numpy as np; nx = 31; ny = 31; c = 1.; l1norm_target=1.e-4;
+        '''import numpy as np; nx = 128; ny = 128; c = 1.; l1norm_target=1.e-4;
            dx = 2 / (nx - 1); dy = 2 / (ny - 1);
            p = np.zeros((ny, nx));
            x = np.linspace(0, 2, nx);
@@ -159,7 +159,7 @@ if verbose:
 else:
     log_file = open("bench.log",'w')
 
-timeit_cmd = ['pyperf', 'timeit', '--copy-env'] if pyperf else ['timeit']
+timeit_cmd = ['pyperf', 'timeit', '--copy-env', '--fast'] if pyperf else ['timeit']
 
 cell_splitter = {'latex'    : ' & ',
                  'markdown' : ' | '}
