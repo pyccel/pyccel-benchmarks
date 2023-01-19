@@ -9,15 +9,20 @@ To be accelerated with numba
 """
 
 from numba import njit
+from numpy import zeros
 
 @njit(fastmath=True)
-def nonlinearconv_1d(u: 'float[:]', un: 'float[:]',
-                     nt: int, nx: int, dt: float, dx: float):
+def nonlinearconv_1d(u0: 'float[:]', nt: int, nx: int, dt: float, dx: float):
     """ Solve a non-linear convection equation
     """
+    nx = u0.size
+    u  = zeros(nx)
+    un = zeros(nx)
 
+    u[:] = u0
     for _ in range(nt):
         un[:] = u[:]
         for i in range(1, nx):
             u[i] = un[i] - un[i] * dt / dx * (un[i] - un[i-1])
 
+    return u

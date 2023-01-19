@@ -107,22 +107,17 @@ tests = [
         ['linearconv_1d'],
         '''import numpy as np; nx=2001; nt=2000; c=1.; dt=0.0003;
         dx = 2 / (nx-1);
-        grid = np.linspace(0,2,nx);
         u0 = np.ones(nx);
-        u0[int(.5 / dx):int(1 / dx + 1)] = 2;
-        u = u0.copy();
-        un = np.ones(nx);''',
-        'linearconv_1d(u, un, nt, nx, dt, dx, c)'),
+        u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
+        'linearconv_1d(u0, nt, dt, dx, c)'),
     TestInfo('FD - NL Convection',
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
-        '''import numpy as np; nx = 2001; nt=2000; c=1.; dt=0.00035; dx = 2 / (nx-1);
-        grid = np.linspace(0,2,nx);
+        '''import numpy as np; nx = 2001; nt=2000; c=1.; dt=0.00035;
+        dx = 2 / (nx-1);
         u0 = np.ones(nx);
-        u0[int(.5 / dx):int(1 / dx + 1)] = 2;
-        u = u0.copy();
-        un = np.ones(nx);''',
-        'nonlinearconv_1d(u, un, nt, nx, dt, dx)'),
+        u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
+        'nonlinearconv_1d(u0, nt, dt, dx)'),
     TestInfo('FD - Poisson',
         'poisson_2d_mod.py',
         ['poisson_2d'],
@@ -135,7 +130,7 @@ tests = [
            b  = np.zeros((ny, nx));
            x  = np.linspace(xmin, xmax, nx);
            y  = np.linspace(xmin, xmax, ny);''',
-        'poisson_2d(p, pd, b, nx, ny, nt, dx, dy)'),
+        'poisson_2d(p, b, nt, dx, dy)'),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],
@@ -143,9 +138,7 @@ tests = [
            dx = 2 / (nx - 1); dy = 2 / (ny - 1);
            p = np.zeros((ny, nx));
            x = np.linspace(0, 2, nx);
-           y = np.linspace(0, 1, ny);
-           p[:, 0] = 0; p[:, -1] = y;
-           p[0, :] = p[1, :]; p[-1, :] = p[-2, :];''',
+           y = np.linspace(0, 1, ny);''',
         'laplace_2d(p, y, dx, dy, l1norm_target)'),
     TestInfo('M-D',
         'md_mod.py',
