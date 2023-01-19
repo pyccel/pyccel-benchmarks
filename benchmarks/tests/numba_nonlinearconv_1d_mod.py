@@ -12,7 +12,7 @@ from numba import njit
 from numpy import zeros
 
 @njit(fastmath=True)
-def nonlinearconv_1d(u0: 'float[:]', nt: int, nx: int, dt: float, dx: float):
+def nonlinearconv_1d(u0: 'float[:]', nt: int, dt: float, dx: float):
     """ Solve a non-linear convection equation
     """
     nx = u0.size

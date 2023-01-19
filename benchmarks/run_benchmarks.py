@@ -130,7 +130,7 @@ tests = [
            b  = np.zeros((ny, nx));
            x  = np.linspace(xmin, xmax, nx);
            y  = np.linspace(xmin, xmax, ny);''',
-        'poisson_2d(p, b, nt, dx, dy)'),
+        'poisson_2d(p, b, y, nt, dx, dy)'),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],

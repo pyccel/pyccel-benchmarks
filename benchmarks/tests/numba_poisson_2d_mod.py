@@ -11,7 +11,8 @@ from numba import njit
 import numpy as np
 
 @njit(fastmath=True)
-def poisson_2d(p: 'float[:,:]', b: 'float[:,:]', nt: int, dx: float, dy: float):
+def poisson_2d(p: 'float[:,:]', b: 'float[:,:]', y: 'float[:]',
+               nt: int, dx: float, dy: float):
     """ Solve the 2D poisson equation
     """
 

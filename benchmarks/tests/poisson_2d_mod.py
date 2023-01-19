@@ -9,8 +9,9 @@ To be accelerated with pyccel or pythran
 """
 import numpy as np
 
-# pythran export poisson_2d(float[:,:], float[:,:], int, int, int, float, float)
-def poisson_2d(p: 'float[:,:]', b: 'float[:,:]', nt: int, dx: float, dy: float):
+# pythran export poisson_2d(float[:,:], float[:,:], float[:], int, int, int, float, float)
+def poisson_2d(p: 'float[:,:]', b: 'float[:,:]', y: 'float[:]',
+               nt: int, dx: float, dy: float):
     """ Solve the 2D poisson equation
     """
 

@@ -10,8 +10,8 @@ To be accelerated with pyccel or pythran
 
 from numpy import zeros
 
-# pythran export nonlinearconv_1d(float[:], int, int, float, float)
-def nonlinearconv_1d(u0: 'float[:]', nt: int, nx: int, dt: float, dx: float):
+# pythran export nonlinearconv_1d(float[:], int, float, float)
+def nonlinearconv_1d(u0: 'float[:]', nt: int, dt: float, dx: float):
     """ Solve a non-linear convection equation
     """
     nx = u0.size

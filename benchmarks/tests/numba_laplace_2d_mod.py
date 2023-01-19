@@ -20,8 +20,8 @@ def laplace_2d(p: 'float[:,:]', y: 'float[:]',
     ny, nx = p.shape
     pn = np.empty((ny, nx))
 
-    # Set first guess to zero
-    p[:, :] = 0.0
+    # Set first guess to one
+    p[:, :] = 1.0
 
     l1norm = 1.
     niter = 0
