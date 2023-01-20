@@ -76,6 +76,13 @@ def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
             The starting point for the evolution
     n     : int
             The number of time steps
+
+    Returns
+    -------
+    t : array of floats
+        Time instants for which the solution is calculated.
+    y : array of floats
+        Solution y(t) at each time instant.
     """
 
     m = len ( y0 )
@@ -85,3 +92,4 @@ def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
 
     rk4 ( humps_deriv, tspan, y0, n, t, y )
 
+    return t, y
