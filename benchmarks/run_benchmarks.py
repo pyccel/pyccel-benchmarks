@@ -81,7 +81,7 @@ tests = [
         'dijkstra.py',
         ['dijkstra_distance_test'],
         '',
-        'dijkstra_distance_test()'),
+        'd = dijkstra_distance_test()'),
     TestInfo('Euler',
         'euler_mod.py',
         ['euler_humps_test', 'humps_fun'],

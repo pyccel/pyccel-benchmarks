@@ -6,7 +6,7 @@
 """ Module containing functions for testing the Dijkstra algorithm using numba
 """
 from numba import njit
-from numpy import zeros
+import numpy as np
 
 # ================================================================
 @njit(fastmath=True)
@@ -45,7 +45,7 @@ def dijkstra_distance ( nv: int, ohd: 'int[:,:]', mind: 'int[:]' ):
     """
 
     #  Start out with only node 1 connected to the tree.
-    connected = zeros (nv, dtype = 'bool' )
+    connected = np.zeros (nv, dtype = 'bool' )
 
     connected[0] = True
     for i in range ( 1, nv ):
@@ -114,9 +114,11 @@ def dijkstra_distance_test ( ):
 
     #  Initialize the problem data.
     nv = 6
-    ohd = zeros ( ( nv, nv ), dtype = 'int' )
+    ohd = np.zeros ( ( nv, nv ), dtype = 'int' )
     init ( nv, ohd )
 
     #  Carry out the algorithm.
-    min_distance = zeros ( nv, dtype = 'int' )
+    min_distance = np.zeros ( nv, dtype = 'int' )
     dijkstra_distance ( nv, ohd, min_distance )
+
+    return min_distance
