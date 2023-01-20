@@ -71,12 +71,12 @@ tests = [
         'ackermann_mod.py',
         ['ackermann'],
         'import sys; sys.setrecursionlimit(3000);',
-        'ackermann(3,8)'),
+        'a = ackermann(3,8)'),
     TestInfo('Bellman Ford',
         'bellman_ford_mod.py',
         ['bellman_ford_test'],
         '',
-        'bellman_ford_test()'),
+        'err = bellman_ford_test()'),
     TestInfo('Dijkstra',
         'dijkstra.py',
         ['dijkstra_distance_test'],
@@ -109,7 +109,7 @@ tests = [
         dx = 2 / (nx-1);
         u0 = np.ones(nx);
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
-        'linearconv_1d(u0, nt, dt, dx, c)'),
+        'u = linearconv_1d(u0, nt, dt, dx, c)'),
     TestInfo('FD - NL Convection',
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
@@ -117,7 +117,7 @@ tests = [
         dx = 2 / (nx-1);
         u0 = np.ones(nx);
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
-        'nonlinearconv_1d(u0, nt, dt, dx)'),
+        'u = nonlinearconv_1d(u0, nt, dt, dx)'),
     TestInfo('FD - Poisson',
         'poisson_2d_mod.py',
         ['poisson_2d'],
@@ -130,7 +130,7 @@ tests = [
            b  = np.zeros((ny, nx));
            x  = np.linspace(xmin, xmax, nx);
            y  = np.linspace(xmin, xmax, ny);''',
-        'poisson_2d(p, b, y, nt, dx, dy)'),
+        'niter = poisson_2d(p, b, y, nt, dx, dy)'),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],
@@ -139,7 +139,7 @@ tests = [
            p = np.zeros((ny, nx));
            x = np.linspace(0, 2, nx);
            y = np.linspace(0, 1, ny);''',
-        'laplace_2d(p, y, dx, dy, l1norm_target)'),
+        'niter = laplace_2d(p, y, dx, dy, l1norm_target)'),
     TestInfo('M-D',
         'md_mod.py',
         ['test_md'],
