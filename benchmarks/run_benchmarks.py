@@ -134,12 +134,8 @@ tests = [
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],
-        '''import numpy as np; nx = 128; ny = 128; c = 1.; l1norm_target=1.e-4;
-           dx = 2 / (nx - 1); dy = 2 / (ny - 1);
-           p = np.zeros((ny, nx));
-           x = np.linspace(0, 2, nx);
-           y = np.linspace(0, 1, ny);''',
-        'niter = laplace_2d(p, y, dx, dy, l1norm_target)'),
+        '',
+        'niter = laplace_2d()'),
     TestInfo('M-D',
         'md_mod.py',
         ['test_md'],

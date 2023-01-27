@@ -145,10 +145,15 @@ def md (d_num: int, p_num: int, step_num: int, dt: float,
 
 # ================================================================
 @njit(fastmath=True)
-def test_md ( d_num : int = 3, p_num : int = 100, step_num : int = 10, dt : float = 0.1 ):
+def test_md ():
     """ Run molecular dynamics test
     """
 
+    #  Input
+    d_num = 3
+    p_num = 100
+    step_num = 5000
+    dt = 0.1
     #  Velocities.
     vel = zeros ( ( d_num, p_num ) )
     #  Accelerations.

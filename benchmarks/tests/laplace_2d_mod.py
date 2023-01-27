@@ -10,13 +10,19 @@ To be accelerated with pyccel or pythran
 """
 import numpy as np
 
-# pythran export laplace_2d(float[:,:], float[:], float, float, float)
-def laplace_2d(p: 'float[:,:]', y: 'float[:]',
-               dx: float, dy: float, l1norm_target: float):
+# pythran export laplace_2d()
+def laplace_2d():
     """ Solve the Laplace equation
     """
 
-    ny, nx = p.shape
+    #Input
+    nx = 128
+    ny = 128
+    c = 1.
+    l1norm_target = 1.e-4
+    dx = 2 / (nx - 1); dy = 2 / (ny - 1)
+    p = np.zeros((ny, nx))
+    y = np.linspace(0, 1, ny)
     pn = np.empty((ny, nx))
 
     # Set first guess to one
