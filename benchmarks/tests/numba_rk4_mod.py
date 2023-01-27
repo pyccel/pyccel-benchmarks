@@ -8,7 +8,7 @@ Functions for solving an ordinary differential equation using the fourth order R
 To be accelerated with numba
 """
 from numba import njit
-from numpy import zeros
+import numpy as np
 
 # ================================================================
 @njit(fastmath=True)
@@ -66,33 +66,58 @@ def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
 
 # ================================================================
 @njit(fastmath=True)
-def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def rk4_humps_test(t0: float, t1: float, n: int):
     """
-    Run n steps of a fourth-order Runge-Kutta method starting from y0
+    Compute an approximate solution y_h(t) ~= y(t) of the initial
+    value problem
+
+      dy/dt = f(t)
+      y(t0) = y0
+
+    over the interval [t0, t1].
+
+    For test purposes we use the method of manufactured solutions,
+    i.e. we choose the humps function y(t) as the exact solution
+    and we compute f(t) := dy/dt, which is then passed to the ODE
+    integrator. Finally the numerical solution y_h(t) is compared to
+    the exact solution y(t) at the final time t1.
+
+    Numerical integration is performed with n uniform steps of the
+    classical 4th-order Runga Kutta method.
 
     Parameters
     ----------
-    tspan : array of 2 floats
-            The first element is the start time.
-            The second element is the end time.
-    y0    : array of floats
-            The starting point for the evolution
-    n     : int
-            The number of time steps
+    t0 : float
+        Initial time.
+
+    t1 : float
+        Final time.
+
+    n : int
+        Number of uniform time steps.
 
     Returns
     -------
-    t : array of floats
-        Time instants for which the solution is calculated.
-    y : array of floats
-        Solution y(t) at each time instant.
+    err : float
+        Difference between numerical and exact solution at the
+        final time t=t1.
+
     """
 
-    m = len ( y0 )
+    # Time interval and initial conditions
+    tspan = np.array([t0, t1])
+    y0 = np.array([humps_fun(t0)])
 
-    t = zeros ( n + 1 )
-    y = zeros ( ( n + 1, m ) )
+    # Uniform time array where solution should be computed
+    t = np.linspace(t0, t1, n + 1)
 
-    rk4 ( humps_deriv, tspan, y0, n, t, y )
+    # Empty array which will contain numerical solution
+    yh = np.zeros((n + 1, 1))
 
-    return t, y
+    # Time integration
+    rk4(humps_deriv, tspan, y0, n, t, yh)
+
+    # Error at final time
+    err = yh[-1, 0] - humps_fun(t1)
+
+    return err
