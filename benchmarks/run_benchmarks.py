@@ -144,7 +144,7 @@ tests = [
         'md_mod.py',
         ['test_md'],
         '',
-        'test_md(3, 100, 500, 0.1)'),
+        'test_md()'),
 ]
 
 if verbose:
