@@ -105,7 +105,7 @@ tests = [
     TestInfo('FD - L Convection',
         'linearconv_1d_mod.py',
         ['linearconv_1d'],
-        '''import numpy as np; nx=3001; nt=3000; c=1.; dt=0.000000003;
+        '''import numpy as np; nx=2001; nt=2000; c=1.; dt=0.0003;
         dx = 2 / (nx-1);
         u0 = np.ones(nx);
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
@@ -113,11 +113,11 @@ tests = [
     TestInfo('FD - NL Convection',
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
-        '''import numpy as np; nx = 3001; nt=3000; c=1.; dt=0.000000003;
+        '''import numpy as np; nx = 2001; nt=2000; c=1.; dt=0.00035;
         dx = 2 / (nx-1);
         u0 = np.ones(nx);
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
-        'u = nonlinearconv_1d(u0, nt, dt, dx)'),
+        'u = nonlinearconv_1d(u0, nt, d t, dx)'),
     TestInfo('FD - Poisson',
         'poisson_2d_mod.py',
         ['poisson_2d'],

@@ -30,8 +30,8 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
     #  Step 2: Relax edges repeatedly.
     for i in range ( 1, v_num ):
         for j in range ( e_num ):
-            u = e[1][j]
-            v = e[0][j]
+            u = e[1, j]
+            v = e[0, j]
             t = v_weight[u] + e_weight[j]
             if ( t < v_weight[v] ):
                 v_weight[v] = t
@@ -39,8 +39,8 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
 
     #  Step 3: check for negative-weight cycles
     for j in range ( e_num ):
-        u = e[1][j]
-        v = e[0][j]
+        u = e[1, j]
+        v = e[0, j]
         if ( v_weight[u] + e_weight[j] < v_weight[v] ):
             print ( '' )
             print ( 'BELLMAN_FORD - Fatal error!' )
@@ -65,8 +65,8 @@ def bellman_ford_test ( ):
     for i in  range( v_num ):
         for j in range( v_num ):
             if i > j:
-                e[0][idx] = i
-                e[1][idx] = j
+                e[0, idx] = i
+                e[1, idx] = j
                 idx += 1
 
     for i in range( e_num ):
