@@ -8,13 +8,22 @@ Functions for solving a non-linear convection equation. The code is adapted from
 To be accelerated with pyccel or pythran
 """
 
+from numpy import ones
 from numpy import zeros
 
-# pythran export nonlinearconv_1d(float[:], int, float, float)
-def nonlinearconv_1d(u0: 'float[:]', nt: int, dt: float, dx: float):
+# pythran export nonlinearconv_1d()
+def nonlinearconv_1d():
     """ Solve a non-linear convection equation
     """
-    nx = u0.size
+
+    #Input
+    nx = 2001
+    nt = 2000
+    dt = 0.00035
+    dx = 2 / (nx-1)
+    u0 = ones(nx)
+    u0[int(.5 / dx):int(1 / dx + 1)] = 2
+
     u  = zeros(nx)
     un = zeros(nx)
 

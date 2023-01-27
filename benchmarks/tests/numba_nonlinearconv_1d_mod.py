@@ -10,12 +10,21 @@ To be accelerated with numba
 
 from numba import njit
 from numpy import zeros
+from numpy import ones
 
 @njit(fastmath=True)
 def nonlinearconv_1d(u0: 'float[:]', nt: int, dt: float, dx: float):
     """ Solve a non-linear convection equation
     """
-    nx = u0.size
+
+    #Input
+    nx = 2001
+    nt = 2000
+    dt = 0.00035
+    dx = 2 / (nx-1)
+    u0 = ones(nx)
+    u0[int(.5 / dx):int(1 / dx + 1)] = 2
+    
     u  = zeros(nx)
     un = zeros(nx)
 
