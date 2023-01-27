@@ -9,13 +9,24 @@ To be accelerated with pyccel or pythran
 """
 import numpy as np
 
-# pythran export poisson_2d(float[:,:], float[:,:], float[:], int, float, float)
-def poisson_2d(p: 'float[:,:]', b: 'float[:,:]', y: 'float[:]',
-               nt: int, dx: float, dy: float):
+# pythran export poisson_2d()
+def poisson_2d():
     """ Solve the 2D poisson equation
     """
-
-    ny, nx = p.shape
+    
+    # Input
+    nx = 150
+    ny = 150
+    nt  = 100
+    xmin = 0
+    xmax = 2
+    ymin = 0
+    ymax = 1
+    dx = (xmax - xmin) / (nx - 1)
+    dy = (ymax - ymin) / (ny - 1)
+    p  = np.zeros((ny, nx))
+    b  = np.zeros((ny, nx))
+    y  = np.linspace(xmin, xmax, ny)
     pn = np.empty((ny, nx))
 
     # Point sources

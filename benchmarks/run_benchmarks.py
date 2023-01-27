@@ -121,16 +121,8 @@ tests = [
     TestInfo('FD - Poisson',
         'poisson_2d_mod.py',
         ['poisson_2d'],
-        '''import numpy as np; nx = 150; ny = 150; nt  = 100;
-           xmin = 0; xmax = 2; ymin = 0; ymax = 1;
-           dx = (xmax - xmin) / (nx - 1);
-           dy = (ymax - ymin) / (ny - 1);
-           p  = np.zeros((ny, nx));
-           pd = np.zeros((ny, nx));
-           b  = np.zeros((ny, nx));
-           x  = np.linspace(xmin, xmax, nx);
-           y  = np.linspace(xmin, xmax, ny);''',
-        'poisson_2d(p, b, y, nt, dx, dy)'),
+        '',
+        'poisson_2d()'),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],

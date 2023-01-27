@@ -11,12 +11,23 @@ from numba import njit
 import numpy as np
 
 @njit(fastmath=True)
-def poisson_2d(p: 'float[:,:]', b: 'float[:,:]', y: 'float[:]',
-               nt: int, dx: float, dy: float):
+def poisson_2d():
     """ Solve the 2D poisson equation
     """
 
-    ny, nx = p.shape
+    # Input
+    nx = 150
+    ny = 150
+    nt  = 100
+    xmin = 0
+    xmax = 2
+    ymin = 0
+    ymax = 1
+    dx = (xmax - xmin) / (nx - 1)
+    dy = (ymax - ymin) / (ny - 1)
+    p  = np.zeros((ny, nx))
+    b  = np.zeros((ny, nx))
+    y  = np.linspace(xmin, xmax, ny)
     pn = np.empty((ny, nx))
 
     # Point sources
