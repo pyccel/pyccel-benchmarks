@@ -9,12 +9,22 @@ To be accelerated with pyccel or pythran
 """
 
 from numpy import zeros
+from numpy import ones
 
-# pythran export linearconv_1d(float[:], int, float, float, float)
-def linearconv_1d(u0: 'float[:]', nt: int, dt: float, dx: float, c: float):
+# pythran export linearconv_1d()
+def linearconv_1d():
     """ Solve the linear convection equation
     """
-    nx = u0.size
+
+    #Input
+    nx=2001
+    nt=2000
+    c=1.
+    dt=0.0003
+    dx = 2 / (nx-1)
+    u0 = ones(nx)
+    u0[int(.5 / dx):int(1 / dx + 1)] = 2
+    
     u  = zeros(nx)
     un = zeros(nx)
 
