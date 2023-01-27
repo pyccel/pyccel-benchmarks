@@ -86,26 +86,26 @@ tests = [
         'euler_mod.py',
         ['euler_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        't, y = euler_humps_test(tspan, y0, 10000)'),
+        't, y = euler_humps_test(tspan, y0, 1000000)'),
     TestInfo('Midpoint Explicit',
         'midpoint_explicit_mod.py',
         ['midpoint_explicit_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        't, y = midpoint_explicit_humps_test(tspan, y0, 10000)'),
+        't, y = midpoint_explicit_humps_test(tspan, y0, 1000000)'),
     TestInfo('Midpoint Fixed',
         'midpoint_fixed_mod.py',
         ['midpoint_fixed_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        't, y = midpoint_fixed_humps_test(tspan, y0, 10000)'),
+        't, y = midpoint_fixed_humps_test(tspan, y0, 1000000)'),
     TestInfo('RK4',
         'rk4_mod.py',
         ['rk4_humps_test', 'humps_fun'],
         'import numpy as np; tspan = np.array([0.,2.]); y0 = np.array([humps_fun(0.0)]);',
-        't, y = rk4_humps_test(tspan, y0, 10000)'),
+        't, y = rk4_humps_test(tspan, y0, 1000000)'),
     TestInfo('FD - L Convection',
         'linearconv_1d_mod.py',
         ['linearconv_1d'],
-        '''import numpy as np; nx=2001; nt=2000; c=1.; dt=0.0003;
+        '''import numpy as np; nx=3001; nt=3000; c=1.; dt=0.000000003;
         dx = 2 / (nx-1);
         u0 = np.ones(nx);
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
@@ -113,7 +113,7 @@ tests = [
     TestInfo('FD - NL Convection',
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
-        '''import numpy as np; nx = 2001; nt=2000; c=1.; dt=0.00035;
+        '''import numpy as np; nx = 3001; nt=3000; c=1.; dt=0.000000003;
         dx = 2 / (nx-1);
         u0 = np.ones(nx);
         u0[int(.5 / dx):int(1 / dx + 1)] = 2;''',
@@ -130,7 +130,7 @@ tests = [
            b  = np.zeros((ny, nx));
            x  = np.linspace(xmin, xmax, nx);
            y  = np.linspace(xmin, xmax, ny);''',
-        'niter = poisson_2d(p, b, y, nt, dx, dy)'),
+        'poisson_2d(p, b, y, nt, dx, dy)'),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],

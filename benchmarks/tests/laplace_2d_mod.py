@@ -20,11 +20,14 @@ def laplace_2d(p: 'float[:,:]', y: 'float[:]',
     pn = np.empty((ny, nx))
 
     # Set first guess to one
-    p[:, :] = 1.0
+    #p[:, :] = 1.0
 
     l1norm = 1.
     niter = 0
 
+    a = np.zeros((ny, nx))
+    err = np.zeros((ny, nx))
+    diff = np.zeros((ny, nx))
     while l1norm > l1norm_target:
         pn[:, :] = p[:, :]
 
@@ -36,7 +39,10 @@ def laplace_2d(p: 'float[:,:]', y: 'float[:]',
         p[ 0, :] = p[ 1, :]  # dp/dy = 0 @ y = 0
         p[-1, :] = p[-2, :]  # dp/dy = 0 @ y = 1
 
-        l1norm = np.sum(np.abs(p[:] - pn[:])) / np.sum(np.abs(pn[:]))
+        diff[:] = p[:] - pn[:]
+        a[:] = np.abs(pn[:])
+        err[:] = np.abs(diff[:])
+        l1norm = np.sum(err) / np.sum(a)
         niter += 1
 
     return niter

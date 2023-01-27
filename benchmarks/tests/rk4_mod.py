@@ -93,3 +93,11 @@ def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
     rk4 ( humps_deriv, tspan, y0, n, t, y )
 
     return t, y
+
+if __name__ == "__main__":
+
+    import numpy as np
+    tspan = np.array([0.,2.])
+    y0 = np.array([humps_fun(0.0)])
+    t, y = rk4_humps_test(tspan, y0, 1000000)
+    print(t)

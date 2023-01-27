@@ -36,8 +36,9 @@ def laplace_2d(p: 'float[:,:]', y: 'float[:]',
         p[ :,-1] = y         #     p = y @ x = 2
         p[ 0, :] = p[ 1, :]  # dp/dy = 0 @ y = 0
         p[-1, :] = p[-2, :]  # dp/dy = 0 @ y = 1
-
-        l1norm = np.sum(np.abs(p[:] - pn[:])) / np.sum(np.abs(pn[:]))
+        a = np.abs(pn[:])
+        err = np.abs(p[:] - pn[:])
+        l1norm = np.sum(err) / np.sum(a)
         niter += 1
 
     return niter

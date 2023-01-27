@@ -7,6 +7,7 @@
 """
 from numpy import array
 from numpy import zeros
+from numpy import cos
 
 from numba import njit
 @njit(fastmath=True)
@@ -54,19 +55,29 @@ def bellman_ford_test ( ):
     """ Test bellman ford's algorithm
     """
 
+    e_num = 19900
+    v_num = 200
 
-    e_num = 10
-    v_num = 6
+    e = zeros ( (2, e_num), dtype = int )
+    weights = zeros (e_num, dtype = float )
+    idx = 0
 
-    e = array( (( 1, 4, 1, 2, 4, 2, 5, 3, 5, 3 ), \
-                ( 0, 1, 2, 4, 0, 5, 0, 2, 3, 0 )) )
+    for i in  range( v_num ):
+        for j in range( v_num ):
+            if i > j:
+                e[0][idx] = i
+                e[1][idx] = j
+                idx += 1
 
-    e_weight = array( (-3.0,  6.0, -4.0, -1.0,  4.0, \
-                       -2.0,  2.0,  8.0, -3.0,  3.0 ) )
+    for i in range( e_num ):
+        weights [i] = cos(i) * i
+
+    e_weight = array( weights )
 
     source = 0
 
     v_weight = zeros ( 6, dtype = 'float' )
     predecessor = zeros ( 6, dtype = 'int' )
 
-    return bellman_ford ( v_num, e_num, source, e, e_weight, v_weight, predecessor )
+    bellman_ford ( v_num, e_num, source, e, e_weight, v_weight, predecessor )
+    return v_weight
