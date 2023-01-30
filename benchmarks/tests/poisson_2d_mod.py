@@ -11,19 +11,17 @@ To be accelerated with pyccel or pythran
 import numpy as np
 
 
-# pythran export poisson_2d(float, float, float, float, int, int, int)
-def poisson_2d(xmin: float, xmax:float, ymin:float, ymax:float,
-               nx: int, ny: int, nt: int):
+# pythran export poisson_2d(int, int, int)
+def poisson_2d(nx: int, ny: int, nt: int):
     """
-    Solve the 2D poisson equation for phi(x, y) on the square domain
-    [xmin, xmax] * [ymin, ymax] with 2 point sources (Dirac deltas)
-    of charge +1 and -1 respectively, at the positions
+    Solve the 2D poisson equation for phi(x, y) on the rectangular
+    domain [0, 2] * [0, 1] with 2 point sources (Dirac deltas) of
+    charge +1 and -1 respectively, at the positions
 
-        x = xmin + (xmax - xmin) * gamma
-        y = ymin + (ymax - ymin) * gamma,
+        (x, y) = (0.5, 0.25) and
+        (x, y) = (1.5, 0.75),
 
-    where gamma = 0.25 and gamma = 0.75 respectively, and subject
-    to the boundary conditions
+    and subject to the boundary conditions
 
         phi = 0      at x = xmin,
         phi = y      at x = xmax,
@@ -36,18 +34,6 @@ def poisson_2d(xmin: float, xmax:float, ymin:float, ymax:float,
 
     Parameters
     ----------
-    xmin : float
-        x coordinate of left boundary of domain.
-
-    xmax : float
-        x coordinate of right boundary of domain.
-
-    ymin : float
-        y coordinate of bottom boundary of domain.
-
-    ymax : float
-        y coordinate of top boundary of domain.
-
     nx : int
         Number of grid points along x axis.
 
@@ -70,17 +56,26 @@ def poisson_2d(xmin: float, xmax:float, ymin:float, ymax:float,
 
     """
 
+    # Domain size
+    xmin, xmax = 0., 2.
+    ymin, ymax = 0., 1.
+
+    # Computational grid
     dx  = (xmax - xmin) / (nx - 1)
     dy  = (ymax - ymin) / (ny - 1)
-    phi = np.zeros((ny, nx))
-    b   = np.zeros((ny, nx))
     x   = np.linspace(xmin, xmax, nx)
     y   = np.linspace(ymin, ymax, ny)
-    pn  = np.empty((ny, nx))
 
-    # Point sources
+    # Charge density with point sources
+    b = np.zeros((ny, nx))
     b[    ny // 4,     nx // 4] =  1. / (dx * dy)
     b[3 * ny // 4, 3 * nx // 4] = -1. / (dx * dy)
+
+    # First guess
+    phi = np.zeros((ny, nx))
+
+    # Temporary array
+    pn = np.empty((ny, nx))
 
     # Jacobi iteration
     for _ in range(nt):
