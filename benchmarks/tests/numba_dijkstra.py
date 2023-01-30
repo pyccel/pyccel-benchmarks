@@ -98,7 +98,7 @@ def dijkstra_distance_test ( ):
     """
 
     #  Initialize the problem data.
-    nv = 6
+    nv = 3000
     ohd = np.zeros ( ( nv, nv ), dtype = 'int' )
     init ( nv, ohd )
 

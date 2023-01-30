@@ -8,6 +8,7 @@ Functions for running a small molecular dynamics simulation. The code is adapted
 To be accelerated with numba
 """
 from numba import njit
+import sys
 from numpy import zeros
 from numpy import sqrt
 from numpy import pi
@@ -58,7 +59,6 @@ def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
 
     kinetic = 0.5 * mass * kinetic
 
-    return potential, kinetic
 
 # ================================================================
 @njit(fastmath=True)
@@ -93,11 +93,10 @@ def r8mat_uniform_ab ( r: 'double[:,:]', m: int, n: int, a: float, b: float, see
         seed = seed + i4_huge
 
     elif ( seed == 0 ):
-#        print ( '' ) # TODO error in Pyccel
+        print ( '' )
         print ( 'R8MAT_UNIFORM_AB - Fatal error!' )
         print ( '  Input SEED = 0!' )
-        # TODO must stop here
-#        sys.exit ( 'R8MAT_UNIFORM_AB - Fatal error!' )
+        sys.exit ( 'R8MAT_UNIFORM_AB - Fatal error!' )
 
     elif ( seed > 0 ):
 

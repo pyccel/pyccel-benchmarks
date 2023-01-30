@@ -25,7 +25,7 @@ def midpoint_explicit(dydt: '()(real, const real[:], real[:])',
     t[0] = tspan[0]
     y[0,:] = y0[:]
 
-    for i in range ( 0, n ):
+    for i in range(n):
 
         dydt(t[i], y[i,:], ym[:])
         tm    = t[i]   + 0.5 * dt
