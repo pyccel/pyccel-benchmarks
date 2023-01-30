@@ -5,13 +5,12 @@
 #------------------------------------------------------------------------------------------#
 """ Module containing functions for testing the Bellman-Ford algorithm using numba
 """
-from numpy import array
-from numpy import zeros
-from numpy import cos
 
 from numba import njit
+import numpy as np
+
+
 @njit(fastmath=True)
-# ================================================================
 def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'real[:]',
                    v_weight: 'real[:]', predecessor: 'int[:]' ):
     """ Calculate the shortest paths from a source vertex to all other
@@ -49,35 +48,34 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
 
     return 0
 
-# ================================================================
+
 @njit(fastmath=True)
-def bellman_ford_test ( ):
+
+def bellman_ford_test():
     """ Test bellman ford's algorithm
     """
 
     e_num = 19900
     v_num = 200
 
-    e = zeros ( (2, e_num), dtype = int )
-    weights = zeros (e_num, dtype = float )
+    e = np.zeros((2, e_num), dtype = 'int')
+    e_weight = np.zeros(e_num, dtype = 'float')
     idx = 0
 
-    for i in  range( v_num ):
-        for j in range( v_num ):
+    for i in  range(v_num):
+        for j in range(v_num):
             if i > j:
                 e[0, idx] = i
                 e[1, idx] = j
                 idx += 1
 
-    for i in range( e_num ):
-        weights [i] = cos(i) * i
-
-    e_weight = array( weights )
+    for i in range(e_num):
+        e_weight[i] = np.cos(i) * i
 
     source = 0
+    v_weight = np.zeros(v_num, dtype = 'float')
+    predecessor = np.zeros(v_num, dtype = 'int')
 
-    v_weight = zeros ( 6, dtype = 'float' )
-    predecessor = zeros ( 6, dtype = 'int' )
+    bellman_ford(v_num, e_num, source, e, e_weight, v_weight, predecessor)
 
-    bellman_ford ( v_num, e_num, source, e, e_weight, v_weight, predecessor )
     return v_weight
