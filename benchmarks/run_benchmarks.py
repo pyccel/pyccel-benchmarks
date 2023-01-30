@@ -91,7 +91,7 @@ tests = [
         'midpoint_explicit_mod.py',
         ['midpoint_explicit_humps_test'],
         '',
-        'err = euler_humps_test(0., 2000., 1000000)'),
+        'err = midpoint_explicit_humps_test(0., 2000., 1000000)'),
     TestInfo('Midpoint Fixed',
         'midpoint_fixed_mod.py',
         ['midpoint_fixed_humps_test'],
