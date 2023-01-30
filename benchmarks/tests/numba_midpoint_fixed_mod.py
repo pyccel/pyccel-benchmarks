@@ -20,8 +20,8 @@ def midpoint_fixed(dydt: '()(real, const real[:], real[:])',
     """
 
     m = len(y0)
-    y1m = zeros(m)
-    y2m = zeros(m)
+    y1m = np.zeros(m)
+    y2m = np.zeros(m)
 
     dt = (tspan[1] - tspan[0]) / float(n)
 
