@@ -57,8 +57,6 @@ def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
 
     kinetic = 0.5 * mass * kinetic
 
-    return potential, kinetic
-
 # ================================================================
 def update ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
             force: 'double[:,:]', acc: 'double[:,:]', mass: float, dt: float ):
@@ -138,7 +136,7 @@ def md (d_num: int, p_num: int, step_num: int, dt: float,
         compute ( p_num, d_num, pos, vel, mass, force )
 
 # ================================================================
-# pythran export test_md(int,int,int,float)
+# pythran export test_md()
 def test_md ( ):
     """ Run molecular dynamics test
     """
@@ -147,6 +145,7 @@ def test_md ( ):
     d_num = 3
     p_num = 100
     step_num = 5000
+    mass = 1.
     dt = 0.1
     #  Velocities.
     vel = zeros ( ( d_num, p_num ) )
@@ -158,3 +157,42 @@ def test_md ( ):
     pos = zeros ( ( d_num, p_num ) )
 
     md(d_num, p_num, step_num, dt, vel, acc, force, pos)
+    rij = zeros ( d_num )
+
+    potential = 0.0
+
+    for i in range ( 0, p_num ):
+        #
+        #  Compute the potential energy and forces.
+        #
+        for j in range ( 0, p_num ):
+            if ( i != j ):
+                #  Compute RIJ, the displacement vector.
+                for k in range ( 0, d_num ):
+                    rij[k] = pos[k,i] - pos[k,j]
+
+                #  Compute D and D2, a distance and a truncated distance.
+                d = 0.0
+                for k in range ( 0, d_num ):
+                    d = d + rij[k] ** 2
+
+                d = sqrt ( d )
+                d2 = min ( d, pi / 2.0 )
+
+                #  Attribute half of the total potential energy to particle J.
+                potential = potential + 0.5 * sin ( d2 ) * sin ( d2 )
+
+                #  Add particle J's contribution to the force on particle I.
+                for k in range ( 0, d_num ):
+                    force[k,i] = force[k,i] - rij[k] * sin ( 2.0 * d2 ) / d
+    #
+    #  Compute the kinetic energy.
+    #
+    kinetic = 0.0
+    for k in range ( 0, d_num ):
+        for j in range ( 0, p_num ):
+            kinetic = kinetic + vel[k,j] ** 2
+
+    kinetic = 0.5 * mass * kinetic
+
+    return potential, kinetic

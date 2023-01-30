@@ -106,7 +106,7 @@ tests = [
         'linearconv_1d_mod.py',
         ['linearconv_1d'],
         '',
-        'u = linearconv_1d(u0, nt, dt, dx, c)'),
+        'u = linearconv_1d()'),
     TestInfo('FD - NL Convection',
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
@@ -126,7 +126,7 @@ tests = [
         'md_mod.py',
         ['test_md'],
         '',
-        'test_md()'),
+        'p, k = test_md()'),
 ]
 
 if verbose:
