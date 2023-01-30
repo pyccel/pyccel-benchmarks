@@ -121,7 +121,7 @@ tests = [
         'laplace_2d_mod.py',
         ['laplace_2d'],
         '',
-        'niter = laplace_2d()'),
+        'x, y, phi, niter = laplace_2d(150, 150, 5e-5, 5000)'),
     TestInfo('M-D',
         'md_mod.py',
         ['test_md'],
