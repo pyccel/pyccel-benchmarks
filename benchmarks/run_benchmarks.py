@@ -116,7 +116,7 @@ tests = [
         'poisson_2d_mod.py',
         ['poisson_2d'],
         '',
-        'poisson_2d()'),
+        'x, y, phi = poisson_2d(0., 2., 0., 1., 150, 150, 100)'),
     TestInfo('FD - Laplace',
         'laplace_2d_mod.py',
         ['laplace_2d'],
