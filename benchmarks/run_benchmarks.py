@@ -111,7 +111,7 @@ tests = [
         'nonlinearconv_1d_mod.py',
         ['nonlinearconv_1d'],
         '',
-        'u = nonlinearconv_1d(2001, 0.0003, 2000)'),
+        'x, u = nonlinearconv_1d(2001, 0.00035, 3000)'),
     TestInfo('FD - Poisson',
         'poisson_2d_mod.py',
         ['poisson_2d'],

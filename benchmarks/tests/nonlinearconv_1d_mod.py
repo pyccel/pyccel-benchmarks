@@ -8,29 +8,57 @@ Functions for solving a non-linear convection equation. The code is adapted from
 To be accelerated with pyccel or pythran
 """
 
-from numpy import ones
-from numpy import zeros
+import numpy as np
 
-# pythran export nonlinearconv_1d()
-def nonlinearconv_1d():
-    """ Solve a non-linear convection equation
+
+# pythran export nonlinearconv_1d(int, float, int)
+def nonlinearconv_1d(nx: int, dt: float, nt: int):
+    """
+    Compute an approximation of the solution u(t, x) to the 1D
+    Burgers' equation
+
+        du/dt + u du/dx = 0
+
+    on the domain [0, 2], with initial conditions consisting of
+    a Gaussian perturbation over a uniform background:
+
+        u(t=0, x) = 1 + 0.5 exp( -((x-0.5)^2 / 0.15^2) ).
+
+    The numerical solution is computed on a uniform grid using
+    one-sided upwind finite-differences combined with explicit
+    Euler time stepping.
+
+    Parameters
+    ----------
+    nx : int
+        Number of grid points in the domain.
+
+    dt : float
+        Time step size.
+
+    nt : int
+        Number of time steps to be taken.
+
+    Returns
+    -------
+    x : numpy.ndarray of nx floats
+        Spatial grid where solution is computed.
+
+    u : numpy.ndarray of nx floats
+        Numerical solution u at final time.
+
     """
 
-    #Input
-    nx = 2001
-    nt = 2000
-    dt = 0.00035
     dx = 2 / (nx-1)
-    u0 = ones(nx)
-    u0[int(.5 / dx):int(1 / dx + 1)] = 2
+    x  = np.linspace(0, 2, nx)
+    u  = 1.0 + 0.5 * np.exp(-((x - 0.5)/0.15)**2)
 
-    u  = zeros(nx)
-    un = zeros(nx)
+    dt_dx = dt / dx
+    un = np.zeros(nx)
 
-    u[:] = u0
     for _ in range(nt):
         un[:] = u[:]
         for i in range(1, nx):
-            u[i] = un[i] - un[i] * dt / dx * (un[i] - un[i-1])
+            u[i] = un[i] - un[i] * dt_dx * (un[i] - un[i-1])
 
-    return u
+    return x, u
