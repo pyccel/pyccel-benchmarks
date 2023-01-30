@@ -10,33 +10,33 @@ To be accelerated with pyccel or pythran
 import numpy as np
 
 # ================================================================
-def midpoint_explicit (dydt: '()(real, const real[:], real[:])',
-                       tspan: 'real[:]', y0: 'real[:]', n: int,
-                       t: 'real[:]', y: 'real[:,:]'):
+def midpoint_explicit(dydt: '()(real, const real[:], real[:])',
+                      tspan: 'real[:]', y0: 'real[:]', n: int,
+                      t: 'real[:]', y: 'real[:,:]'):
     """
     Function implementing the explicit midpoint method
     """
 
-    m = len( y0 )
-    ym = zeros(m)
+    m = len(y0)
+    ym = np.zeros(m)
 
-    dt = ( tspan[1] - tspan[0] ) / float ( n )
+    dt = (tspan[1] - tspan[0]) / float(n)
 
     t[0] = tspan[0]
     y[0,:] = y0[:]
 
     for i in range ( 0, n ):
 
-        tm = t[i]   + 0.5 * dt
-        dydt ( t[i], y[i,:], ym[:] )
+        dydt(t[i], y[i,:], ym[:])
+        tm    = t[i]   + 0.5 * dt
         ym[:] = y[i,:] + 0.5 * dt * ym[:]
 
+        dydt(tm, ym[:], y[i+1,:])
         t[i+1]   = t[i]   + dt
-        dydt ( tm, ym[:], y[i+1,:] )
         y[i+1,:] = y[i,:] + dt * y[i+1,:]
 
 # ================================================================
-def humps_fun ( x : float ):
+def humps_fun(x: float):
     """
     Humps function
     """
@@ -48,14 +48,14 @@ def humps_fun ( x : float ):
     return y
 
 # ================================================================
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
     """
     Derivative of the humps function
     """
 
     out[0] = - 2.0 * ( x - 0.3 ) / ( ( x - 0.3 )**2 + 0.01 )**2 - 2.0 * ( x - 0.9 ) / ( ( x - 0.9 )**2 + 0.04 )**2
 
-# ================================================================
+# ===============================================================
 # pythran export midpoint_explicit_humps_test(float, float, int)
 def midpoint_explicit_humps_test(t0: float, t1: float, n: int):
     """

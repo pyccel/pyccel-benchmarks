@@ -12,34 +12,34 @@ import numpy as np
 
 # ================================================================
 @njit(fastmath=True)
-def midpoint_explicit (dydt: '()(real, const real[:], real[:])',
-                       tspan: 'real[:]', y0: 'real[:]', n: int,
-                       t: 'real[:]', y: 'real[:,:]'):
+def midpoint_explicit(dydt: '()(real, const real[:], real[:])',
+                      tspan: 'real[:]', y0: 'real[:]', n: int,
+                      t: 'real[:]', y: 'real[:,:]'):
     """
     Function implementing the explicit midpoint method
     """
 
-    m = len( y0 )
-    ym = zeros(m)
+    m = len(y0)
+    ym = np.zeros(m)
 
-    dt = ( tspan[1] - tspan[0] ) / float ( n )
+    dt = (tspan[1] - tspan[0]) / float(n)
 
     t[0] = tspan[0]
     y[0,:] = y0[:]
 
-    for i in range ( 0, n ):
+    for i in range(n):
 
-        tm = t[i]   + 0.5 * dt
-        dydt ( t[i], y[i,:], ym[:] )
+        dydt(t[i], y[i,:], ym[:])
+        tm    = t[i]   + 0.5 * dt
         ym[:] = y[i,:] + 0.5 * dt * ym[:]
 
+        dydt(tm, ym[:], y[i+1,:])
         t[i+1]   = t[i]   + dt
-        dydt ( tm, ym[:], y[i+1,:] )
         y[i+1,:] = y[i,:] + dt * y[i+1,:]
 
 # ================================================================
 @njit(fastmath=True)
-def humps_fun ( x : float ):
+def humps_fun(x: float):
     """
     Humps function
     """
@@ -52,7 +52,7 @@ def humps_fun ( x : float ):
 
 # ================================================================
 @njit(fastmath=True)
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
     """
     Derivative of the humps function
     """

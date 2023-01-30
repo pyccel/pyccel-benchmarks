@@ -19,11 +19,11 @@ def euler(dydt: '()(real, const real[:], real[:])',
 
     t0 = tspan[0]
     t1 = tspan[1]
-    dt = ( t1 - t0 ) / float ( n )
+    dt = (t1 - t0) / float(n)
     y[0] = y0[:]
 
-    for i in range ( n ):
-        dydt ( t[i], y[i,:], y[i+1,:] )
+    for i in range(n):
+        dydt(t[i], y[i,:], y[i+1,:])
         y[i+1,:] = y[i,:] + dt * y[i+1,:]
 
 # ================================================================

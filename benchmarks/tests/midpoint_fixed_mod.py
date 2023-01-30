@@ -10,18 +10,18 @@ To be accelerated with pyccel or pythran
 import numpy as np
 
 # ================================================================
-def midpoint_fixed (dydt: '()(real, const real[:], real[:])',
-                    tspan: 'real[:]', y0: 'real[:]', n: int,
-                    t: 'real[:]', y: 'real[:,:]'):
+def midpoint_fixed(dydt: '()(real, const real[:], real[:])',
+                   tspan: 'real[:]', y0: 'real[:]', n: int,
+                   t: 'real[:]', y: 'real[:,:]'):
     """
     Function implementing the implicit midpoint method for 10 iterations
     """
 
-    m = len( y0 )
-    y1m = zeros(m)
-    y2m = zeros(m)
+    m = len(y0)
+    y1m = np.zeros(m)
+    y2m = np.zeros(m)
 
-    dt = ( tspan[1] - tspan[0] ) / float ( n )
+    dt = (tspan[1] - tspan[0]) / float(n)
 
     it_max = 10
     theta = 0.5
@@ -29,21 +29,21 @@ def midpoint_fixed (dydt: '()(real, const real[:], real[:])',
     t[0] = tspan[0]
     y[0,:] = y0
 
-    for i in range ( 0, n ):
+    for i in range(n):
 
         xm = t[i] + theta * dt
 
         y1m[:] = y[i,:]
-        for _ in range ( it_max ):
-            dydt ( xm, y1m[:], y2m[:] )
+        for _ in range(it_max):
+            dydt(xm, y1m[:], y2m[:])
             y1m[:] = y[i,:] + theta * dt * y2m[:]
 
         t[i+1] = t[i] + dt
-        y[i+1,:] = (       1.0 / theta ) * y1m[:] \
-                 + ( 1.0 - 1.0 / theta ) * y[i,:]
+        y[i+1,:] = (      1.0 / theta) * y1m[:] \
+                 + (1.0 - 1.0 / theta) * y[i,:]
 
 # ================================================================
-def humps_fun ( x : float ):
+def humps_fun(x: float):
     """
     Humps function
     """
@@ -55,7 +55,7 @@ def humps_fun ( x : float ):
     return y
 
 # ================================================================
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
     """
     Derivative of the humps function
     """

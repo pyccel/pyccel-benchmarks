@@ -12,25 +12,25 @@ import numpy as np
 
 # ================================================================
 @njit(fastmath=True)
-def euler (dydt: '()(real, const real[:], real[:])',
-           tspan: 'real[:]', y0: 'real[:]', n: int,
-           t: 'real[:]', y: 'real[:,:]'):
+def euler(dydt: '()(real, const real[:], real[:])',
+          tspan: 'real[:]', y0: 'real[:]', n: int,
+          t: 'real[:]', y: 'real[:,:]'):
     """
     Function implementing Euler's method
     """
 
     t0 = tspan[0]
     t1 = tspan[1]
-    dt = ( t1 - t0 ) / float ( n )
+    dt = (t1 - t0) / float(n)
     y[0] = y0[:]
 
-    for i in range ( n ):
-        dydt ( t[i], y[i,:], y[i+1,:] )
+    for i in range(n):
+        dydt(t[i], y[i,:], y[i+1,:])
         y[i+1,:] = y[i,:] + dt * y[i+1,:]
 
 # ================================================================
 @njit(fastmath=True)
-def humps_fun ( x : float ):
+def humps_fun(x: float):
     """
     Humps function
     """
@@ -43,7 +43,7 @@ def humps_fun ( x : float ):
 
 # ================================================================
 @njit(fastmath=True)
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
     """
     Derivative of the humps function
     """

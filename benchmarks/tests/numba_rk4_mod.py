@@ -12,39 +12,39 @@ import numpy as np
 
 # ================================================================
 @njit(fastmath=True)
-def rk4 (dydt: '()(real, const real[:], real[:])',
-         tspan: 'real[:]', y0: 'real[:]', n: int,
-         t: 'real[:]', y: 'real[:,:]'):
+def rk4(dydt: '()(real, const real[:], real[:])',
+        tspan: 'real[:]', y0: 'real[:]', n: int,
+        t: 'real[:]', y: 'real[:,:]'):
     """
     Function implementing a fourth order Runge-Kutta method
     """
 
-    m = len( y0 )
-    f1 = zeros(m)
-    f2 = zeros(m)
-    f3 = zeros(m)
-    f4 = zeros(m)
+    m = len(y0)
+    f1 = np.zeros(m)
+    f2 = np.zeros(m)
+    f3 = np.zeros(m)
+    f4 = np.zeros(m)
 
     tfirst = tspan[0]
     tlast = tspan[1]
-    dt = ( tlast - tfirst ) / n
+    dt = (tlast - tfirst) / n
 
     t[0] = tspan[0]
     y[0,:] = y0[:]
 
-    for i in range ( 0, n ):
+    for i in range(n):
 
-        dydt ( t[i],            y[i,:], f1[:] )
-        dydt ( t[i] + dt / 2.0, y[i,:] + dt * f1[:] / 2.0, f2[:] )
-        dydt ( t[i] + dt / 2.0, y[i,:] + dt * f2[:] / 2.0, f3[:] )
-        dydt ( t[i] + dt,       y[i,:] + dt * f3[:], f4[:] )
+        dydt(t[i],            y[i,:], f1[:])
+        dydt(t[i] + dt / 2.0, y[i,:] + dt * f1[:] / 2.0, f2[:])
+        dydt(t[i] + dt / 2.0, y[i,:] + dt * f2[:] / 2.0, f3[:])
+        dydt(t[i] + dt,       y[i,:] + dt * f3[:], f4[:])
 
         t[i+1] = t[i] + dt
-        y[i+1,:] = y[i,:] + dt * ( f1[:] + 2.0 * f2[:] + 2.0 * f3[:] + f4[:] ) / 6.0
+        y[i+1,:] = y[i,:] + dt * (f1[:] + 2.0 * f2[:] + 2.0 * f3[:] + f4[:]) / 6.0
 
 # ================================================================
 @njit(fastmath=True)
-def humps_fun ( x : float ):
+def humps_fun(x: float):
     """
     Humps function
     """
@@ -57,7 +57,7 @@ def humps_fun ( x : float ):
 
 # ================================================================
 @njit(fastmath=True)
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
     """
     Derivative of the humps function
     """
