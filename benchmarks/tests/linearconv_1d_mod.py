@@ -58,8 +58,7 @@ def linearconv_1d(nx: int, dt: float, nt: int):
     un = np.zeros(nx)
 
     for _ in range(nt):
-        un[:nx] = u[:nx]
-
+        un[:] = u[:]
         for i in range(1, nx):
             u[i] = un[i] - cp * (un[i] - un[i-1])
 
