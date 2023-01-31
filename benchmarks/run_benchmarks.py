@@ -124,9 +124,9 @@ tests = [
         'x, y, phi, niter = laplace_2d(150, 150, 5e-5, 5000)'),
     TestInfo('M-D',
         'md_mod.py',
-        ['test_md'],
+        ['md'],
         '',
-        'p, k = test_md()'),
+        'p, k = md(3, 100, 200, 0.1)'),
 ]
 
 if verbose:
