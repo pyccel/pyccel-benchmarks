@@ -15,18 +15,16 @@ from numpy import sin
 
 # ================================================================
 @njit(fastmath=True)
-def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
+def compute_force ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
              mass: float, force: 'double[:,:]' ):
-    """ Calculate the energy and forces associated with the current configuration
+    """ Calculate the forces associated with the current configuration
     """
 
     rij = zeros ( d_num )
 
-    potential = 0.0
-
     for i in range ( 0, p_num ):
         #
-        #  Compute the potential energy and forces.
+        #  Compute the forces.
         #
         for j in range ( 0, p_num ):
             if ( i != j ):
@@ -42,22 +40,9 @@ def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
                 d = sqrt ( d )
                 d2 = min ( d, pi / 2.0 )
 
-                #  Attribute half of the total potential energy to particle J.
-                potential = potential + 0.5 * sin ( d2 ) * sin ( d2 )
-
                 #  Add particle J's contribution to the force on particle I.
                 for k in range ( 0, d_num ):
                     force[k,i] = force[k,i] - rij[k] * sin ( 2.0 * d2 ) / d
-    #
-    #  Compute the kinetic energy.
-    #
-    kinetic = 0.0
-    for k in range ( 0, d_num ):
-        for j in range ( 0, p_num ):
-            kinetic = kinetic + vel[k,j] ** 2
-
-    kinetic = 0.5 * mass * kinetic
-
 
 # ================================================================
 @njit(fastmath=True)
