@@ -8,32 +8,95 @@ Functions for solving a Laplace equation. The code is adapted from examples writ
 [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html).
 To be accelerated with pyccel or pythran
 """
+
 import numpy as np
 
-# pythran export laplace_2d(float[:,:], float[:], float, float, float)
-def laplace_2d(p: 'float[:,:]', y: 'float[:]',
-               dx: float, dy: float, l1norm_target: float):
-    """ Solve the Laplace equation
+
+# pythran export laplace_2d(int, int, float, int)
+def laplace_2d(nx: int, ny: int, rtol: float, maxiter: int):
+    """
+    Solve the 2D Laplace equation for phi(x, y) on the rectangular
+    domain [0, 2] * [0, 1] with boundary conditions
+
+        phi = 0      at x = xmin,
+        phi = y      at x = xmax,
+        dphi/dy = 0  at y = ymin,
+        dphi/dy = 0  at y = ymax.
+
+    The numerical solution is computed on a uniform grid using 2nd
+    order finite differences and the Jacobi method with a prescribed
+    relative tolerance.
+
+    Parameters
+    ----------
+    nx : int
+        Number of grid points along x axis.
+
+    ny : int
+        Number of grid points along y axis.
+
+    rtol : float
+        Stopping condition for the Jacobi method: the relative L1 norm
+        of the difference between successive solutions should be lower
+        than the value provided.
+
+    maxiter : int
+        Maximum number of Jacobi iterations allowed.
+
+    Returns
+    -------
+    x : numpy.ndarray[nx]
+        Computational grid along x axis.
+
+    y : numpy.ndarray[ny]
+        Computational grid along y axis.
+
+    phi : numpy.ndarray[ny, nx]
+        Numerical solution on the computational grid.
+
+    niter : int
+        Number of Jacobi iterations performed.
     """
 
-    row, col = p.shape
-    pn = np.empty((row, col))
+    # Domain size
+    xmin, xmax = 0., 2.
+    ymin, ymax = 0., 1.
 
-    l1norm = 1.
+    # Computational grid
+    dx = (xmax - xmin) / (nx - 1)
+    dy = (ymax - ymin) / (ny - 1)
+    x  = np.linspace(xmin, xmax, nx)
+    y  = np.linspace(ymin, ymax, ny)
+
+    # Initial values
+    phi = np.ones((ny, nx))
+    l1norm = 2 * rtol
     niter = 0
 
-    while l1norm > l1norm_target:
-        pn[:, :] = p[:, :]
+    # Temporary arrays
+    pn   = np.empty((ny, nx))
+    diff = np.empty((ny, nx))
+    a    = np.empty((ny, nx))
+    err  = np.empty((ny, nx))
 
-        p[1:-1, 1:-1] = (dy**2 * (pn[1:-1, 2:] + pn[1:-1, 0:-2]) +
-                         dx**2 * (pn[2:, 1:-1] + pn[0:-2, 1:-1])) / (2 * (dx**2 + dy**2))
+    # Jacobi iteration
+    while l1norm > rtol and niter < maxiter:
+        pn[:, :] = phi[:, :]
 
-        p[:, 0] = 0  # p = 0 @ x = 0
-        p[:, -1] = y  # p = y @ x = 2
-        p[0, :] = p[1, :]  # dp/dy = 0 @ y = 0
-        p[-1, :] = p[-2, :]  # dp/dy = 0 @ y = 1
+        phi[1:-1, 1:-1] = ((dy**2 * (pn[1:-1, 2:] + pn[1:-1, 0:-2]) +
+                            dx**2 * (pn[2:, 1:-1] + pn[0:-2, 1:-1])) /
+                            (2 * (dx**2 + dy**2)))
 
-        l1norm = np.sum(np.abs(p[:] - pn[:])) / np.sum(np.abs(pn[:]))
+        phi[ :, 0] = 0           #     phi = 0 @ x = 0
+        phi[ :,-1] = y           #     phi = y @ x = 2
+        phi[ 0, :] = phi[ 1, :]  # dphi/dy = 0 @ y = 0
+        phi[-1, :] = phi[-2, :]  # dphi/dy = 0 @ y = 1
+
+        diff[:] = phi[:] - pn[:]
+        err[:] = np.abs(diff[:])
+        a[:] = np.abs(pn[:])
+        l1norm = np.sum(err) / np.sum(a)
         niter += 1
 
-    return niter
+    # Return axes' grid, solution, and number of iterations
+    return x, y, phi, niter

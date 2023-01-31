@@ -7,22 +7,21 @@
 Functions for solving an ordinary differential equation using the implicit midpoint method for a fixed number of iterations. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 To be accelerated with pyccel or pythran
 """
-from numpy import zeros
-from numpy import linspace
+import numpy as np
 
 # ================================================================
-def midpoint_fixed (dydt: '()(real, const real[:], real[:])',
-                    tspan: 'real[:]', y0: 'real[:]', n: int,
-                    t: 'real[:]', y: 'real[:,:]'):
+def midpoint_fixed(dydt: '()(real, const real[:], real[:])',
+                   tspan: 'real[:]', y0: 'real[:]', n: int,
+                   t: 'real[:]', y: 'real[:,:]'):
     """
     Function implementing the implicit midpoint method for 10 iterations
     """
 
-    m = len( y0 )
-    y1m = zeros(m)
-    y2m = zeros(m)
+    m = len(y0)
+    y1m = np.zeros(m)
+    y2m = np.zeros(m)
 
-    dt = ( tspan[1] - tspan[0] ) / float ( n )
+    dt = (tspan[1] - tspan[0]) / float(n)
 
     it_max = 10
     theta = 0.5
@@ -30,22 +29,21 @@ def midpoint_fixed (dydt: '()(real, const real[:], real[:])',
     t[0] = tspan[0]
     y[0,:] = y0
 
-    for i in range ( 0, n ):
+    for i in range(n):
 
         xm = t[i] + theta * dt
 
         y1m[:] = y[i,:]
-        for _ in range ( it_max ):
-            dydt ( xm, y1m[:], y2m[:] )
+        for _ in range(it_max):
+            dydt(xm, y1m[:], y2m[:])
             y1m[:] = y[i,:] + theta * dt * y2m[:]
 
         t[i+1] = t[i] + dt
-        y[i+1,:] = (       1.0 / theta ) * y1m[:] \
-                 + ( 1.0 - 1.0 / theta ) * y[i,:]
+        y[i+1,:] = (      1.0 / theta) * y1m[:] \
+                 + (1.0 - 1.0 / theta) * y[i,:]
 
 # ================================================================
-# pythran export humps_fun(float)
-def humps_fun ( x : float ):
+def humps_fun(x: float):
     """
     Humps function
     """
@@ -57,7 +55,7 @@ def humps_fun ( x : float ):
     return y
 
 # ================================================================
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
     """
     Derivative of the humps function
     """
@@ -65,30 +63,59 @@ def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
     out[0] = - 2.0 * ( x - 0.3 ) / ( ( x - 0.3 )**2 + 0.01 )**2 - 2.0 * ( x - 0.9 ) / ( ( x - 0.9 )**2 + 0.04 )**2
 
 # ================================================================
-# pythran export midpoint_fixed_humps_test(float[:],float[:],int)
-def midpoint_fixed_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+# pythran export midpoint_fixed_humps_test(float, float, int)
+def midpoint_fixed_humps_test(t0: float, t1: float, n: int):
     """
-    Run n steps of an implicit midpoint method with a fixed number of iterations,
-    starting from y0
+    Compute an approximate solution y_h(t) ~= y(t) of the initial
+    value problem
+
+      dy/dt = f(t)
+      y(t0) = y0
+
+    over the interval [t0, t1].
+
+    For test purposes we use the method of manufactured solutions,
+    i.e. we choose the humps function y(t) as the exact solution
+    and we compute f(t) := dy/dt, which is then passed to the ODE
+    integrator. Finally the numerical solution y_h(t) is compared to
+    the exact solution y(t) at the final time t1.
+
+    Numerical integration is performed with n uniform steps of the
+    implicit midpoint method.
 
     Parameters
     ----------
-    tspan : array of 2 floats
-            The first element is the start time.
-            The second element is the end time.
-    y0    : array of floats
-            The starting point for the evolution
-    n     : int
-            The number of time steps
+    t0 : float
+        Initial time.
+
+    t1 : float
+        Final time.
+
+    n : int
+        Number of uniform time steps.
+
+    Returns
+    -------
+    err : float
+        Difference between numerical and exact solution at the
+        final time t=t1.
+
     """
 
-    m = len ( y0 )
+    # Time interval and initial conditions
+    tspan = np.array([t0, t1])
+    y0 = np.array([humps_fun(t0)])
 
-    t0 = tspan[0]
-    t1 = tspan[1]
+    # Uniform time array where solution should be computed
+    t = np.linspace(t0, t1, n + 1)
 
-    t = linspace ( t0, t1, n + 1 )
-    y = zeros ( [ n + 1, m ] )
+    # Empty array which will contain numerical solution
+    yh = np.zeros((n + 1, 1))
 
-    midpoint_fixed ( humps_deriv, tspan, y0, n, t, y )
+    # Time integration
+    midpoint_fixed(humps_deriv, tspan, y0, n, t, yh)
 
+    # Error at final time
+    err = yh[-1, 0] - humps_fun(t1)
+
+    return err
