@@ -13,16 +13,29 @@ from numpy import pi
 from numpy import sin
 
 # ================================================================
-def compute_force ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
+def compute_kinetic_energy( p_num: int, d_num: int, vel: 'double[:,:]', mass: float ):
+    """ Compute the kinetic energy associated with the current configuration.
+    """
+    kinetic = 0.0
+    for k in range ( 0, d_num ):
+        for j in range ( 0, p_num ):
+            kinetic = kinetic + vel[k,j] ** 2
+
+    return 0.5 * mass * kinetic
+
+# ================================================================
+def compute ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
              mass: float, force: 'double[:,:]' ):
-    """ Calculate the forces associated with the current configuration
+    """ Calculate the potential energy and forces associated with the current configuration
     """
 
     rij = zeros ( d_num )
 
+    potential = 0.0
+
     for i in range ( 0, p_num ):
         #
-        #  Compute the forces.
+        #  Compute the potential energy and forces.
         #
         for j in range ( 0, p_num ):
             if ( i != j ):
@@ -38,9 +51,14 @@ def compute_force ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:
                 d = sqrt ( d )
                 d2 = min ( d, pi / 2.0 )
 
+                #  Attribute half of the total potential energy to particle J.
+                potential = potential + 0.5 * sin ( d2 ) * sin ( d2 )
+
                 #  Add particle J's contribution to the force on particle I.
                 for k in range ( 0, d_num ):
                     force[k,i] = force[k,i] - rij[k] * sin ( 2.0 * d2 ) / d
+
+    return potential
 
 # ================================================================
 def update ( p_num: int, d_num: int, pos: 'double[:,:]', vel: 'double[:,:]',
@@ -108,11 +126,13 @@ def md (d_num: int, p_num: int, step_num: int, dt: float,
     mass = 1.0
 
     initialize ( pos, p_num, d_num )
-    compute ( p_num, d_num, pos, vel, mass, force )
+    potential = compute ( p_num, d_num, pos, vel, mass, force )
 
     for _ in range ( step_num ):
         update ( p_num, d_num, pos, vel, force, acc, mass, dt )
-        compute ( p_num, d_num, pos, vel, mass, force )
+        potential = compute ( p_num, d_num, pos, vel, mass, force )
+
+    return potential
 
 # ================================================================
 # pythran export test_md()
@@ -135,39 +155,7 @@ def test_md ( ):
     # Positions
     pos = zeros ( ( d_num, p_num ) )
 
-    md(d_num, p_num, step_num, dt, vel, acc, force, pos)
-    rij = zeros ( d_num )
-
-    potential = 0.0
-
-    for i in range ( 0, p_num ):
-        #
-        #  Compute the potential energy.
-        #
-        for j in range ( 0, p_num ):
-            if ( i != j ):
-                #  Compute RIJ, the displacement vector.
-                for k in range ( 0, d_num ):
-                    rij[k] = pos[k,i] - pos[k,j]
-
-                #  Compute D and D2, a distance and a truncated distance.
-                d = 0.0
-                for k in range ( 0, d_num ):
-                    d = d + rij[k] ** 2
-
-                d = sqrt ( d )
-                d2 = min ( d, pi / 2.0 )
-
-                #  Attribute half of the total potential energy to particle J.
-                potential = potential + 0.5 * sin ( d2 ) * sin ( d2 )
-    #
-    #  Compute the kinetic energy.
-    #
-    kinetic = 0.0
-    for k in range ( 0, d_num ):
-        for j in range ( 0, p_num ):
-            kinetic = kinetic + vel[k,j] ** 2
-
-    kinetic = 0.5 * mass * kinetic
+    potential = md(d_num, p_num, step_num, dt, vel, acc, force, pos)
+    kinetic = compute_kinetic_energy(p_num, d_num, vel, mass)
 
     return potential, kinetic
