@@ -8,7 +8,6 @@ Functions for running a small molecular dynamics simulation. The code is adapted
 To be accelerated with numba
 """
 from numba import njit
-import sys
 from numpy import zeros
 from numpy import sqrt
 from numpy import pi
@@ -89,14 +88,8 @@ def r8mat_uniform_ab ( r: 'double[:,:]', m: int, n: int, a: float, b: float, see
 
     i4_huge = 2147483647
 
-    if ( seed < 0 ):
+    if ( seed <= 0 ):
         seed = seed + i4_huge
-
-    elif ( seed == 0 ):
-        print ( '' )
-        print ( 'R8MAT_UNIFORM_AB - Fatal error!' )
-        print ( '  Input SEED = 0!' )
-        sys.exit ( 'R8MAT_UNIFORM_AB - Fatal error!' )
 
     elif ( seed > 0 ):
 
@@ -109,7 +102,7 @@ def r8mat_uniform_ab ( r: 'double[:,:]', m: int, n: int, a: float, b: float, see
 
                 seed = ( seed % i4_huge )
 
-                if ( seed < 0 ):
+                if ( seed <= 0 ):
                     seed = seed + i4_huge
 
                 r[i,j] = a + ( b - a ) * seed * 4.656612875E-10
@@ -203,4 +196,3 @@ def test_md ():
     kinetic = 0.5 * mass * kinetic
 
     return potential, kinetic
-
