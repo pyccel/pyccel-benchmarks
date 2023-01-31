@@ -11,7 +11,6 @@ To be accelerated with numba
 from numba import njit
 import numpy as np
 
-
 @njit
 def laplace_2d(nx: int, ny: int, rtol: float, maxiter: int):
     """
