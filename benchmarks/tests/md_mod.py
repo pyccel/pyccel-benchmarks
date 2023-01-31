@@ -142,7 +142,7 @@ def test_md ( ):
 
     for i in range ( 0, p_num ):
         #
-        #  Compute the potential energy and forces.
+        #  Compute the potential energy.
         #
         for j in range ( 0, p_num ):
             if ( i != j ):
@@ -160,10 +160,6 @@ def test_md ( ):
 
                 #  Attribute half of the total potential energy to particle J.
                 potential = potential + 0.5 * sin ( d2 ) * sin ( d2 )
-
-                #  Add particle J's contribution to the force on particle I.
-                for k in range ( 0, d_num ):
-                    force[k,i] = force[k,i] - rij[k] * sin ( 2.0 * d2 ) / d
     #
     #  Compute the kinetic energy.
     #
