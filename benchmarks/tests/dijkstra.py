@@ -6,6 +6,8 @@
 """ Module containing functions for testing the Dijkstra algorithm using pyccel or pythran
 """
 
+import numpy as np
+
 # ================================================================
 def find_nearest ( nv: int, mind: 'int[:]', connected: 'bool[:]' ):
     """ Find the nearest node
@@ -39,10 +41,8 @@ def dijkstra_distance ( nv: int, ohd: 'int[:,:]', mind: 'int[:]' ):
     """ Find the shortest paths between nodes in a graph
     """
 
-    from numpy import zeros
-
     #  Start out with only node 1 connected to the tree.
-    connected = zeros (nv, dtype = bool )
+    connected = np.zeros (nv, dtype = bool )
 
     connected[0] = True
     for i in range ( 1, nv ):
@@ -77,7 +77,7 @@ def init ( nv: int, ohd: 'int[:,:]' ):
     """ Create a graph
     """
 
-    i4_huge = 2147483647
+    i4_huge = 1 << 20
 
     for i in range ( 0, nv ):
         for j in range ( 0, nv ):
@@ -85,22 +85,8 @@ def init ( nv: int, ohd: 'int[:,:]' ):
 
         ohd[i,i] = 0
 
-    ohd[0,1] = 40
-    ohd[1,0] = 40
-    ohd[0,2] = 15
-    ohd[2,0] = 15
-    ohd[1,2] = 20
-    ohd[2,1] = 20
-    ohd[1,3] = 10
-    ohd[3,1] = 10
-    ohd[1,4] = 25
-    ohd[4,1] = 25
-    ohd[2,3] = 100
-    ohd[3,2] = 100
-    ohd[1,5] = 6
-    ohd[5,1] = 6
-    ohd[4,5] = 8
-    ohd[5,4] = 8
+    ohd[0,333] = 33
+
 
 # ================================================================
 # pythran export dijkstra_distance_test()
@@ -108,13 +94,13 @@ def dijkstra_distance_test ( ):
     """ Test Dijkstra's algorithm
     """
 
-    from numpy import zeros
-
     #  Initialize the problem data.
-    nv = 6
-    ohd = zeros ( [ nv, nv ], dtype = int )
+    nv = 3000
+    ohd = np.zeros ( ( nv, nv ), dtype = int )
     init ( nv, ohd )
 
     #  Carry out the algorithm.
-    min_distance = zeros ( nv, dtype = int )
+    min_distance = np.zeros ( nv, dtype = int )
     dijkstra_distance ( nv, ohd, min_distance )
+
+    return min_distance

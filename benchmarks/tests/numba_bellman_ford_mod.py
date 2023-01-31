@@ -5,12 +5,12 @@
 #------------------------------------------------------------------------------------------#
 """ Module containing functions for testing the Bellman-Ford algorithm using numba
 """
-from numpy import array
-from numpy import zeros
 
 from numba import njit
+import numpy as np
+
+
 @njit(fastmath=True)
-# ================================================================
 def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'real[:]',
                    v_weight: 'real[:]', predecessor: 'int[:]' ):
     """ Calculate the shortest paths from a source vertex to all other
@@ -29,8 +29,8 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
     #  Step 2: Relax edges repeatedly.
     for i in range ( 1, v_num ):
         for j in range ( e_num ):
-            u = e[1][j]
-            v = e[0][j]
+            u = e[1, j]
+            v = e[0, j]
             t = v_weight[u] + e_weight[j]
             if ( t < v_weight[v] ):
                 v_weight[v] = t
@@ -38,8 +38,8 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
 
     #  Step 3: check for negative-weight cycles
     for j in range ( e_num ):
-        u = e[1][j]
-        v = e[0][j]
+        u = e[1, j]
+        v = e[0, j]
         if ( v_weight[u] + e_weight[j] < v_weight[v] ):
             print ( '' )
             print ( 'BELLMAN_FORD - Fatal error!' )
@@ -48,25 +48,34 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
 
     return 0
 
-# ================================================================
+
 @njit(fastmath=True)
-def bellman_ford_test ( ):
+
+def bellman_ford_test():
     """ Test bellman ford's algorithm
     """
 
+    e_num = 19900
+    v_num = 200
 
-    e_num = 10
-    v_num = 6
+    e = np.zeros((2, e_num), dtype = 'int')
+    e_weight = np.zeros(e_num, dtype = 'float')
+    idx = 0
 
-    e = array( (( 1, 4, 1, 2, 4, 2, 5, 3, 5, 3 ), \
-                ( 0, 1, 2, 4, 0, 5, 0, 2, 3, 0 )) )
+    for i in  range(v_num):
+        for j in range(v_num):
+            if i > j:
+                e[0, idx] = i
+                e[1, idx] = j
+                idx += 1
 
-    e_weight = array( (-3.0,  6.0, -4.0, -1.0,  4.0, \
-                       -2.0,  2.0,  8.0, -3.0,  3.0 ) )
+    for i in range(e_num):
+        e_weight[i] = np.cos(i) * i
 
     source = 0
+    v_weight = np.zeros(v_num, dtype = 'float')
+    predecessor = np.zeros(v_num, dtype = 'int')
 
-    v_weight = zeros ( 6, dtype = 'float' )
-    predecessor = zeros ( 6, dtype = 'int' )
+    bellman_ford(v_num, e_num, source, e, e_weight, v_weight, predecessor)
 
-    return bellman_ford ( v_num, e_num, source, e, e_weight, v_weight, predecessor )
+    return v_weight
