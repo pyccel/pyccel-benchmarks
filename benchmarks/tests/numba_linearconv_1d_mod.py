@@ -11,7 +11,6 @@ To be accelerated with numba
 from numba import njit
 import numpy as np
 
-
 @njit
 def linearconv_1d(nx: int, dt: float, nt: int):
     """
