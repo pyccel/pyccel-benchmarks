@@ -43,7 +43,7 @@ if __name__ == '__main__':
         ax.set_ylabel('Speedup')
         ax.set_yscale('log')
         ylim = ax.get_ylim()
-        ax.set_ylim(1,ylim[1])
+        ax.set_ylim(min(1, ylim[0]), ylim[1])
         ax.grid(True, which='major', axis='y', alpha=0.5, linewidth=0.50)
         ax.grid(True, which='minor', axis='y', alpha=0.5, linewidth=0.25)
         ax.set_axisbelow(True)

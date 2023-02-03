@@ -7,8 +7,7 @@ from matplotlib import rcParams as rc
 import numpy as np
 
 rc['font.size'] = 8
-rc['font.family'] = 'serif'
-rc['font.serif'] = 'Times New Roman'
+rc['font.family'] = 'DejaVu Sans'
 
 def plot_bar_chart(results, result_keys, normalise_key = -1):
 
@@ -23,7 +22,7 @@ def plot_bar_chart(results, result_keys, normalise_key = -1):
     width = 0.75/len(result_keys)
     shift = width
 
-    fig, ax = plt.subplots(figsize=(7,2))
+    fig, ax = plt.subplots(figsize=(7, 2.2))
     start = x-width/2
     for i, (lab, c) in enumerate(result_keys.items()):
         if lab == 'Python':
