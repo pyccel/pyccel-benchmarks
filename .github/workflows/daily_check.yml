@@ -41,7 +41,7 @@ jobs:
       ./.github/workflows/bench_run.yml
     with:
       python_version: "3.${{ matrix.python-version }}"
-      requirements_key: "pypi_performance_3${{ matrix.python-version }}_${{needs.Check_Pyccel_Version.outputs.new_version }}"
+      full_key: "pypi_performance_3${{ matrix.python-version }}_${{needs.Check_Pyccel_Version.outputs.new_version }}"
       key: "pypi_performance_3${{ matrix.python-version }}"
       pyccel_version: "${{needs.Check_Pyccel_Version.outputs.new_version }}"
       branch_name: "Python 3.${{ matrix.python-version }}"
