@@ -1,0 +1,61 @@
+name: Run benchmark
+
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        required: true
+        type: string
+      full_key:
+        required: true
+        type: string
+      key:
+        required: true
+        type: string
+      pyccel_version:
+        required: true
+        type: string
+      branch_name:
+        required: true
+        type: string
+
+jobs:
+  Run_benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ inputs.python_version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python_version }}
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install python dependencies
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/${{ inputs.full_key }}_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
+      - name: Benchmark
+        run: |
+          cd benchmarks
+          python run_benchmarks.py --pyperf --verbose --pyccel-config-files pyccel_fortran.json pyccel_c.json --pythran-config-files pythran.config
+          cd ..
+          FILE=version_specific_results/${{ inputs.full_key }}.md
+          echo "### Performance Comparison (as of ${{ inputs.pyccel_version }})" > ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
+        shell: bash
+        working-directory: ./.
+      - name: Record Failure
+        run: echo "${{ inputs.branch_name }} benchmarks failed!" > version_specific_results/${{ inputs.full_key }}.md
+        if: ${{ failure() }}
+      - name: Add & Commit
+        if: ${{ always() }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update performance comparison'
+          add: "['version_specific_results/${{ inputs.full_key }}.md', 'version_specific_results/${{ inputs.key }}_compilation.svg', 'version_specific_results/${{ inputs.key }}_execution.svg']"
+          default_author: github_actions
+          pull: '--rebase --autostash'
