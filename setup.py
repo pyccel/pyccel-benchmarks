@@ -13,6 +13,5 @@ if __name__ == '__main__':
             'pyperf',
             'numpy',
             'matplotlib',
-            'python_version >= "3.7"',
         ],
     )
