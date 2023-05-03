@@ -1,1 +1,1 @@
-Devel branch benchmarks failed on python 3.10!
+Devel branch benchmarks failed!
