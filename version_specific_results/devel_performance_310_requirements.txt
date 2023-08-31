@@ -2,7 +2,7 @@ Arpeggio==2.0.2
 beniget==0.4.1
 contourpy==1.1.0
 cycler==0.11.0
-filelock==3.12.2
+filelock==3.12.3
 fonttools==4.42.1
 gast==0.5.4
 kiwisolver==1.4.5
@@ -15,7 +15,7 @@ packaging==23.1
 Pillow==10.0.0
 ply==3.11
 psutil==5.9.5
-pyccel @ git+https://github.com/pyccel/pyccel@1896b761ba662c90b14c195bbb6eb5cddc57cbfc
+pyccel @ git+https://github.com/pyccel/pyccel@2fb0e0da37382e0ed8c144865547a70bcbb14b8c
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.0.9
 pyperf==2.6.1
@@ -25,3 +25,4 @@ six==1.16.0
 sympy==1.12
 termcolor==2.3.0
 textX==3.1.1
+typing_extensions==4.7.1
