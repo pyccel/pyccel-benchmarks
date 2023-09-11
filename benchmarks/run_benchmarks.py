@@ -237,6 +237,7 @@ for t in tests:
 
             if p.returncode != 0:
                 print("Compilation Error!", file=log_file, flush=True)
+                print(out, file=log_file, flush=True)
                 print(err, file=log_file, flush=True)
                 comp_times.append('-')
                 run_times.append(None)
