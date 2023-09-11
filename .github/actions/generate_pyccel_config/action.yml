@@ -7,8 +7,8 @@ runs:
       run: |
         pyccel --language=fortran --export-compile-info pyccel_fortran_gnu.json
         pyccel --language=c --export-compile-info pyccel_c_gnu.json
-        pyccel --language=fortran --export-compile-info pyccel_fortran_intel.json
-        pyccel --language=c --export-compile-info pyccel_c_intel.json
+        pyccel --compiler=intel --language=fortran --export-compile-info pyccel_fortran_intel.json
+        pyccel --compiler=intel --language=c --export-compile-info pyccel_c_intel.json
       shell: bash
       working-directory: ./benchmarks
     - name: Add improved flags
