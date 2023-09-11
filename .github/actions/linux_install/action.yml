@@ -45,8 +45,6 @@ runs:
         sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
         echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
         sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/oneAPI.list" -o APT::Get::List-Cleanup="0"
-        COMPONENTS=$(echo "$1" | sed "s/,/ /g")
-        #shellcheck disable=SC2086
-        sudo apt-get install -y $COMPONENTS
+        sudo apt-get install -y intel-oneapi-compiler-fortran intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-openmp intel-oneapi-mkl
         ln -s ifort ifx
       shell: bash
