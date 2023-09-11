@@ -1,5 +1,15 @@
 name: 'Linux installation commands'
 
+env:
+  LINUX_HPCKIT_URL: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/0722521a-34b5-4c41-af3f-d5d14e88248d/l_HPCKit_p_2023.2.0.49440_offline.sh
+  LINUX_FORTRAN_COMPONENTS: intel-oneapi-compiler-fortran
+  LINUX_FORTRAN_COMPONENTS_WEB: intel.oneapi.lin.ifort-compiler
+  CACHE_NUMBER: 8
+  SAMPLES_TAG: 2023.2.0
+  COMPILER_VERSION: 2023.2.0
+  TBB_VERSION: 2021.10.0
+  VS_VER: vs2022
+
 runs:
   using: "composite"
   steps:
@@ -28,3 +38,14 @@ runs:
       run:
         sudo apt-get install msttcorefonts -qq
       shell: bash
+    - name: Install Intel OneAPI
+      run: |
+        # See https://github.com/oneapi-src/oneapi-ci
+        wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+        sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+        echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+        sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/oneAPI.list" -o APT::Get::List-Cleanup="0"
+        COMPONENTS=$(echo "$1" | sed "s/,/ /g")
+        #shellcheck disable=SC2086
+        sudo apt-get install -y $COMPONENTS
+        ln -s ifort ifx
