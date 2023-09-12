@@ -227,13 +227,13 @@ for t in tests:
                 env = None
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
-                cmd = ['pythran', basename]
+                cmd = ['pythran', basename, '-v']
                 env = {'PYTHRANRC': my_file}
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
 
-            p, out, err, cpu_time = run_process(cmd, time_compilation)
+            p, out, err, cpu_time = run_process(cmd, time_compilation, env=env)
 
             if p.returncode != 0:
                 print("Compilation Error!", file=log_file, flush=True)
