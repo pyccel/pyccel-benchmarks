@@ -218,6 +218,7 @@ for t in tests:
         print("-------------------", file=log_file, flush=True)
         print("   ",case, file=log_file, flush=True)
         print("-------------------", file=log_file, flush=True)
+        env = os.environ.copy()
         create_shared_lib = case.startswith('pyccel') or case.startswith('pythran')
         if create_shared_lib:
             tag, idx_str = case.split('_')
@@ -226,11 +227,10 @@ for t in tests:
                 my_file = pyccel_configs[idx]
                 language = pyccel_language_flags[idx]
                 cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', basename]
-                env = None
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
                 cmd = ['pythran', basename, '-v']
-                env = {'PYTHRANRC': my_file}
+                env['PYTHRANRC'] = my_file
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
