@@ -229,7 +229,7 @@ for t in tests:
                 cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', basename]
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
-                cmd = ['pythran', basename, '-v']
+                cmd = ['pythran', basename]
                 env['PYTHRANRC'] = my_file
 
             if verbose:
