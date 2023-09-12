@@ -48,6 +48,8 @@ runs:
         sudo apt-get install -y intel-oneapi-compiler-fortran intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-openmp intel-oneapi-mkl
         LATEST_VERSION=$(ls -1 /opt/intel/oneapi/compiler/ | grep -v latest | sort | tail -1)
         # shellcheck source=/dev/null
-        cat /opt/intel/oneapi/compiler/"$LATEST_VERSION"/env/vars.sh
-        cat /opt/intel/oneapi/compiler/"$LATEST_VERSION"/env/vars.sh >> $GITHUB_ENV
+        ls -a
+        echo "source /opt/intel/oneapi/compiler/$LATEST_VERSION/env/vars.sh" >> .bashrc
+        #echo $PATH > $GITHUB_PATH
+        #echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
       shell: bash
