@@ -165,16 +165,16 @@ M-D (ms)                  | 21900.00 $\pm$ 500.00     | 52.80 $\pm$ 0.00        
 ## Compilation time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 2.07                      | 1.97                      | 0.41                      | 1.30                      | 1.23                      | -                         | -                        
-Bellman Ford              | -                         | 3.46                      | 3.45                      | 1.22                      | 2.25                      | 2.20                      | -                         | -                        
-Dijkstra                  | -                         | 2.59                      | 2.63                      | 1.37                      | 2.33                      | 2.23                      | -                         | -                        
+Ackermann                 | -                         | 2.13                      | 2.01                      | 0.42                      | 1.34                      | 1.26                      | -                         | -                        
+Bellman Ford              | -                         | 3.54                      | 3.57                      | 1.28                      | 2.31                      | 2.27                      | -                         | -                        
+Dijkstra                  | -                         | 2.72                      | 2.77                      | 1.46                      | 2.40                      | 2.28                      | -                         | -                        
 
 ## Execution time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 475.00 $\pm$ 4.00         | 9.53 $\pm$ 0.02           | 9.52 $\pm$ 0.00           | 28.10 $\pm$ 0.20          | 2.99 $\pm$ 0.01           | 2.95 $\pm$ 0.00           | -                         | -                        
-Bellman Ford (ms)         | 2880.00 $\pm$ 40.00       | 7.73 $\pm$ 0.03           | 7.71 $\pm$ 0.00           | 6.36 $\pm$ 0.01           | 3.83 $\pm$ 0.00           | 6.45 $\pm$ 0.01           | -                         | -                        
-Dijkstra (ms)             | 7420.00 $\pm$ 70.00       | 46.60 $\pm$ 0.90          | 46.40 $\pm$ 0.50          | 40.60 $\pm$ 1.00          | 34.90 $\pm$ 0.70          | 49.30 $\pm$ 0.80          | -                         | -                        
+Ackermann (ms)            | 475.00 $\pm$ 4.00         | 9.55 $\pm$ 0.07           | 9.52 $\pm$ 0.00           | 28.20 $\pm$ 0.20          | 3.17 $\pm$ 0.00           | 2.95 $\pm$ 0.00           | -                         | -                        
+Bellman Ford (ms)         | 2870.00 $\pm$ 30.00       | 7.72 $\pm$ 0.01           | 7.72 $\pm$ 0.01           | 6.36 $\pm$ 0.00           | 3.84 $\pm$ 0.01           | 6.46 $\pm$ 0.03           | -                         | -                        
+Dijkstra (ms)             | 7420.00 $\pm$ 40.00       | 48.70 $\pm$ 0.40          | 48.50 $\pm$ 0.40          | 42.10 $\pm$ 0.60          | 36.80 $\pm$ 0.40          | 51.50 $\pm$ 0.40          | -                         | -                        
 
 ![Python 3.8 compilation results](./version_specific_results/pypi_performance_38_compilation.svg)
 ![Python 3.8 execution results](./version_specific_results/pypi_performance_38_execution.svg)
@@ -183,16 +183,16 @@ Dijkstra (ms)             | 7420.00 $\pm$ 70.00       | 46.60 $\pm$ 0.90        
 ## Compilation time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 2.06                      | 1.95                      | 0.40                      | 1.29                      | 1.21                      | -                         | -                        
-Bellman Ford              | -                         | 3.41                      | 3.42                      | 1.21                      | 2.23                      | 2.18                      | -                         | -                        
-Dijkstra                  | -                         | 2.68                      | 2.61                      | 1.38                      | 2.31                      | 2.22                      | -                         | -                        
+Ackermann                 | -                         | 1.97                      | 1.84                      | 0.38                      | 1.19                      | 1.14                      | -                         | -                        
+Bellman Ford              | -                         | 3.26                      | 3.28                      | 1.16                      | 2.14                      | 2.11                      | -                         | -                        
+Dijkstra                  | -                         | 2.50                      | 2.52                      | 1.34                      | 2.30                      | 2.14                      | -                         | -                        
 
 ## Execution time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 427.00 $\pm$ 0.00         | 9.53 $\pm$ 0.04           | 9.52 $\pm$ 0.00           | 28.30 $\pm$ 0.20          | 3.11 $\pm$ 0.00           | 2.94 $\pm$ 0.00           | -                         | -                        
-Bellman Ford (ms)         | 2810.00 $\pm$ 20.00       | 7.72 $\pm$ 0.02           | 7.71 $\pm$ 0.00           | 6.37 $\pm$ 0.01           | 3.84 $\pm$ 0.00           | 6.45 $\pm$ 0.01           | -                         | -                        
-Dijkstra (ms)             | 7250.00 $\pm$ 40.00       | 46.80 $\pm$ 1.00          | 46.80 $\pm$ 0.80          | 38.70 $\pm$ 0.50          | 37.00 $\pm$ 1.20          | 47.90 $\pm$ 0.70          | -                         | -                        
+Ackermann (ms)            | 374.00 $\pm$ 1.00         | 9.91 $\pm$ 0.03           | 9.89 $\pm$ 0.00           | 27.10 $\pm$ 0.20          | 3.20 $\pm$ 0.00           | 3.24 $\pm$ 0.00           | -                         | -                        
+Bellman Ford (ms)         | 2590.00 $\pm$ 20.00       | 6.73 $\pm$ 0.01           | 6.73 $\pm$ 0.00           | 6.33 $\pm$ 0.01           | 4.45 $\pm$ 0.01           | 6.58 $\pm$ 0.01           | -                         | -                        
+Dijkstra (ms)             | 6740.00 $\pm$ 20.00       | 39.60 $\pm$ 0.70          | 42.70 $\pm$ 2.10          | 34.20 $\pm$ 0.60          | 32.60 $\pm$ 1.80          | 48.70 $\pm$ 0.30          | -                         | -                        
 
 ![Python 3.9 compilation results](./version_specific_results/pypi_performance_39_compilation.svg)
 ![Python 3.9 execution results](./version_specific_results/pypi_performance_39_execution.svg)
@@ -201,16 +201,16 @@ Dijkstra (ms)             | 7250.00 $\pm$ 40.00       | 46.80 $\pm$ 1.00        
 ## Compilation time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 2.70                      | 2.32                      | 0.43                      | 1.47                      | 1.32                      | -                         | -                        
-Bellman Ford              | -                         | 3.80                      | 3.88                      | 1.28                      | 2.36                      | 2.33                      | -                         | -                        
-Dijkstra                  | -                         | 2.95                      | 2.97                      | 1.47                      | 2.49                      | 2.33                      | -                         | -                        
+Ackermann                 | -                         | 2.57                      | 2.21                      | 0.42                      | 1.31                      | 1.25                      | -                         | -                        
+Bellman Ford              | -                         | 3.64                      | 3.66                      | 1.24                      | 2.28                      | 2.24                      | -                         | -                        
+Dijkstra                  | -                         | 2.86                      | 2.87                      | 1.42                      | 2.38                      | 2.29                      | -                         | -                        
 
 ## Execution time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 445.00 $\pm$ 1.00         | 8.06 $\pm$ 0.02           | 8.04 $\pm$ 0.01           | 28.30 $\pm$ 0.20          | 3.17 $\pm$ 0.00           | 2.95 $\pm$ 0.01           | -                         | -                        
-Bellman Ford (ms)         | 2860.00 $\pm$ 30.00       | 7.73 $\pm$ 0.02           | 7.72 $\pm$ 0.01           | 6.37 $\pm$ 0.01           | 3.84 $\pm$ 0.00           | 6.46 $\pm$ 0.01           | -                         | -                        
-Dijkstra (ms)             | 7450.00 $\pm$ 60.00       | 48.60 $\pm$ 0.30          | 48.70 $\pm$ 0.30          | 42.00 $\pm$ 0.40          | 37.00 $\pm$ 0.40          | 50.20 $\pm$ 0.50          | -                         | -                        
+Ackermann (ms)            | 445.00 $\pm$ 3.00         | 8.03 $\pm$ 0.01           | 8.03 $\pm$ 0.02           | 28.10 $\pm$ 0.10          | 3.17 $\pm$ 0.00           | 3.30 $\pm$ 0.00           | -                         | -                        
+Bellman Ford (ms)         | 2850.00 $\pm$ 40.00       | 7.72 $\pm$ 0.02           | 7.71 $\pm$ 0.00           | 6.36 $\pm$ 0.00           | 3.84 $\pm$ 0.00           | 6.45 $\pm$ 0.01           | -                         | -                        
+Dijkstra (ms)             | 7450.00 $\pm$ 60.00       | 48.00 $\pm$ 0.40          | 48.30 $\pm$ 0.30          | 42.00 $\pm$ 0.70          | 36.50 $\pm$ 0.40          | 50.40 $\pm$ 0.50          | -                         | -                        
 
 ![Python 3.10 compilation results](./version_specific_results/pypi_performance_310_compilation.svg)
 ![Python 3.10 execution results](./version_specific_results/pypi_performance_310_execution.svg)
@@ -219,16 +219,16 @@ Dijkstra (ms)             | 7450.00 $\pm$ 60.00       | 48.60 $\pm$ 0.30        
 ## Compilation time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 3.33                      | 2.65                      | 0.49                      | 1.63                      | 1.56                      | -                         | -                        
-Bellman Ford              | -                         | 4.52                      | 4.52                      | 1.47                      | 2.72                      | 2.64                      | -                         | -                        
-Dijkstra                  | -                         | 3.58                      | 3.58                      | 1.70                      | 2.88                      | 2.90                      | -                         | -                        
+Ackermann                 | -                         | 3.11                      | 2.71                      | 0.46                      | 1.59                      | 1.53                      | -                         | -                        
+Bellman Ford              | -                         | 4.32                      | 4.32                      | 1.45                      | 2.70                      | 2.82                      | -                         | -                        
+Dijkstra                  | -                         | 3.33                      | 3.43                      | 1.65                      | 3.07                      | 2.87                      | -                         | -                        
 
 ## Execution time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_fortran_gnu        | pyccel_c_gnu              | pyccel_fortran_intel      | pyccel_c_intel           
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 508.00 $\pm$ 11.00        | 9.12 $\pm$ 0.45           | 9.35 $\pm$ 0.25           | 32.50 $\pm$ 0.80          | 2.46 $\pm$ 0.09           | 2.57 $\pm$ 0.05           | -                         | -                        
-Bellman Ford (ms)         | 3370.00 $\pm$ 110.00      | 7.81 $\pm$ 0.24           | 7.73 $\pm$ 0.18           | 7.92 $\pm$ 0.41           | 5.12 $\pm$ 0.09           | 10.00 $\pm$ 0.30          | -                         | -                        
-Dijkstra (ms)             | 8670.00 $\pm$ 400.00      | 55.00 $\pm$ 1.60          | 55.40 $\pm$ 3.60          | 53.40 $\pm$ 3.20          | 41.90 $\pm$ 1.60          | 67.20 $\pm$ 2.10          | -                         | -                        
+Ackermann (ms)            | 473.00 $\pm$ 17.00        | 8.75 $\pm$ 0.34           | 9.15 $\pm$ 0.27           | 29.70 $\pm$ 1.00          | 2.36 $\pm$ 0.11           | 2.28 $\pm$ 0.09           | -                         | -                        
+Bellman Ford (ms)         | 3120.00 $\pm$ 90.00       | 6.77 $\pm$ 0.23           | 7.18 $\pm$ 0.35           | 7.56 $\pm$ 0.21           | 5.15 $\pm$ 0.12           | 10.00 $\pm$ 0.50          | -                         | -                        
+Dijkstra (ms)             | 8940.00 $\pm$ 390.00      | 46.80 $\pm$ 1.30          | 50.40 $\pm$ 1.50          | 53.90 $\pm$ 1.90          | 49.90 $\pm$ 2.10          | 78.20 $\pm$ 2.10          | -                         | -                        
 
 ![Python 3.11 compilation results](./version_specific_results/pypi_performance_311_compilation.svg)
 ![Python 3.11 execution results](./version_specific_results/pypi_performance_311_execution.svg)
