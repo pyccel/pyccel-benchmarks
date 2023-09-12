@@ -78,9 +78,12 @@ def build_execution_entries(table_body):
 header_neat_names = {
         'python' : 'Python',
         'numba' : 'Numba',
-        'pythran' : 'Pythran',
-        'pyccel_fortran' : 'Pyccel (Fortran)',
-        'pyccel_c' : 'Pyccel (C)',
+        'pythran' : 'Pythran (g++)',
+        'pythran' : 'Pythran (icx)',
+        'pyccel_fortran_gnu' : 'Pyccel (Fortran, gfortran)',
+        'pyccel_c_gnu' : 'Pyccel (C, gcc)',
+        'pyccel_fortran_intel' : 'Pyccel (Fortran, ifort)',
+        'pyccel_c_intel' : 'Pyccel (C, icc)',
         }
 
 def neaten_header(header):
