@@ -26,12 +26,12 @@ runs:
                 file=open('pyccel_c_gnu.json','w'))
         # Fortran Intel
         config = json.load(open('pyccel_fortran_intel.json'))
-        config['general_flags'].extend(['-O3', '-march=native', '-xHost', '-axCORE-AVX2,CORE-AVX512', '-mavx', '-fast'])
+        config['general_flags'].extend(['-O3', '-march=native', '-xHost', '-mavx', '-fast'])
         print(json.dumps(config, indent=4),
         # C Intel
                 file=open('pyccel_fortran_intel.json','w'))
         config = json.load(open('pyccel_c_intel.json'))
-        config['general_flags'].extend(['-O3', '-march=native', '-xHost', '-axCORE-AVX2,CORE-AVX512', '-mavx', '-fast'])
+        config['general_flags'].extend(['-O3', '-march=native', '-xHost', '-mavx', '-fast'])
         print(json.dumps(config, indent=4),
                 file=open('pyccel_c_intel.json','w'))
       shell: python
