@@ -21,14 +21,6 @@ runs:
         echo "![Development compilation results](./${FILE}_compilation.svg)" >> README.md
         echo "![Development execution results](./${FILE}_execution.svg)" >> README.md
 
-        echo "## Python 3.7 results" >> README.md
-        FILE=version_specific_results/pypi_performance_37_${VERSION}
-        cat ${FILE}.md >> README.md
-        FILE=version_specific_results/pypi_performance_37
-        echo "" >> README.md
-        echo "![Python 3.7 compilation results](./${FILE}_compilation.svg)" >> README.md
-        echo "![Python 3.7 execution results](./${FILE}_execution.svg)" >> README.md
-
         echo "## Python 3.8 results" >> README.md
         FILE=version_specific_results/pypi_performance_38_${VERSION}
         cat ${FILE}.md >> README.md
