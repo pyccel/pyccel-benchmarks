@@ -89,38 +89,38 @@ Solves a 2D Laplace problem using Finite Differences methods. The code is adapte
 
 Runs a molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 ## Development branch results
-### Performance Comparison (as of Tue Oct 10 08:49:08 UTC 2023)
+### Performance Comparison (as of Wed Oct 11 10:08:28 UTC 2023)
 ## Compilation time
 Algorithm                 | python                    | pythran                   | numba                     | pyccel_fortran            | pyccel_c                 
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 3.34                      | 0.56                      | 1.63                      | 1.58                     
-Bellman Ford              | -                         | 4.75                      | 1.63                      | 2.91                      | 2.84                     
-Dijkstra                  | -                         | 3.72                      | 1.88                      | 2.97                      | 2.88                     
-Euler                     | -                         | 4.25                      | 2.48                      | 2.83                      | 2.89                     
-Midpoint Explicit         | -                         | 4.88                      | 3.45                      | 3.33                      | 3.29                     
-Midpoint Fixed            | -                         | 5.59                      | 3.63                      | 3.39                      | 3.41                     
-RK4                       | -                         | 6.46                      | 4.18                      | 4.19                      | 4.09                     
-FD - L Convection         | -                         | 3.58                      | 1.35                      | 2.77                      | 2.83                     
-FD - NL Convection        | -                         | 4.60                      | 1.45                      | 2.82                      | 2.85                     
-FD - Poisson              | -                         | 4.86                      | 2.03                      | 2.99                      | 3.06                     
-FD - Laplace              | -                         | 9.73                      | 3.78                      | 3.60                      | 3.61                     
-M-D                       | -                         | 9.91                      | 4.40                      | 4.17                      | 3.87                     
+Ackermann                 | -                         | 2.48                      | 0.40                      | 1.26                      | 1.21                     
+Bellman Ford              | -                         | 3.59                      | 1.25                      | 2.25                      | 2.20                     
+Dijkstra                  | -                         | 2.71                      | 1.32                      | 2.21                      | 2.19                     
+Euler                     | -                         | 3.03                      | 1.78                      | 2.09                      | 2.13                     
+Midpoint Explicit         | -                         | 3.61                      | 2.59                      | 2.50                      | 2.54                     
+Midpoint Fixed            | -                         | 4.15                      | 2.74                      | 2.57                      | 2.63                     
+RK4                       | -                         | 4.98                      | 2.98                      | 3.09                      | 3.02                     
+FD - L Convection         | -                         | 2.54                      | 0.95                      | 2.05                      | 2.08                     
+FD - NL Convection        | -                         | 3.23                      | 1.02                      | 2.06                      | 2.13                     
+FD - Poisson              | -                         | 3.47                      | 1.48                      | 2.24                      | 2.28                     
+FD - Laplace              | -                         | 6.80                      | 2.80                      | 2.62                      | 2.68                     
+M-D                       | -                         | 6.93                      | 3.33                      | 3.13                      | 2.87                     
 
 ## Execution time
 Algorithm                 | python                    | pythran                   | numba                     | pyccel_fortran            | pyccel_c                 
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 522.00                    | 9.17                      | 31.40                     | 2.47                      | 2.55                     
-Bellman Ford (ms)         | 3530.00                   | 7.63                      | 7.79                      | 5.21                      | 10.40                    
-Dijkstra (ms)             | 9010.00                   | 48.00                     | 49.30                     | 41.80                     | 61.60                    
-Euler (ms)                | 6580.00                   | 50.60                     | 136.00                    | 26.50                     | 290.00                   
-Midpoint Explicit (ms)    | 13600.00                  | 97.80                     | 265.00                    | 41.50                     | 576.00                   
-Midpoint Fixed (s)        | 59.50                     | 0.80                      | 1.32                      | 0.13                      | 2.84                     
-RK4 (ms)                  | 31500.00                  | 248.00                    | 498.00                    | 54.50                     | 932.00                   
-FD - L Convection (ms)    | 4180.00                   | 3.99                      | 4.54                      | 2.59                      | 4.13                     
-FD - NL Convection (ms)   | 4720.00                   | 4.85                      | 4.74                      | 3.04                      | 6.30                     
-FD - Poisson (ms)         | 11900.00                  | 10.40                     | 13.70                     | 8.39                      | 11.60                    
-FD - Laplace (ms)         | 1280.00                   | 348.00                    | 565.00                    | 189.00                    | 552.00                   
-M-D (ms)                  | 22800.00                  | 67.20                     | 103.00                    | 140.00                    | 144.00                   
+Ackermann (ms)            | 383.00                    | 9.81                      | 26.90                     | 3.28                      | 3.23                     
+Bellman Ford (ms)         | 2620.00                   | 6.73                      | 6.32                      | 4.46                      | 6.58                     
+Dijkstra (ms)             | 6730.00                   | 37.20                     | 31.90                     | 28.70                     | 48.60                    
+Euler (ms)                | 4880.00                   | 36.70                     | 107.00                    | 17.80                     | 203.00                   
+Midpoint Explicit (ms)    | 9990.00                   | 76.40                     | 210.00                    | 29.90                     | 403.00                   
+Midpoint Fixed (s)        | 50.80                     | 0.60                      | 1.08                      | 0.10                      | 1.98                     
+RK4 (ms)                  | 25000.00                  | 219.00                    | 426.00                    | 40.10                     | 669.00                   
+FD - L Convection (ms)    | 2730.00                   | 2.81                      | 3.12                      | 1.61                      | 2.54                     
+FD - NL Convection (ms)   | 3350.00                   | 3.08                      | 3.31                      | 1.63                      | 2.53                     
+FD - Poisson (ms)         | 8470.00                   | 5.78                      | 10.00                     | 4.21                      | 5.30                     
+FD - Laplace (ms)         | 724.00                    | 251.00                    | 388.00                    | 76.90                     | 364.00                   
+M-D (ms)                  | 19700.00                  | 65.00                     | 77.90                     | 120.00                    | 121.00                   
 
 ![Development compilation results](./version_specific_results/devel_performance_310_compilation.svg)
 ![Development execution results](./version_specific_results/devel_performance_310_execution.svg)
