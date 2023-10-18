@@ -7,7 +7,7 @@
 """
 from numba import njit
 
-@njit(fastmath=True)
+@njit
 def ackermann(m : int, n : int) -> int:
     """  Total computable function that is not primitive recursive.
     This function is useful for testing recursion

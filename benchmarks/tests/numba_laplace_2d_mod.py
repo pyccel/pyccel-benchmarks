@@ -11,7 +11,7 @@ To be accelerated with numba
 from numba import njit
 import numpy as np
 
-@njit(fastmath=True)
+@njit
 def laplace_2d(nx: int, ny: int, rtol: float, maxiter: int):
     """
     Solve the 2D Laplace equation for phi(x, y) on the rectangular

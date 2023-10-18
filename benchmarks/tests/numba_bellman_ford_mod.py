@@ -10,7 +10,7 @@ from numba import njit
 import numpy as np
 
 
-@njit(fastmath=True)
+@njit
 def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'real[:]',
                    v_weight: 'real[:]', predecessor: 'int[:]' ):
     """ Calculate the shortest paths from a source vertex to all other
@@ -49,8 +49,7 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
     return 0
 
 
-@njit(fastmath=True)
-
+@njit
 def bellman_ford_test():
     """ Test bellman ford's algorithm
     """

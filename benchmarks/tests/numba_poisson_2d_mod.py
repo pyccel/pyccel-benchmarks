@@ -12,7 +12,7 @@ from numba import njit
 import numpy as np
 
 
-@njit(fastmath=True)
+@njit
 def poisson_2d(nx: int, ny: int, nt: int):
     """
     Solve the 2D poisson equation for phi(x, y) on the rectangular
