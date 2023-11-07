@@ -4,7 +4,7 @@ on:
   schedule:
     - cron:  '30 21 * * *' # Check at 21:30 every day
   push:
-    - branches: intel
+    branches: intel
 
 jobs:
   Check_Pyccel_Version:
