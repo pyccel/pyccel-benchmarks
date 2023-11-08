@@ -163,21 +163,23 @@ code_folder = os.path.join(os.path.dirname(__file__), 'tests')
 
 def run_process(cmd: "List[str]", time_compilation: "bool"=False, env = None):
     if not time_compilation:
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                universal_newlines=True, env=None)
-        out, err = p.communicate()
-        return p, out, err, 0.0
+        with subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                universal_newlines=True, env=env) as p:
+            out, err = p.communicate()
+            returncode = p.returncode
+        return returncode, out, err, 0.0
 
     usage_start = resource.getrusage(resource.RUSAGE_CHILDREN)
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            universal_newlines=True)
-    out, err = p.communicate()
+    with subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            universal_newlines=True, env=env) as p:
+        out, err = p.communicate()
+        returncode = p.returncode
     usage_end = resource.getrusage(resource.RUSAGE_CHILDREN)
     cpu_time = sum([
         usage_end.ru_utime - usage_start.ru_utime,
         usage_end.ru_stime - usage_start.ru_stime
     ])
-    return p, out, err, cpu_time
+    return returncode, out, err, cpu_time
 
 
 for t in tests:
@@ -216,6 +218,7 @@ for t in tests:
         print("-------------------", file=log_file, flush=True)
         print("   ",case, file=log_file, flush=True)
         print("-------------------", file=log_file, flush=True)
+        env = os.environ.copy()
         create_shared_lib = case.startswith('pyccel') or case.startswith('pythran')
         if create_shared_lib:
             tag, idx_str = case.split('_')
@@ -224,19 +227,19 @@ for t in tests:
                 my_file = pyccel_configs[idx]
                 language = pyccel_language_flags[idx]
                 cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', basename]
-                env = None
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
                 cmd = ['pythran', basename]
-                env = {'PYTHRANRC': my_file}
+                env['PYTHRANRC'] = my_file
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
 
-            p, out, err, cpu_time = run_process(cmd, time_compilation)
+            returncode, out, err, cpu_time = run_process(cmd, time_compilation, env=env)
 
-            if p.returncode != 0:
+            if returncode != 0:
                 print("Compilation Error!", file=log_file, flush=True)
+                print(out, file=log_file, flush=True)
                 print(err, file=log_file, flush=True)
                 comp_times.append('-')
                 run_times.append(None)
@@ -259,9 +262,9 @@ for t in tests:
 
             # don't use `run_process` time_compilation here
             # because the command executed uses the `time` module
-            p, out, err, _ = run_process(cmd)
+            returncode, out, err, _ = run_process(cmd)
 
-            if p.returncode != 0:
+            if returncode != 0:
                 print("Execution Error!", file=log_file, flush=True)
                 comp_times.append('-')
                 run_times.append(None)
@@ -280,9 +283,9 @@ for t in tests:
             if verbose:
                 print(cmd, file=log_file, flush=True)
 
-            p, out, err, _ = run_process(cmd)
+            returncode, out, err, _ = run_process(cmd)
 
-            if p.returncode != 0:
+            if returncode != 0:
                 print("Execution Error!", file=log_file, flush=True)
                 run_times.append(None)
                 run_units.append(None)
@@ -315,7 +318,7 @@ for t in tests:
                 run_units.append(possible_units.index(units))
 
         if create_shared_lib:
-            p = subprocess.Popen([shutil.which('pyccel-clean'), '-s'])
+            subprocess.Popen([shutil.which('pyccel-clean'), '-s'])
 
     if time_compilation:
         row = cell_splitter[output_format].join('{0: <25}'.format(s) for s in comp_times)

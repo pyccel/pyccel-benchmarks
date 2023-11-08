@@ -1,24 +1,24 @@
 Arpeggio==2.0.2
 beniget==0.4.1
-contourpy==1.1.1
+contourpy==1.2.0
 cycler==0.12.1
-filelock==3.12.4
-fonttools==4.43.1
+filelock==3.13.1
+fonttools==4.44.0
 gast==0.5.4
 kiwisolver==1.4.5
-llvmlite==0.41.0
-matplotlib==3.8.0
+llvmlite==0.41.1
+matplotlib==3.8.1
 mpmath==1.3.0
-numba==0.58.0
-numpy==1.25.2
+numba==0.58.1
+numpy==1.26.1
 packaging==23.2
 Pillow==10.1.0
 ply==3.11
 psutil==5.9.6
-pyccel @ git+https://github.com/pyccel/pyccel@779601ba3c6fbb1a66efb9ba7100811056a49eed
+pyccel @ git+https://github.com/pyccel/pyccel@7b070faf2404e51962c76dce082c116fda70a58a
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.1.1
-pyperf==2.6.1
+pyperf==2.6.2
 python-dateutil==2.8.2
 pythran==0.14.0
 six==1.16.0
