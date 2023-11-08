@@ -52,5 +52,13 @@ runs:
         echo "" >> README.md
         echo "![Python 3.11 compilation results](./${FILE}_compilation.svg)" >> README.md
         echo "![Python 3.11 execution results](./${FILE}_execution.svg)" >> README.md
+
+        echo "## Python 3.12 results" >> README.md
+        FILE=version_specific_results/pypi_performance_312_${VERSION}
+        cat ${FILE}.md >> README.md
+        FILE=version_specific_results/pypi_performance_312
+        echo "" >> README.md
+        echo "![Python 3.12 compilation results](./${FILE}_compilation.svg)" >> README.md
+        echo "![Python 3.12 execution results](./${FILE}_execution.svg)" >> README.md
       working-directory: ./.
       shell: bash
