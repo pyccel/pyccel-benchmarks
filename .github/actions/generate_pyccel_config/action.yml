@@ -28,8 +28,8 @@ runs:
         config = json.load(open('pyccel_fortran_intel.json'))
         config['general_flags'].extend(['-O3', '-xHost', '-mavx', '-fast', '-unroll', '-vec'])
         print(json.dumps(config, indent=4),
-        # C Intel
                 file=open('pyccel_fortran_intel.json','w'))
+        # C Intel
         config = json.load(open('pyccel_c_intel.json'))
         config['general_flags'].extend(['-O3', '-xHost', '-mavx', '-fast', '-unroll', '-vec'])
         print(json.dumps(config, indent=4),
