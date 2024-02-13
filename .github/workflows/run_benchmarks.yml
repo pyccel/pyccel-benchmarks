@@ -40,6 +40,7 @@ jobs:
         uses: ./.github/actions/linux_install
       - name: Install development version of pyccel from GitHub
         run: |
+          pip3 install --upgrade pip
           pip3 install 'pyccel @ git+https://github.com/pyccel/pyccel'
       - name: Install python dependencies
         run: |
