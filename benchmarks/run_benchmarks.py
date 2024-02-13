@@ -245,6 +245,9 @@ for t in tests:
                 run_times.append(None)
                 run_units.append(None)
                 continue
+            elif verbose:
+                print(out, file=log_file, flush=True)
+                print(err, file=log_file, flush=True)
 
             if time_compilation:
                 print("Compilation CPU time : ", cpu_time, file=log_file)
