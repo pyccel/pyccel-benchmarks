@@ -5,7 +5,7 @@ on: push
 jobs:
   Check_Pyccel_Version:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
+    #if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
     outputs:
       version: ${{ steps.check_version.outputs.version }}
 
