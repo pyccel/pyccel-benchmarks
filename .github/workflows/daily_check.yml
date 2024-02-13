@@ -3,6 +3,7 @@ name: Benchmarks
 on:
   schedule:
     - cron:  '58 22 * * *' # Check at 21:30 every day
+  push:
 
 jobs:
   Check_Pyccel_Version:
