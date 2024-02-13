@@ -226,10 +226,10 @@ for t in tests:
             if tag == 'pyccel':
                 my_file = pyccel_configs[idx]
                 language = pyccel_language_flags[idx]
-                cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', basename]
+                cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
                 my_file = pythran_configs[idx]
-                cmd = ['pythran', basename]
+                cmd = ['pythran', '-v', basename]
                 env['PYTHRANRC'] = my_file
 
             if verbose:
