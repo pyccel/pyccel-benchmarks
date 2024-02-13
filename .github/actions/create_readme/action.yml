@@ -32,6 +32,6 @@ runs:
             echo "![Python 3.${py_version} compilation results](./${FILE}_compilation.svg)" >> README.md
             echo "![Python 3.${py_version} execution results](./${FILE}_execution.svg)" >> README.md
           fi
-        end do
+        done
       working-directory: ./.
       shell: bash
