@@ -49,6 +49,7 @@ jobs:
         uses: ./.github/actions/linux_install
       - name: Install python dependencies
         run: |
+          pip3 install --upgrade pip
           pip3 install .
           pip3 freeze > version_specific_results/pypi_performance_3${{ matrix.python-minor-version }}_${{needs.Check_Pyccel_Version.outputs.new_version }}_requirements.txt
       - name: Generate pyccel configs
