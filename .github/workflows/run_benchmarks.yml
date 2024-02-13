@@ -68,6 +68,7 @@ jobs:
     #if: ${{ always() && contains(github.event.head_commit.message, 'Benchmark of pyccel')}}
     if: ${{ always() }}
     #needs: [ Check_Pyccel_Version, Benchmark_main]
+    needs: [ Check_Pyccel_Version ]
 
     steps:
       - uses: actions/checkout@v3
