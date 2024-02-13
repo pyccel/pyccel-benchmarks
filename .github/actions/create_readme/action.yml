@@ -31,6 +31,8 @@ runs:
             echo "" >> README.md
             echo "![Python 3.${py_version} compilation results](./${FILE}_compilation.svg)" >> README.md
             echo "![Python 3.${py_version} execution results](./${FILE}_execution.svg)" >> README.md
+          else
+            echo "Couldn't find ${FILE}"
           fi
         done
       working-directory: ./.
