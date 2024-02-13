@@ -1,15 +1,5 @@
 name: 'Linux installation commands'
 
-env:
-  LINUX_HPCKIT_URL: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/0722521a-34b5-4c41-af3f-d5d14e88248d/l_HPCKit_p_2023.2.0.49440_offline.sh
-  LINUX_FORTRAN_COMPONENTS: intel-oneapi-compiler-fortran
-  LINUX_FORTRAN_COMPONENTS_WEB: intel.oneapi.lin.ifort-compiler
-  CACHE_NUMBER: 8
-  SAMPLES_TAG: 2023.2.0
-  COMPILER_VERSION: 2023.2.0
-  TBB_VERSION: 2021.10.0
-  VS_VER: vs2022
-
 runs:
   using: "composite"
   steps:
@@ -40,14 +30,35 @@ runs:
       shell: bash
     - name: Install Intel OneAPI
       run: |
-        # See https://github.com/oneapi-src/oneapi-ci
-        wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
-        sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
-        echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-        sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/oneAPI.list" -o APT::Get::List-Cleanup="0"
-        sudo apt-get install -y intel-oneapi-compiler-fortran intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-openmp intel-oneapi-mkl
-        LATEST_VERSION=$(ls -1 /opt/intel/oneapi/compiler/ | grep -v latest | sort | tail -1)
-        # shellcheck source=/dev/null
-        echo "INTEL_SOURCE_FILE=/opt/intel/oneapi/compiler/$LATEST_VERSION/env/vars.sh"
-        echo "INTEL_SOURCE_FILE=/opt/intel/oneapi/compiler/$LATEST_VERSION/env/vars.sh" >> $GITHUB_ENV
+        # See https://www.intel.com/content/www/us/en/developer/tools/oneapi/hpc-toolkit-download.html?operatingsystem=linux&distributions=aptpackagemanager
+        wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
+          | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+        echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+        sudo apt update
+        sudo apt install intel-hpckit
+        echo "INTEL_SOURCE_FILE=/opt/intel/oneapi/setvars.sh" >> $GITHUB_ENV
+        echo "$PATH" > $GITHUB_PATH
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
+        echo "LIBRARY_PATH=$LIBRARY_PATH" >> $GITHUB_ENV
+        echo "ONEAPI_ROOT=$ONEAPI_ROOT" >> $GITHUB_ENV
+        echo "MANPATH=$MANPATH" >> $GITHUB_ENV
+        echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+        echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
+        echo "TBB_ROOT=$TBB_ROOT" >> $GITHUB_ENV
+        echo "ONEAPI_ROOT=$ONEAPI_ROOT" >> $GITHUB_ENV
+        echo "ACL_BOARD_VENDOR_PATH=$ACL_BOARD_VENDOR_PATH" >> $GITHUB_ENV
+        echo "FPGA_VARS_DIR=$FPGA_VARS_DIR" >> $GITHUB_ENV
+        echo "I_MPI_ROOT=$I_MPI_ROOT" >> $GITHUB_ENV
+        echo "FI_PROVIDER_PATH=$FI_PROVIDER_PATH" >> $GITHUB_ENV
+        echo "DIAGUTIL_PATH=$DIAGUTIL_PATH" >> $GITHUB_ENV
+        echo "GDB_INFO=$GDB_INFO" >> $GITHUB_ENV
+        echo "CMPLR_ROOT=$CMPLR_ROOT" >> $GITHUB_ENV
+        echo "INFOPATH=$INFOPATH" >> $GITHUB_ENV
+        echo "OCL_ICD_FILENAMES=$OCL_ICD_FILENAMES" >> $GITHUB_ENV
+        echo "CLASSPATH=$CLASSPATH" >> $GITHUB_ENV
+        echo "INTELFPGAOCLSDKROOT=$INTELFPGAOCLSDKROOT" >> $GITHUB_ENV
+        echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
+        echo "NLSPATH=$NLSPATH" >> $GITHUB_ENV
+        echo "INTEL_PYTHONHOME=$INTEL_PYTHONHOME" >> $GITHUB_ENV
+        echo "CPATH=$CPATH" >> $GITHUB_ENV
       shell: bash
