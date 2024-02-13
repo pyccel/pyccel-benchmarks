@@ -2,7 +2,7 @@ name: Benchmarks
 
 on:
   schedule:
-    - cron:  '30 21 * * *' # Check at 21:30 every day
+    - cron:  '58 22 * * *' # Check at 21:30 every day
 
 jobs:
   Check_Pyccel_Version:
