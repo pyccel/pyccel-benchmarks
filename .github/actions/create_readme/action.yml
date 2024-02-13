@@ -21,44 +21,17 @@ runs:
         echo "![Development compilation results](./${FILE}_compilation.svg)" >> README.md
         echo "![Development execution results](./${FILE}_execution.svg)" >> README.md
 
-        echo "## Python 3.8 results" >> README.md
-        FILE=version_specific_results/pypi_performance_38_${VERSION}
-        cat ${FILE}.md >> README.md
-        FILE=version_specific_results/pypi_performance_38
-        echo "" >> README.md
-        echo "![Python 3.8 compilation results](./${FILE}_compilation.svg)" >> README.md
-        echo "![Python 3.8 execution results](./${FILE}_execution.svg)" >> README.md
-
-        echo "## Python 3.9 results" >> README.md
-        FILE=version_specific_results/pypi_performance_39_${VERSION}
-        cat ${FILE}.md >> README.md
-        FILE=version_specific_results/pypi_performance_39
-        echo "" >> README.md
-        echo "![Python 3.9 compilation results](./${FILE}_compilation.svg)" >> README.md
-        echo "![Python 3.9 execution results](./${FILE}_execution.svg)" >> README.md
-
-        echo "## Python 3.10 results" >> README.md
-        FILE=version_specific_results/pypi_performance_310_${VERSION}
-        cat ${FILE}.md >> README.md
-        FILE=version_specific_results/pypi_performance_310
-        echo "" >> README.md
-        echo "![Python 3.10 compilation results](./${FILE}_compilation.svg)" >> README.md
-        echo "![Python 3.10 execution results](./${FILE}_execution.svg)" >> README.md
-
-        echo "## Python 3.11 results" >> README.md
-        FILE=version_specific_results/pypi_performance_311_${VERSION}
-        cat ${FILE}.md >> README.md
-        FILE=version_specific_results/pypi_performance_311
-        echo "" >> README.md
-        echo "![Python 3.11 compilation results](./${FILE}_compilation.svg)" >> README.md
-        echo "![Python 3.11 execution results](./${FILE}_execution.svg)" >> README.md
-
-        echo "## Python 3.12 results" >> README.md
-        FILE=version_specific_results/pypi_performance_312_${VERSION}
-        cat ${FILE}.md >> README.md
-        FILE=version_specific_results/pypi_performance_312
-        echo "" >> README.md
-        echo "![Python 3.12 compilation results](./${FILE}_compilation.svg)" >> README.md
-        echo "![Python 3.12 execution results](./${FILE}_execution.svg)" >> README.md
+        for py_version in "8" "9" "10" "11" "12"
+        do
+          echo "## Python 3.${py_version} results" >> README.md
+          FILE=version_specific_results/pypi_performance_3${py_version}_${VERSION}
+          if [ -f ${FILE} ]; then
+            cat ${FILE}.md >> README.md
+            FILE=version_specific_results/pypi_performance_3${py_version}
+            echo "" >> README.md
+            echo "![Python 3.${py_version} compilation results](./${FILE}_compilation.svg)" >> README.md
+            echo "![Python 3.${py_version} execution results](./${FILE}_execution.svg)" >> README.md
+          fi
+        done
       working-directory: ./.
       shell: bash
