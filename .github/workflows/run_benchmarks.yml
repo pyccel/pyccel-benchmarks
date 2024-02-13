@@ -7,24 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
     outputs:
-      new_version: ${{ steps.check_version.outputs.new_version }}
+      version: ${{ steps.check_version.outputs.version }}
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-      - name: Install pyccel
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install wheel
-          python -m pip install pyccel
-      - name: Check Version
+      - name: Check version
         id: check_version
         run: |
-          new_version=$(python -c "from pyccel import __version__; print(__version__)")
-          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+          old_version=$(cat current_version.txt)
+          echo "version=${old_version}" >> $GITHUB_OUTPUT
 
   Benchmark_main:
     runs-on: ubuntu-latest
@@ -50,6 +41,7 @@ jobs:
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
         run: |
+          source $INTEL_SOURCE_FILE
           cd benchmarks
           python run_benchmarks.py --verbose --pyccel-config-files pyccel_fortran_gnu.json pyccel_c_gnu.json pyccel_fortran_intel.json pyccel_c_intel.json --pythran-config-files pythran_gnu.config pythran_intel.config
           cd ..
@@ -73,16 +65,15 @@ jobs:
 
   BuildReadme:
     runs-on: ubuntu-latest
-    #if: ${{ always() && contains(github.event.head_commit.message, 'Benchmark of pyccel')}}
-    if: ${{ always()}}
-    #needs: [ Check_Pyccel_Version, Benchmark_main]
+    if: ${{ always() && contains(github.event.head_commit.message, 'Benchmark of pyccel')}}
+    needs: [ Check_Pyccel_Version, Benchmark_main]
 
     steps:
       - uses: actions/checkout@v3
       - name: Write README
         uses: ./.github/actions/create_readme
         with:
-          version: "1.10.0"
+          version: "${{ needs.Check_Pyccel_Version.outputs.version }}"
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
         with:
