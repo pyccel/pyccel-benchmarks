@@ -297,7 +297,7 @@ for t in tests:
                 if verbose:
                     print(out, file=log_file, flush=True)
                 if pyperf:
-                    regexp = re.compile('([0-9.]+) (\w\w\w?) \+- ([0-9.]+) (\w\w\w?)')
+                    regexp = re.compile(r'([0-9.]+) (\w\w\w?) \+- ([0-9.]+) (\w\w\w?)')
                     r = regexp.search(out)
                     assert r.group(2) == r.group(4)
                     mean = float(r.group(1))
@@ -309,7 +309,7 @@ for t in tests:
                             stddev=stddev)
                     run_times.append((mean,stddev))
                 else:
-                    regexp = re.compile('([0-9]+) loops?, best of ([0-9]+): ([0-9.]+) (\w*)')
+                    regexp = re.compile(r'([0-9]+) loops?, best of ([0-9]+): ([0-9.]+) (\w*)')
                     r = regexp.search(out)
                     best = float(r.group(3))
                     units = r.group(4)
