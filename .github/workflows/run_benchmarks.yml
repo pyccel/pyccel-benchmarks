@@ -5,7 +5,7 @@ on: push
 jobs:
   Check_Pyccel_Version:
     runs-on: ubuntu-latest
-    #if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
+    if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
     outputs:
       version: ${{ steps.check_version.outputs.version }}
 
@@ -65,10 +65,8 @@ jobs:
 
   BuildReadme:
     runs-on: ubuntu-latest
-    #if: ${{ always() && contains(github.event.head_commit.message, 'Benchmark of pyccel')}}
-    if: ${{ always() }}
-    #needs: [ Check_Pyccel_Version, Benchmark_main]
-    needs: [ Check_Pyccel_Version ]
+    if: ${{ always() && contains(github.event.head_commit.message, 'Benchmark of pyccel')}}
+    needs: [ Check_Pyccel_Version, Benchmark_main]
 
     steps:
       - uses: actions/checkout@v3
