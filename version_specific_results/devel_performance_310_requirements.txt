@@ -7,7 +7,7 @@ fonttools==4.48.1
 gast==0.5.4
 kiwisolver==1.4.5
 llvmlite==0.42.0
-matplotlib==3.8.2
+matplotlib==3.8.3
 mpmath==1.3.0
 numba==0.59.0
 numpy==1.26.4
@@ -15,7 +15,7 @@ packaging==23.2
 pillow==10.2.0
 ply==3.11
 psutil==5.9.8
-pyccel @ git+https://github.com/pyccel/pyccel@f6148458ab1ea633ae9ce905ac9cbd42114918f8
+pyccel @ git+https://github.com/pyccel/pyccel@a14db513a0f0b615352c11227d27368eb161b8f3
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.1.1
 pyperf==2.6.2
