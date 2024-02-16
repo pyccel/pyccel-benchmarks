@@ -3,7 +3,7 @@ beniget==0.4.1
 contourpy==1.2.0
 cycler==0.12.1
 filelock==3.13.1
-fonttools==4.48.1
+fonttools==4.49.0
 gast==0.5.4
 kiwisolver==1.4.5
 llvmlite==0.42.0
@@ -15,7 +15,7 @@ packaging==23.2
 pillow==10.2.0
 ply==3.11
 psutil==5.9.8
-pyccel @ git+https://github.com/pyccel/pyccel@dd2e8ed967dacee49b966533503866dd6fc4cd6a
+pyccel @ git+https://github.com/pyccel/pyccel@666aa640c8cf4e6253a92ff5f9a2f51534ac7bdf
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.1.1
 pyperf==2.6.2
