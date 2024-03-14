@@ -1,4 +1,5 @@
 Arpeggio==2.0.2
+astunparse==1.6.3
 beniget==0.4.1
 contourpy==1.2.0
 cycler==0.12.1
@@ -15,7 +16,7 @@ packaging==24.0
 pillow==10.2.0
 ply==3.11
 psutil==5.9.8
-pyccel @ git+https://github.com/pyccel/pyccel@9183af9497bc30bac74a17e70462eb53b2331d32
+pyccel @ git+https://github.com/pyccel/pyccel@6c5b5373b711e9ce2066a48e773625c05054a390
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.1.2
 pyperf==2.6.3
