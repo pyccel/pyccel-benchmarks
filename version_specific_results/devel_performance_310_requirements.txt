@@ -12,11 +12,11 @@ matplotlib==3.9.0
 mpmath==1.3.0
 numba==0.59.1
 numpy==1.26.4
-packaging==24.0
+packaging==24.1
 pillow==10.3.0
 ply==3.11
 psutil==5.9.8
-pyccel @ git+https://github.com/pyccel/pyccel@20aab161e912483e9e8a85fca771e21b2d432bbb
+pyccel @ git+https://github.com/pyccel/pyccel@ba3279ee30fe06637d27df93cd7894750905d71a
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.1.2
 pyperf==2.7.0
