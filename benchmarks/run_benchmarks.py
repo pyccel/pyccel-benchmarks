@@ -82,6 +82,11 @@ tests = [
         ['dijkstra_distance_test'],
         '',
         'd = dijkstra_distance_test()'),
+    TestInfo('Dijkstra with heap class',
+        'dijkstra_heap.py',
+        ['dijkstra'],
+        'from setup_tools import setup_sparse_dijkstra; graph, start, num_nodes, max_neighbours = setup_sparse_dijkstra()',
+        'd = dijkstra(graph, start, num_nodes, max_neighbours)'),
     TestInfo('Euler',
         'euler_mod.py',
         ['euler_humps_test'],
@@ -181,6 +186,8 @@ def run_process(cmd: "List[str]", time_compilation: "bool"=False, env = None):
     ])
     return returncode, out, err, cpu_time
 
+setup_basename = 'setup_tools.py'
+setup_file = os.path.join(code_folder, setup_basename)
 
 for t in tests:
     print("===========================================", file=log_file, flush=True)
@@ -200,6 +207,7 @@ for t in tests:
     os.makedirs(new_folder, exist_ok=True)
     shutil.copyfile(test_file, os.path.join(new_folder, basename))
     shutil.copyfile(numba_test_file, os.path.join(new_folder, numba_basename))
+    shutil.copyfile(setup_file, os.path.join(new_folder, setup_basename))
     os.chdir(new_folder)
 
     import_funcs = ', '.join(t.imports)
