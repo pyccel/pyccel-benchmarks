@@ -281,6 +281,7 @@ for t in tests:
                 run_times.append(None)
                 run_units.append(None)
                 print(err, file=log_file, flush=True)
+                continue
             else:
                 print("Compilation Process time : ",out, file=log_file, flush=True)
                 comp_times.append('{:.2f}'.format(float(out)))
