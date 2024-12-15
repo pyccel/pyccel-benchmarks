@@ -32,7 +32,7 @@ jobs:
       - name: Install development version of pyccel from GitHub
         run: |
           pip3 install --upgrade pip
-          pip3 install 'pyccel @ git+https://github.com/pyccel/pyccel'
+          pip3 install 'pyccel @ git+https://github.com/pyccel/pyccel@test_pasc_branch'
       - name: Install python dependencies
         run: |
           pip3 install .
