@@ -43,7 +43,7 @@ jobs:
         run: |
           source $INTEL_SOURCE_FILE
           cd benchmarks
-          python run_benchmarks.py --verbose --pyccel-config-files pyccel_fortran_gnu.json pyccel_c_gnu.json pyccel_fortran_intel.json pyccel_c_intel.json --pythran-config-files pythran_gnu.config pythran_intel.config
+          python run_benchmarks.py --verbose --pyccel-config-files pyccel_gnu.json pyccel_intel.json --pythran-config-files pythran_gnu.config pythran_intel.config
           cd ..
           FILE=version_specific_results/devel_performance_310.md
           echo "### Performance Comparison (as of $(date))" > ${FILE}
