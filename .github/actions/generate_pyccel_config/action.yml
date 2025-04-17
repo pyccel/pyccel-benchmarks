@@ -6,29 +6,25 @@ runs:
     - name: Generate default pyccel configurations
       run: |
         pyccel --export-compile-info pyccel_gnu.json
-        pyccel --compiler=intel --language=fortran --export-compile-info pyccel_fortran_intel.json
-        pyccel --compiler=intel --language=c --export-compile-info pyccel_c_intel.json
+        pyccel --compiler=intel --export-compile-info pyccel_intel.json
       shell: bash
       working-directory: ./benchmarks
     - name: Add improved flags
       run: |
         import json
         # Fortran GNU
-        config = json.load(open('pyccel_fortran_gnu.json'))
+        config = json.load(open('pyccel_gnu.json'))
         config['fortran']['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx', '-ffast-math'])
         # C GNU
         config['c']['general_flags'].extend(['-O3', '-march=native', '-mtune=native', '-mavx', '-ffast-math'])
         print(json.dumps(config, indent=4),
                 file=open('pyccel_gnu.json','w'))
         # Fortran Intel
-        config = json.load(open('pyccel_fortran_intel.json'))
+        config = json.load(open('pyccel_intel.json'))
         config['general_flags'].extend(['-O3', '-xHost', '-mavx', '-unroll', '-vec'])
-        print(json.dumps(config, indent=4),
-                file=open('pyccel_fortran_intel.json','w'))
         # C Intel
-        config = json.load(open('pyccel_c_intel.json'))
         config['general_flags'].extend(['-O3', '-xHost', '-mavx', '-fast', '-unroll', '-vec'])
         print(json.dumps(config, indent=4),
-                file=open('pyccel_c_intel.json','w'))
+                file=open('pyccel_intel.json','w'))
       shell: python
       working-directory: ./benchmarks

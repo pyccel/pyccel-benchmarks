@@ -48,7 +48,6 @@ time_compilation = args.compilation
 time_execution = args.execution
 pyccel_configs = [os.path.abspath(f) for f in args.pyccel_config_files]
 pythran_configs = [os.path.abspath(f) for f in args.pythran_config_files]
-pyccel_language_flags = [json.load(open(f))['language'] for f in pyccel_configs]
 
 
 test_cases = ['python']
@@ -62,9 +61,17 @@ for i,f in enumerate(pythran_configs):
 if not args.no_numba:
     test_cases.append('numba')
     test_case_names.append('numba')
+n_configs = 0
+pyccel_language_flags = []
 for i,f in enumerate(pyccel_configs):
-    test_cases.append(f'pyccel_{i}')
-    test_case_names.append(os.path.splitext(os.path.basename(f))[0])
+    name = os.path.splitext(os.path.basename(f))[0]
+    with pyccel_config as open(f):
+        languages = json.load().keys()
+    for l in languages:
+        pyccel_language_flags.append(l)
+        test_cases.append(f'pyccel_{n_configs}')
+        test_case_names.append(f'{name}_{l}')
+        n_configs += 1
 
 tests = [
     TestInfo('Ackermann',
