@@ -62,14 +62,12 @@ if not args.no_numba:
     test_cases.append('numba')
     test_case_names.append('numba')
 n_configs = 0
-pyccel_language_flags = []
 for i,f in enumerate(pyccel_configs):
     name = os.path.splitext(os.path.basename(f))[0]
-    with pyccel_config as open(f):
-        languages = json.load().keys()
+    with open(f) as config:
+        languages = json.load(config).keys()
     for l in languages:
-        pyccel_language_flags.append(l)
-        test_cases.append(f'pyccel_{n_configs}')
+        test_cases.append(f'pyccel_{i}_{l}')
         test_case_names.append(f'{name}_{l}')
         n_configs += 1
 
@@ -228,13 +226,14 @@ for t in tests:
         env = os.environ.copy()
         create_shared_lib = case.startswith('pyccel') or case.startswith('pythran')
         if create_shared_lib:
-            tag, idx_str = case.split('_')
-            idx = int(idx_str)
+            tag, idx_str = case.split('_', 1)
             if tag == 'pyccel':
+                idx_str, language = idx_str.split('_')
+                idx = int(idx_str)
                 my_file = pyccel_configs[idx]
-                language = pyccel_language_flags[idx]
                 cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
+                idx = int(idx_str)
                 my_file = pythran_configs[idx]
                 cmd = ['pythran', '-v', basename]
                 env['PYTHRANRC'] = my_file
