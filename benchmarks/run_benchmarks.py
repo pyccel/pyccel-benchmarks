@@ -132,6 +132,11 @@ tests = [
         ['md'],
         '',
         'p, k = md(3, 100, 200, 0.1)'),
+    TestInfo('Splines',
+        'splines.py',
+        ['Spline'],
+        'import numpy as np; s = Spline(5, knots = np.linspace(0,1, 1000), coeffs = np.ones(1000)); x = np.random.rand(100000); y = np.empty(100000);',
+        's.eval(x, y)'),
 ]
 
 if verbose:
