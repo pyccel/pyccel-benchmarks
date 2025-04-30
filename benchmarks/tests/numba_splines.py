@@ -56,7 +56,6 @@ class Spline:
     def _find_span(self, x: float) -> int:
         # Knot index at left/right boundary
         low = self.degree
-        high = 0
         high = len(self._knots)-1-self.degree
 
         # Check if point is exactly on left/right boundary, or outside domain
