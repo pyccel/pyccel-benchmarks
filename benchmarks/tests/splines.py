@@ -45,7 +45,6 @@ class Spline:
             for j in range(self.degree+1):
                 y[i] += self._coeffs[span-self.degree+j]*basis[j]
 
-
     def _find_span(self, x: float) -> int:
         # Knot index at left/right boundary
         low = self.degree
@@ -70,4 +69,3 @@ class Spline:
             returnVal = span
 
         return returnVal
-
