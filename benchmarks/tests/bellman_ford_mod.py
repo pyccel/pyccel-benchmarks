@@ -8,8 +8,8 @@
 
 import numpy as np
 
-def bellman_ford(v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'real[:]',
-                 v_weight: 'real[:]', predecessor: 'int[:]' ):
+def bellman_ford(v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'float[:]',
+                 v_weight: 'float[:]', predecessor: 'int[:]' ):
     """ Calculate the shortest paths from a source vertex to all other
     vertices in the weighted digraph
     """
