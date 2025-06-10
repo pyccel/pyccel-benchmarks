@@ -10,9 +10,9 @@ To be accelerated with pyccel or pythran
 import numpy as np
 
 # ================================================================
-def rk4(dydt: '()(real, const real[:], real[:])',
-        tspan: 'real[:]', y0: 'real[:]', n: int,
-        t: 'real[:]', y: 'real[:,:]'):
+def rk4(dydt: '()(float, float[:], float[:])',
+        tspan: 'float[:]', y0: 'float[:]', n: int,
+        t: 'float[:]', y: 'float[:,:]'):
     """
     Function implementing a fourth order Runge-Kutta method
     """
@@ -53,7 +53,7 @@ def humps_fun(x: float):
     return y
 
 # ================================================================
-def humps_deriv(x: 'real', y: 'real[:]', out: 'real[:]'):
+def humps_deriv(x: 'float', y: 'float[:]', out: 'float[:]'):
     """
     Derivative of the humps function
     """
