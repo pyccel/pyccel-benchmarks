@@ -15,7 +15,7 @@ packaging==25.0
 pillow==11.2.1
 ply==3.11
 psutil==7.0.0
-pyccel @ git+https://github.com/pyccel/pyccel@a35ccb451e4e15b7b12ab2bd47cf1f3da1eb4878
+pyccel @ git+https://github.com/pyccel/pyccel@f4641ddc99152fc88f397e44b0f877c6e44b0e1b
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.2.3
 pyperf==2.9.0
