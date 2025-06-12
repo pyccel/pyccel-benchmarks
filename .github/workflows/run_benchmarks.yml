@@ -36,7 +36,7 @@ jobs:
       - name: Install python dependencies
         run: |
           pip3 install .
-          pip3 freeze > version_specific_results/devel_performance_311_requirements.txt
+          pip3 freeze > version_specific_results/v2_performance_311_requirements.txt
       - name: Generate pyccel configs
         uses: ./.github/actions/generate_pyccel_config
       - name: Benchmark
@@ -52,14 +52,14 @@ jobs:
         shell: bash
         working-directory: ./.
       - name: Record Failure
-        run: echo "Devel branch benchmarks failed on python 3.11!" > version_specific_results/devel_performance_311.md
+        run: echo "Devel branch benchmarks failed on python 3.11!" > version_specific_results/v2_performance_311.md
         if: ${{ failure() }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
         if: ${{ always() }}
         with:
           message: 'Update performance comparison'
-          add: "['version_specific_results/devel_performance_311.md', 'version_specific_results/devel_performance_311_compilation.svg', 'version_specific_results/devel_performance_311_execution.svg', 'version_specific_results/devel_performance_311_requirements.txt']"
+          add: "['version_specific_results/v2_performance_311.md', 'version_specific_results/v2_performance_311_compilation.svg', 'version_specific_results/v2_performance_311_execution.svg', 'version_specific_results/v2_performance_311_requirements.txt']"
           default_author: github_actions
           pull: '--rebase --autostash'
 
