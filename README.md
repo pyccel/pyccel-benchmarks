@@ -89,40 +89,7 @@ Solves a 2D Laplace problem using Finite Differences methods. The code is adapte
 
 Runs a molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 ## Development branch results
-### Performance Comparison (as of Mon Jun 16 12:46:39 UTC 2025)
-## Compilation time
-Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
-------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 2.38                      | 2.05                      | 0.27                      | 1.30                      | 1.34                      | 1.33                      | 1.37                     
-Bellman Ford              | -                         | 3.29                      | 3.59                      | 0.95                      | 1.60                      | 1.49                      | 1.55                      | 1.55                     
-Dijkstra                  | -                         | 2.33                      | 2.64                      | 1.23                      | 1.71                      | 1.60                      | 1.67                      | 1.72                     
-Euler                     | -                         | 2.59                      | 2.99                      | 3.38                      | 1.58                      | 1.45                      | 1.53                      | 1.56                     
-Midpoint Explicit         | -                         | 2.87                      | 3.32                      | 3.57                      | 1.76                      | 1.66                      | 1.74                      | 1.73                     
-Midpoint Fixed            | -                         | 3.32                      | 3.64                      | 3.71                      | 1.85                      | 1.74                      | 1.83                      | 1.82                     
-RK4                       | -                         | 3.51                      | 4.06                      | 3.81                      | 2.24                      | 2.14                      | 2.17                      | 2.22                     
-FD - L Convection         | -                         | 2.26                      | 2.61                      | 2.51                      | 1.51                      | 1.43                      | 1.51                      | 1.51                     
-FD - NL Convection        | -                         | 3.29                      | 3.84                      | 2.58                      | 1.58                      | 1.47                      | 1.54                      | 1.56                     
-FD - Poisson              | -                         | 3.61                      | 3.87                      | 5.84                      | 1.74                      | 1.79                      | 1.71                      | 2.47                     
-FD - Laplace              | -                         | 7.59                      | 8.32                      | 7.80                      | 2.04                      | 1.98                      | 1.98                      | 2.11                     
-M-D                       | -                         | 7.10                      | 7.11                      | 9.20                      | 2.48                      | 2.58                      | 2.38                      | 2.68                     
-Splines                   | -                         | -                         | -                         | 0.67                      | -                         | -                         | -                         | -                        
-
-## Execution time
-Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
-------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 415.00                    | 2.92                      | 3.05                      | 9.74                      | 1.23                      | 1.33                      | 4.01                      | 9.78                     
-Bellman Ford (ms)         | 1740.00                   | 5.25                      | 3.46                      | 3.91                      | 3.87                      | 3.25                      | 6.44                      | 4.18                     
-Dijkstra (ms)             | 4780.00                   | 21.20                     | 17.50                     | 19.40                     | 70.80                     | 19.90                     | 66.70                     | 23.40                    
-Euler (ms)                | 3360.00                   | 25.30                     | 25.60                     | 36.20                     | 27.00                     | 10.80                     | 26.60                     | 15.40                    
-Midpoint Explicit (ms)    | 6940.00                   | 50.80                     | 50.20                     | 70.10                     | 45.00                     | 18.70                     | 45.30                     | 15.40                    
-Midpoint Fixed (ms)       | 34300.00                  | 265.00                    | 93.50                     | 320.00                    | 190.00                    | 72.60                     | 198.00                    | 54.20                    
-RK4 (ms)                  | 16900.00                  | 152.00                    | 35.30                     | 143.00                    | 98.20                     | 31.80                     | 90.70                     | 26.20                    
-FD - L Convection (ms)    | 2200.00                   | 1.42                      | 1.60                      | 5.63                      | 7.45                      | 1.53                      | 7.73                      | 1.52                     
-FD - NL Convection (ms)   | 2690.00                   | 2.09                      | 1.64                      | 5.66                      | 6.67                      | 1.51                      | 7.94                      | 1.40                     
-FD - Poisson (ms)         | 5890.00                   | 2.99                      | 5.45                      | 6.89                      | 16.10                     | 2.70                      | 24.00                     | 2.58                     
-FD - Laplace (ms)         | 597.00                    | 63.10                     | 193.00                    | 291.00                    | 493.00                    | 60.60                     | 651.00                    | 63.10                    
-M-D (ms)                  | 14500.00                  | 35.90                     | 52.20                     | 60.30                     | 113.00                    | 61.90                     | 61.60                     | 88.20                    
-Splines (s)               | 1.69                      | -                         | -                         | 0.02                      | -                         | -                         | -                         | -                        
+Devel branch benchmarks failed on python 3.11!
 
 ![Development compilation results](./version_specific_results/devel_performance_310_compilation.svg)
 ![Development execution results](./version_specific_results/devel_performance_310_execution.svg)
