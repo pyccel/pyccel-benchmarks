@@ -236,7 +236,7 @@ for t in tests:
                 idx_str, language = idx_str.split('_')
                 idx = int(idx_str)
                 my_file = pyccel_configs[idx]
-                cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', '--verbose', basename]
+                cmd = ['pyccel', f'--compiler-config={my_file}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
                 idx = int(idx_str)
                 my_file = pythran_configs[idx]
