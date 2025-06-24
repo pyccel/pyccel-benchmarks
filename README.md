@@ -13,9 +13,9 @@ In order to test pyccel and/or pythran, configuration files must be provided. An
 - `-mtune=native`
 - `-mavx`
 - `-ffast-math`
-Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for c generation or other compiler languages, see the [pyccel documentation](https://github.com/pyccel/pyccel/blob/master/tutorial/compiler.md)):
+Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for another compiler family, see the [pyccel documentation](https://github.com/pyccel/pyccel/blob/master/tutorial/compiler.md)):
 ```
-pyccel --language=fortran --export-compile-info pyccel_fortran.json
+pyccel --compiler-family llvm --export-compiler-config pyccel_llvm.json
 ```
 This configuration can then be modified to include additional flags or use different compilers. The tests shown below add the following additional flags (which match the flags added to pythran):
 - `-O3`
