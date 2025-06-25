@@ -15,7 +15,7 @@ runs:
         cat test_details.md >> README.md
         VERSION=${{ inputs.version }}
         echo "## Development branch results" >> README.md
-        FILE=version_specific_results/devel_performance_310
+        FILE=version_specific_results/devel_performance_311
         cat ${FILE}.md >> README.md
         echo "" >> README.md
         echo "![Development compilation results](./${FILE}_compilation.svg)" >> README.md
