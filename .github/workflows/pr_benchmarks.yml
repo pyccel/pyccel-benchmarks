@@ -53,10 +53,3 @@ jobs:
       - name: Record Failure
         run: echo "Devel branch benchmarks failed on python 3.11!"
         if: ${{ failure() }}
-      - name: Add & Commit
-        uses: EndBug/add-and-commit@v9
-        if: ${{ always() }}
-        with:
-          message: 'Update performance comparison'
-          add: "['version_specific_results/devel_performance_311.md', 'version_specific_results/devel_performance_311_compilation.svg', 'version_specific_results/devel_performance_311_execution.svg', 'version_specific_results/devel_performance_311_requirements.txt']"
-          default_author: github_actions
