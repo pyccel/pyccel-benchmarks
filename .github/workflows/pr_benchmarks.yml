@@ -1,0 +1,67 @@
+name: Benchmarks-PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Check_Pyccel_Version:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
+    outputs:
+      version: ${{ steps.check_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check version
+        id: check_version
+        run: |
+          old_version=$(cat current_version.txt)
+          echo "version=${old_version}" >> $GITHUB_OUTPUT
+
+  Benchmark_PR:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        uses: ./.github/actions/linux_install
+      - name: Install development version of pyccel from GitHub
+        run: |
+          pip3 install --upgrade pip
+          pip3 install 'pyccel @ git+https://github.com/pyccel/pyccel'
+      - name: Install python dependencies
+        run: |
+          pip3 install .
+          pip3 freeze > version_specific_results/devel_performance_310_requirements.txt
+      - name: Generate pyccel configs
+        uses: ./.github/actions/generate_pyccel_config
+      - name: Benchmark
+        run: |
+          source $INTEL_SOURCE_FILE
+          cd benchmarks
+          python run_benchmarks.py --verbose --pyccel-config-files pyccel_gnu.json pyccel_intel.json --pythran-config-files pythran_gnu.config pythran_intel.config
+          cd ..
+          FILE=version_specific_results/devel_performance_310.md
+          echo "### Performance Comparison (as of $(date))" > ${FILE}
+          cat benchmarks/bench.out >> ${FILE}
+          python analysis/plot_results_figures.py ${FILE}
+        shell: bash
+        working-directory: ./.
+      - name: Record Failure
+        run: echo "Devel branch benchmarks failed on python 3.11!"
+        if: ${{ failure() }}
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9
+        if: ${{ always() }}
+        with:
+          message: 'Update performance comparison'
+          add: "['version_specific_results/devel_performance_310.md', 'version_specific_results/devel_performance_310_compilation.svg', 'version_specific_results/devel_performance_310_execution.svg', 'version_specific_results/devel_performance_310_requirements.txt']"
+          default_author: github_actions
+   
