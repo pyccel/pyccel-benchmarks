@@ -48,7 +48,6 @@ time_compilation = args.compilation
 time_execution = args.execution
 pyccel_configs = [os.path.abspath(f) for f in args.pyccel_config_files]
 pythran_configs = [os.path.abspath(f) for f in args.pythran_config_files]
-pyccel_language_flags = [json.load(open(f))['language'] for f in pyccel_configs]
 
 
 test_cases = ['python']
@@ -62,9 +61,15 @@ for i,f in enumerate(pythran_configs):
 if not args.no_numba:
     test_cases.append('numba')
     test_case_names.append('numba')
+n_configs = 0
 for i,f in enumerate(pyccel_configs):
-    test_cases.append(f'pyccel_{i}')
-    test_case_names.append(os.path.splitext(os.path.basename(f))[0])
+    name = os.path.splitext(os.path.basename(f))[0]
+    with open(f) as config:
+        languages = json.load(config).keys()
+    for l in languages:
+        test_cases.append(f'pyccel_{i}_{l}')
+        test_case_names.append(f'{name}_{l}')
+        n_configs += 1
 
 tests = [
     TestInfo('Ackermann',
@@ -132,6 +137,11 @@ tests = [
         ['md'],
         '',
         'p, k = md(3, 100, 200, 0.1)'),
+    TestInfo('Splines',
+        'splines.py',
+        ['Spline'],
+        'import numpy as np; s = Spline(5, knots = np.linspace(0,1, 1000), coeffs = np.ones(1000)); x = np.random.rand(100000); y = np.empty(100000);',
+        's.eval(x, y)'),
 ]
 
 if verbose:
@@ -229,13 +239,14 @@ for t in tests:
         env = os.environ.copy()
         create_shared_lib = case.startswith('pyccel') or case.startswith('pythran')
         if create_shared_lib:
-            tag, idx_str = case.split('_')
-            idx = int(idx_str)
+            tag, idx_str = case.split('_', 1)
             if tag == 'pyccel':
+                idx_str, language = idx_str.split('_')
+                idx = int(idx_str)
                 my_file = pyccel_configs[idx]
-                language = pyccel_language_flags[idx]
-                cmd = ['pyccel', f'--compiler={my_file}', f'--language={language}', '--verbose', basename]
+                cmd = ['pyccel', f'--compiler-config={my_file}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
+                idx = int(idx_str)
                 my_file = pythran_configs[idx]
                 cmd = ['pythran', '-v', basename]
                 env['PYTHRANRC'] = my_file

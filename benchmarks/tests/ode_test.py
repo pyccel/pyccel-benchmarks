@@ -1,11 +1,12 @@
 #! /usr/bin/env python3
+from typing import Final
 from numpy import zeros
 from numpy import linspace
 
 # ================================================================
-def euler (dydt: '()(real, const real[:], real[:])',
-           tspan: 'real[:]', y0: 'real[:]', n: int,
-           t: 'real[:]', y: 'real[:,:]'):
+def euler (dydt: '()(float, Final[float[:]], float[:])',
+           tspan: 'float[:]', y0: 'float[:]', n: int,
+           t: 'float[:]', y: 'float[:,:]'):
 
     t0 = tspan[0]
     t1 = tspan[1]
@@ -17,9 +18,9 @@ def euler (dydt: '()(real, const real[:], real[:])',
         y[i+1,:] = y[i,:] + dt * y[i+1,:]
 
 # ================================================================
-def midpoint_explicit (dydt: '()(real, const real[:], real[:])',
-                       tspan: 'real[:]', y0: 'real[:]', n: int,
-                       t: 'real[:]', y: 'real[:,:]'):
+def midpoint_explicit (dydt: '()(float, Final[float[:]], float[:])',
+                       tspan: 'float[:]', y0: 'float[:]', n: int,
+                       t: 'float[:]', y: 'float[:,:]'):
 
     m = len( y0 )
     ym = zeros(m)
@@ -40,9 +41,9 @@ def midpoint_explicit (dydt: '()(real, const real[:], real[:])',
         y[i+1,:] = y[i,:] + dt * y[i+1,:]
 
 # ================================================================
-def midpoint_fixed (dydt: '()(real, const real[:], real[:])',
-                    tspan: 'real[:]', y0: 'real[:]', n: int,
-                    t: 'real[:]', y: 'real[:,:]'):
+def midpoint_fixed (dydt: '()(float, Final[float[:]], float[:])',
+                    tspan: 'float[:]', y0: 'float[:]', n: int,
+                    t: 'float[:]', y: 'float[:,:]'):
 
     m = len( y0 )
     y1m = zeros(m)
@@ -70,9 +71,9 @@ def midpoint_fixed (dydt: '()(real, const real[:], real[:])',
                  + ( 1.0 - 1.0 / theta ) * y[i,:]
 
 # ================================================================
-def leapfrog (dydt: '()(real, const real[:], real[:])',
-              tspan: 'real[:]', y0: 'real[:]', n: int,
-              t: 'real[:]', y: 'real[:,:]'):
+def leapfrog (dydt: '()(float, Final[float[:]], float[:])',
+              tspan: 'float[:]', y0: 'float[:]', n: int,
+              t: 'float[:]', y: 'float[:,:]'):
 
     # TODO len(y0) == 2
     m = len( y0 )
@@ -98,9 +99,9 @@ def leapfrog (dydt: '()(real, const real[:], real[:])',
             y[i,1] = y[i-1,1] + 0.5 * dt * ( aold[1] + anew[1] )
 
 # ================================================================
-def rk4 (dydt: '()(real, const real[:], real[:])',
-         tspan: 'real[:]', y0: 'real[:]', n: int,
-         t: 'real[:]', y: 'real[:,:]'):
+def rk4 (dydt: '()(float, Final[float[:]], float[:])',
+         tspan: 'float[:]', y0: 'float[:]', n: int,
+         t: 'float[:]', y: 'float[:,:]'):
 
     m = len( y0 )
     f1 = zeros(m)
@@ -136,12 +137,12 @@ def humps_fun ( x : float ):
         return y
 
 # ================================================================
-def humps_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def humps_deriv ( x: 'float', y: 'float[:]', out: 'float[:]' ):
 
     out[0] = - 2.0 * ( x - 0.3 ) / ( ( x - 0.3 )**2 + 0.01 )**2 - 2.0 * ( x - 0.9 ) / ( ( x - 0.9 )**2 + 0.04 )**2
 
 # ================================================================
-def predator_prey_deriv ( t: 'real', rf: 'real[:]', out: 'real[:]' ):
+def predator_prey_deriv ( t: 'float', rf: 'float[:]', out: 'float[:]' ):
 
     r = rf[0]
     f = rf[1]
@@ -153,14 +154,14 @@ def predator_prey_deriv ( t: 'real', rf: 'real[:]', out: 'real[:]' ):
     out[1] = dfdt
 
 # ================================================================
-def shm_deriv ( x: 'real', y: 'real[:]', out: 'real[:]' ):
+def shm_deriv ( x: 'float', y: 'float[:]', out: 'float[:]' ):
 
     out[0] =   y[1]
     out[1] = - y[0]
 
 # ================================================================
 # pythran export euler_humps_test(float[:],float[:],int)
-def euler_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def euler_humps_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
 
     m = len ( y0 )
@@ -175,7 +176,7 @@ def euler_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
 
 # ================================================================
 # pythran export midpoint_explicit_humps_test(float[:],float[:],int)
-def midpoint_explicit_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def midpoint_explicit_humps_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
@@ -189,7 +190,7 @@ def midpoint_explicit_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
 
 # ================================================================
 # pythran export midpoint_explicit_predator_prey_test(float[:],float[:],int)
-def midpoint_explicit_predator_prey_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def midpoint_explicit_predator_prey_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
@@ -200,7 +201,7 @@ def midpoint_explicit_predator_prey_test ( tspan: 'real[:]', y0: 'real[:]', n: i
 
 # ================================================================
 # pythran export midpoint_fixed_humps_test(float[:],float[:],int)
-def midpoint_fixed_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def midpoint_fixed_humps_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
@@ -214,7 +215,7 @@ def midpoint_fixed_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
 
 # ================================================================
 # pythran export midpoint_fixed_predator_prey_test(float[:],float[:],int)
-def midpoint_fixed_predator_prey_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def midpoint_fixed_predator_prey_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
@@ -224,7 +225,7 @@ def midpoint_fixed_predator_prey_test ( tspan: 'real[:]', y0: 'real[:]', n: int 
     midpoint_fixed ( predator_prey_deriv, tspan, y0, n, t, y )
 
 # ================================================================
-def leapfrog_shm_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def leapfrog_shm_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
@@ -235,7 +236,7 @@ def leapfrog_shm_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
 
 # ================================================================
 # pythran export rk4_humps_test(float[:],float[:],int)
-def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def rk4_humps_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
@@ -246,7 +247,7 @@ def rk4_humps_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
 
 # ================================================================
 # pythran export rk4_predator_prey_test(float[:],float[:],int)
-def rk4_predator_prey_test ( tspan: 'real[:]', y0: 'real[:]', n: int ):
+def rk4_predator_prey_test ( tspan: 'float[:]', y0: 'float[:]', n: int ):
 
     m = len ( y0 )
 
