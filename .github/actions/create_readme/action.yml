@@ -11,8 +11,8 @@ runs:
       run: |
         git branch
         git pull
-        cat intro.md > README.md
-        cat test_details.md >> README.md
+        cat readme/intro.md > README.md
+        cat readme/test_details.md >> README.md
         VERSION=${{ inputs.version }}
         echo "## Development branch results" >> README.md
         FILE=version_specific_results/devel_performance_311
