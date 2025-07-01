@@ -14,7 +14,7 @@ In order to test pyccel and/or pythran, configuration files must be provided. An
 - `-mavx`
 - `-ffast-math`
 
-Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for another compiler family, see the [pyccel documentation](https://github.com/pyccel/pyccel/blob/master/tutorial/compiler.md)):
+Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for another compiler family, see the [pyccel documentation](https://pyccel.github.io/pyccel/docs/compiler.html)):
 ```
 pyccel --compiler-family intel --export-compiler-config pyccel_intel.json
 ```
