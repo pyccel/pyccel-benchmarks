@@ -1,3 +1,4 @@
+from typing import Final
 import numpy as np
 from pyccel.decorators import inline
 
@@ -32,7 +33,7 @@ class Spline:
 
             values[j+1] = saved
 
-    def eval(self, x : 'const float[:]', y : 'float[:]'):
+    def eval(self, x : 'Final[float[:]]', y : 'float[:]'):
         """ Evaluate spline at non-zero basis elements: sum_i N_i(x) * c_i.
         """
         basis = np.empty(self.degree+1)
