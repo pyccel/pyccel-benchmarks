@@ -13,10 +13,9 @@ In order to test pyccel and/or pythran, configuration files must be provided. An
 - `-mtune=native`
 - `-mavx`
 - `-ffast-math`
-
-Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for another compiler family, see the [pyccel documentation](https://pyccel.github.io/pyccel/docs/compiler.html)):
+Pyccel configurations valid for your machine can be generated using the following command (which may be adapted for c generation or other compiler languages, see the [pyccel documentation](https://github.com/pyccel/pyccel/blob/master/tutorial/compiler.md)):
 ```
-pyccel --compiler-family intel --export-compiler-config pyccel_intel.json
+pyccel --language=fortran --export-compile-info pyccel_fortran.json
 ```
 This configuration can then be modified to include additional flags or use different compilers. The tests shown below add the following additional flags (which match the flags added to pythran):
 - `-O3`
@@ -94,43 +93,44 @@ Runs a molecular dynamics simulation. The code is adapted from examples written 
 
 Evaluates a non-uniform spline saved as a class instance at a large number of test points. The code uses Algorithm A2.2 from the NURBS book (Piegl, Les, and Wayne Tiller. The NURBS book. Springer Science & Business Media, 2012.).
 ## Development branch results
-### Performance Comparison (as of Wed Jul  2 09:39:03 UTC 2025)
+### Performance Comparison (as of Wed Jul  2 08:26:49 UTC 2025)
 ## Compilation time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 2.36                      | 2.08                      | 0.28                      | 1.34                      | 1.36                      | 1.35                      | 1.38                     
-Bellman Ford              | -                         | 3.35                      | 3.61                      | 0.93                      | 1.61                      | 1.50                      | 1.56                      | 1.55                     
-Dijkstra                  | -                         | 2.30                      | 2.59                      | 1.20                      | 1.72                      | 1.60                      | 1.65                      | 1.68                     
-Euler                     | -                         | 2.55                      | 2.95                      | 3.31                      | 1.58                      | 1.48                      | 1.54                      | 1.53                     
-Midpoint Explicit         | -                         | 2.91                      | 3.34                      | 3.60                      | 1.82                      | 1.69                      | 1.75                      | 1.75                     
-Midpoint Fixed            | -                         | 3.27                      | 3.66                      | 3.70                      | 1.88                      | 1.75                      | 1.81                      | 1.81                     
-RK4                       | -                         | 3.41                      | 3.91                      | 3.72                      | 2.20                      | 2.13                      | 2.12                      | 2.18                     
-FD - L Convection         | -                         | 2.28                      | 2.57                      | 2.42                      | 1.53                      | 1.43                      | 1.48                      | 1.48                     
-FD - NL Convection        | -                         | 3.21                      | 3.52                      | 2.44                      | 1.52                      | 1.44                      | 1.49                      | 1.49                     
-FD - Poisson              | -                         | 3.37                      | 3.66                      | 5.60                      | 1.66                      | 1.71                      | 1.61                      | 1.86                     
-FD - Laplace              | -                         | 6.77                      | 7.49                      | 6.94                      | 1.90                      | 1.85                      | 1.80                      | 1.93                     
-M-D                       | -                         | 6.13                      | 6.14                      | 8.45                      | 2.34                      | 2.46                      | 2.23                      | 2.56                     
-Splines                   | -                         | -                         | -                         | 0.59                      | 1.77                      | 1.73                      | 1.71                      | 1.83                     
+Ackermann                 | -                         | 2.59                      | 2.21                      | 0.28                      | 1.38                      | 1.41                      | 1.39                      | 1.42                     
+Bellman Ford              | -                         | 3.56                      | 3.72                      | 0.99                      | 1.70                      | 1.60                      | 1.71                      | 1.64                     
+Dijkstra                  | -                         | 2.48                      | 2.73                      | 1.25                      | 1.78                      | 1.66                      | 1.72                      | 1.80                     
+Euler                     | -                         | 2.72                      | 3.17                      | 3.51                      | 1.65                      | 1.50                      | 1.64                      | 1.56                     
+Midpoint Explicit         | -                         | 3.15                      | 3.49                      | 3.90                      | 1.88                      | 1.81                      | 1.85                      | 1.80                     
+Midpoint Fixed            | -                         | 3.41                      | 3.74                      | 3.75                      | 1.94                      | 1.78                      | 1.83                      | 1.84                     
+RK4                       | -                         | 3.50                      | 3.97                      | 3.83                      | 2.28                      | 2.17                      | 2.16                      | 2.18                     
+FD - L Convection         | -                         | 2.33                      | 2.61                      | 2.48                      | 1.56                      | 1.46                      | 1.52                      | 1.50                     
+FD - NL Convection        | -                         | 3.31                      | 3.62                      | 2.43                      | 1.56                      | 1.45                      | 1.50                      | 1.50                     
+FD - Poisson              | -                         | 3.43                      | 3.72                      | 5.75                      | 1.71                      | 1.75                      | 1.65                      | 1.87                     
+FD - Laplace              | -                         | 6.97                      | 7.73                      | 7.23                      | 1.92                      | 1.85                      | 1.83                      | 1.95                     
+M-D                       | -                         | 6.29                      | 6.24                      | 8.59                      | 2.38                      | 2.51                      | 2.26                      | 2.60                     
+Splines                   | -                         | -                         | -                         | 0.59                      | 1.79                      | 1.76                      | 1.71                      | 1.85                     
 
 ## Execution time
 Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
 ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 417.00                    | 2.91                      | 3.05                      | 9.73                      | 1.23                      | 1.32                      | 3.70                      | 9.25                     
-Bellman Ford (ms)         | 1720.00                   | 5.25                      | 3.47                      | 3.81                      | 3.85                      | 3.23                      | 6.48                      | 4.48                     
-Dijkstra (ms)             | 4750.00                   | 20.60                     | 16.90                     | 19.00                     | 67.80                     | 19.50                     | 67.90                     | 21.70                    
-Euler (ms)                | 3400.00                   | 25.10                     | 25.20                     | 35.90                     | 26.40                     | 10.80                     | 26.60                     | 15.80                    
-Midpoint Explicit (ms)    | 6880.00                   | 142.00                    | 56.50                     | 68.80                     | 44.30                     | 18.60                     | 45.70                     | 15.70                    
-Midpoint Fixed (ms)       | 34700.00                  | 266.00                    | 92.90                     | 318.00                    | 191.00                    | 71.80                     | 198.00                    | 55.70                    
-RK4 (ms)                  | 17100.00                  | 153.00                    | 35.90                     | 126.00                    | 94.70                     | 31.60                     | 89.90                     | 29.90                    
-FD - L Convection (ms)    | 2100.00                   | 1.48                      | 1.61                      | 5.63                      | 7.34                      | 1.79                      | 7.64                      | 1.30                     
-FD - NL Convection (ms)   | 2620.00                   | 1.84                      | 1.65                      | 5.66                      | 6.75                      | 1.60                      | 8.02                      | 1.39                     
-FD - Poisson (ms)         | 5790.00                   | 2.91                      | 5.42                      | 6.72                      | 16.10                     | 2.65                      | 24.00                     | 2.58                     
-FD - Laplace (ms)         | 641.00                    | 62.80                     | 126.00                    | 273.00                    | 478.00                    | 60.30                     | 665.00                    | 55.20                    
-M-D (ms)                  | 14300.00                  | 36.40                     | 52.70                     | 60.20                     | 117.00                    | 62.40                     | 61.10                     | 89.30                    
-Splines (ms)              | 1720.00                   | -                         | -                         | 18.60                     | 14.30                     | 17.50                     | 15.20                     | 27.50                    
+Ackermann (ms)            | 425.00                    | 3.37                      | 3.06                      | 9.83                      | 1.34                      | 1.32                      | 4.05                      | 9.39                     
+Bellman Ford (ms)         | 1750.00                   | 5.25                      | 3.50                      | 3.91                      | 3.73                      | 3.25                      | 6.44                      | 4.17                     
+Dijkstra (ms)             | 4820.00                   | 23.50                     | 18.40                     | 19.90                     | 70.00                     | 21.70                     | 72.30                     | 26.00                    
+Euler (ms)                | 3380.00                   | 26.10                     | 27.10                     | 36.40                     | 27.20                     | 11.00                     | 26.80                     | 16.70                    
+Midpoint Explicit (ms)    | 6860.00                   | 51.70                     | 51.50                     | 71.00                     | 45.20                     | 20.30                     | 46.50                     | 16.50                    
+Midpoint Fixed (ms)       | 34700.00                  | 266.00                    | 93.40                     | 322.00                    | 191.00                    | 72.70                     | 198.00                    | 55.70                    
+RK4 (ms)                  | 17000.00                  | 160.00                    | 35.00                     | 127.00                    | 95.00                     | 32.10                     | 91.60                     | 29.00                    
+FD - L Convection (ms)    | 2130.00                   | 1.56                      | 1.61                      | 5.63                      | 7.42                      | 1.65                      | 7.66                      | 1.50                     
+FD - NL Convection (ms)   | 2630.00                   | 1.83                      | 1.65                      | 5.65                      | 6.83                      | 1.60                      | 8.04                      | 1.38                     
+FD - Poisson (ms)         | 5770.00                   | 2.90                      | 5.47                      | 6.77                      | 16.00                     | 2.61                      | 24.00                     | 2.55                     
+FD - Laplace (ms)         | 631.00                    | 66.60                     | 126.00                    | 290.00                    | 487.00                    | 56.20                     | 666.00                    | 54.40                    
+M-D (ms)                  | 14200.00                  | 35.90                     | 52.30                     | 60.10                     | 117.00                    | 62.30                     | 61.90                     | 89.20                    
+Splines (ms)              | 1690.00                   | -                         | -                         | 18.60                     | 14.20                     | 17.60                     | 15.20                     | 27.40                    
 
 ![Development compilation results](./version_specific_results/devel_performance_311_compilation.svg)
 ![Development execution results](./version_specific_results/devel_performance_311_execution.svg)
+## Python 3.8 results
 ## Python 3.9 results
 ### Performance Comparison (as of 2.0.1)
 ## Compilation time
@@ -283,41 +283,3 @@ Splines (ms)              | 2000.00 $\pm$ 30.00       | -                       
 
 ![Python 3.12 compilation results](./version_specific_results/pypi_performance_312_compilation.svg)
 ![Python 3.12 execution results](./version_specific_results/pypi_performance_312_execution.svg)
-## Python 3.13 results
-### Performance Comparison (as of 2.0.1)
-## Compilation time
-Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
-------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann                 | -                         | 1.97                      | 1.99                      | 0.27                      | 1.36                      | 1.41                      | 1.37                      | 1.42                     
-Bellman Ford              | -                         | 3.23                      | 3.51                      | 0.95                      | 1.65                      | 1.53                      | 1.58                      | 1.57                     
-Dijkstra                  | -                         | 2.21                      | 2.51                      | 1.21                      | 1.73                      | 1.61                      | 1.66                      | 1.69                     
-Euler                     | -                         | 2.48                      | 2.86                      | 3.12                      | 1.61                      | 1.50                      | 1.56                      | 1.55                     
-Midpoint Explicit         | -                         | 2.82                      | 3.23                      | 3.37                      | 1.81                      | 1.71                      | 1.76                      | 1.74                     
-Midpoint Fixed            | -                         | 3.17                      | 3.56                      | 3.50                      | 1.90                      | 1.78                      | 1.82                      | 1.83                     
-RK4                       | -                         | 3.30                      | 3.78                      | 3.51                      | 2.26                      | 2.18                      | 2.17                      | 2.19                     
-FD - L Convection         | -                         | 2.19                      | 2.54                      | 2.40                      | 1.57                      | 1.47                      | 1.51                      | 1.52                     
-FD - NL Convection        | -                         | 3.11                      | 3.43                      | 2.42                      | 1.57                      | 1.47                      | 1.52                      | 1.51                     
-FD - Poisson              | -                         | 3.28                      | 3.56                      | 5.50                      | 1.71                      | 1.75                      | 1.65                      | 1.90                     
-FD - Laplace              | -                         | 6.63                      | 7.41                      | 6.87                      | 1.94                      | 1.89                      | 1.83                      | 1.96                     
-M-D                       | -                         | 5.97                      | 5.99                      | 8.12                      | 2.36                      | 2.51                      | 2.24                      | 2.56                     
-Splines                   | -                         | -                         | -                         | 0.66                      | 1.78                      | 1.74                      | 1.72                      | 1.84                     
-
-## Execution time
-Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
-------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
-Ackermann (ms)            | 444.00 $\pm$ 8.00         | 2.70 $\pm$ 0.02           | 3.96 $\pm$ 0.01           | 10.70 $\pm$ 0.30          | 1.28 $\pm$ 0.01           | 1.23 $\pm$ 0.00           | 4.36 $\pm$ 0.00           | 10.40 $\pm$ 0.30         
-Bellman Ford (ms)         | 2120.00 $\pm$ 50.00       | 4.52 $\pm$ 0.02           | 3.53 $\pm$ 0.12           | 3.88 $\pm$ 0.05           | 3.72 $\pm$ 0.03           | 3.25 $\pm$ 0.02           | 5.89 $\pm$ 0.02           | 4.20 $\pm$ 0.02          
-Dijkstra (ms)             | 5330.00 $\pm$ 40.00       | 20.40 $\pm$ 0.10          | 17.20 $\pm$ 0.20          | 19.40 $\pm$ 0.50          | 66.60 $\pm$ 0.10          | 19.30 $\pm$ 0.10          | 67.30 $\pm$ 0.20          | 21.70 $\pm$ 0.20         
-Euler (ms)                | 3910.00 $\pm$ 30.00       | 25.40 $\pm$ 0.50          | 25.40 $\pm$ 0.30          | 36.40 $\pm$ 0.20          | 26.80 $\pm$ 0.40          | 10.80 $\pm$ 0.30          | 26.70 $\pm$ 0.30          | 15.30 $\pm$ 0.40         
-Midpoint Explicit (ms)    | 8040.00 $\pm$ 90.00       | 51.30 $\pm$ 0.60          | 51.60 $\pm$ 2.00          | 69.40 $\pm$ 0.50          | 44.60 $\pm$ 0.40          | 18.90 $\pm$ 0.40          | 45.90 $\pm$ 0.40          | 15.90 $\pm$ 0.20         
-Midpoint Fixed (ms)       | 39800.00 $\pm$ 500.00     | 274.00 $\pm$ 23.00        | 92.70 $\pm$ 0.70          | 331.00 $\pm$ 12.00        | 190.00 $\pm$ 1.00         | 72.70 $\pm$ 1.40          | 198.00 $\pm$ 1.00         | 53.10 $\pm$ 0.70         
-RK4 (ms)                  | 20000.00 $\pm$ 200.00     | 157.00 $\pm$ 4.00         | 35.50 $\pm$ 0.40          | 126.00 $\pm$ 1.00         | 95.10 $\pm$ 1.00          | 31.60 $\pm$ 0.40          | 90.60 $\pm$ 0.50          | 27.70 $\pm$ 0.20         
-FD - L Convection (ms)    | 2780.00 $\pm$ 40.00       | 1.45 $\pm$ 0.05           | 1.64 $\pm$ 0.03           | 5.64 $\pm$ 0.00           | 6.69 $\pm$ 0.05           | 1.53 $\pm$ 0.06           | 7.43 $\pm$ 0.05           | 1.54 $\pm$ 0.03          
-FD - NL Convection (ms)   | 3480.00 $\pm$ 40.00       | 1.88 $\pm$ 0.06           | 1.69 $\pm$ 0.03           | 5.67 $\pm$ 0.02           | 6.72 $\pm$ 0.05           | 1.68 $\pm$ 0.07           | 8.14 $\pm$ 0.21           | 1.38 $\pm$ 0.04          
-FD - Poisson (ms)         | 6840.00 $\pm$ 220.00      | 3.03 $\pm$ 0.24           | 5.43 $\pm$ 0.03           | 6.88 $\pm$ 0.11           | 16.10 $\pm$ 0.20          | 2.59 $\pm$ 0.03           | 23.90 $\pm$ 0.10          | 2.52 $\pm$ 0.02          
-FD - Laplace (ms)         | 640.00 $\pm$ 3.00         | 62.90 $\pm$ 0.30          | 103.00 $\pm$ 1.00         | 279.00 $\pm$ 9.00         | 477.00 $\pm$ 1.00         | 56.60 $\pm$ 0.70          | 663.00 $\pm$ 1.00         | 55.20 $\pm$ 0.40         
-M-D (ms)                  | 16500.00 $\pm$ 100.00     | 35.60 $\pm$ 2.30          | 50.00 $\pm$ 0.30          | 60.20 $\pm$ 0.10          | 114.00 $\pm$ 0.00         | 62.00 $\pm$ 0.20          | 61.50 $\pm$ 0.50          | 89.30 $\pm$ 0.10         
-Splines (ms)              | 2020.00 $\pm$ 30.00       | -                         | -                         | 18.40 $\pm$ 0.20          | 14.30 $\pm$ 0.00          | 17.80 $\pm$ 0.10          | 15.50 $\pm$ 0.60          | 27.50 $\pm$ 0.00         
-
-![Python 3.13 compilation results](./version_specific_results/pypi_performance_313_compilation.svg)
-![Python 3.13 execution results](./version_specific_results/pypi_performance_313_execution.svg)
