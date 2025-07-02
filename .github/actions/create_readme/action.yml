@@ -11,8 +11,8 @@ runs:
       run: |
         git branch
         git pull
-        cat intro.md > README.md
-        cat test_details.md >> README.md
+        cat readme/intro.md > README.md
+        cat readme/test_details.md >> README.md
         VERSION=${{ inputs.version }}
         echo "## Development branch results" >> README.md
         FILE=version_specific_results/devel_performance_311
@@ -21,7 +21,7 @@ runs:
         echo "![Development compilation results](./${FILE}_compilation.svg)" >> README.md
         echo "![Development execution results](./${FILE}_execution.svg)" >> README.md
 
-        for py_version in "8" "9" "10" "11" "12"
+        for py_version in "9" "10" "11" "12" "13"
         do
           echo "## Python 3.${py_version} results" >> README.md
           FILE=version_specific_results/pypi_performance_3${py_version}_${VERSION}.md
