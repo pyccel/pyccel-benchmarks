@@ -5,7 +5,7 @@ cycler==0.12.1
 filelock==3.20.0
 fonttools==4.60.1
 gast==0.6.0
-immutabledict==4.2.1
+immutabledict==4.2.2
 kiwisolver==1.4.9
 llvmlite==0.45.1
 matplotlib==3.10.7
@@ -18,7 +18,7 @@ packaging==25.0
 pillow==11.3.0
 ply==3.11
 psutil==7.1.0
-pyccel @ git+https://github.com/pyccel/pyccel@8021c0cf8dd104148ca2e65d47612ab028c68061
+pyccel @ git+https://github.com/pyccel/pyccel@ef6abf21131bec7124530952620e68b4c6de0ef0
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.2.5
 pyperf==2.9.0
