@@ -13,12 +13,12 @@ meson==1.9.1
 mpmath==1.3.0
 ninja==1.13.0
 numba==0.62.1
-numpy==2.3.3
+numpy==2.3.4
 packaging==25.0
-pillow==11.3.0
+pillow==12.0.0
 ply==3.11
 psutil==7.1.0
-pyccel @ git+https://github.com/pyccel/pyccel@c4d4fdb5d71723a0f25868dccd1b648311a98efd
+pyccel @ git+https://github.com/pyccel/pyccel@50c7025494b2bf1e2097744f76996364d6ef1bbf
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.2.5
 pyperf==2.9.0
