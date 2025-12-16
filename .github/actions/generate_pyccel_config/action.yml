@@ -6,7 +6,7 @@ runs:
     - name: Generate default pyccel configurations
       run: |
         pyccel config export pyccel_gnu.json
-        pyccel config export --compiler-family=intel --export-compiler-config pyccel_intel.json
+        pyccel config export --compiler-family=intel pyccel_intel.json
       shell: bash
       working-directory: ./benchmarks
     - name: Add improved flags
