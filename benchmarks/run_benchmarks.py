@@ -231,10 +231,12 @@ for t in tests:
 
     for case in test_cases:
         if case == 'numba':
-            testname = numba_testname
+            chosen_testname = numba_testname
         elif case == 'jax':
-            testname = jax_testname
-        setup_cmd = f'from {testname} import {import_funcs};'
+            chosen_testname = jax_testname
+        else:
+            chosen_testname = testname
+        setup_cmd = f'from {chosen_testname} import {import_funcs};'
         setup_cmd += t.setup.replace('\n','')
         print("-------------------", file=log_file, flush=True)
         print("   ",case, file=log_file, flush=True)
@@ -326,9 +328,7 @@ for t in tests:
                     stddev = float(r.group(3))
                     units = r.group(2)
 
-                    bench_str = '{mean:.2f} $\pm$ {stddev:.2f}'.format(
-                            mean=mean,
-                            stddev=stddev)
+                    bench_str = rf'{mean:.2f} $\pm$ {stddev:.2f}'
                     run_times.append((mean,stddev))
                 else:
                     regexp = re.compile(r'([0-9]+) loops?, best of ([0-9]+): ([0-9.]+) (\w*)')
@@ -365,9 +365,7 @@ for t in tests:
                     row.append('-')
                 else:
                     mean,stddev = time
-                    row.append('{mean:.2f} $\pm$ {stddev:.2f}'.format(
-                                mean=mean*f,
-                                stddev=stddev*f))
+                    row.append(rf'{mean*f:.2f} $\pm$ {stddev*f:.2f}')
         else:
             for time,f in zip(run_times,mult_fact):
                 if time is None:
