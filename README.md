@@ -94,7 +94,40 @@ Runs a molecular dynamics simulation. The code is adapted from examples written 
 
 Evaluates a non-uniform spline saved as a class instance at a large number of test points. The code uses Algorithm A2.2 from the NURBS book (Piegl, Les, and Wayne Tiller. The NURBS book. Springer Science & Business Media, 2012.).
 ## Development branch results
-Devel branch benchmarks failed on python 3.11!
+### Performance Comparison (as of Tue Dec 16 10:15:09 UTC 2025)
+## Compilation time
+Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
+------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
+Ackermann                 | -                         | -                         | -                         | 0.26                      | 1.22                      | 1.27                      | 1.30                      | 1.34                     
+Bellman Ford              | -                         | -                         | -                         | 0.86                      | 24.50                     | 1.43                      | 26.83                     | 1.50                     
+Dijkstra                  | -                         | -                         | -                         | 0.95                      | 24.67                     | 1.53                      | 26.92                     | 1.62                     
+Euler                     | -                         | -                         | -                         | 3.03                      | 24.61                     | 1.41                      | 26.85                     | 1.48                     
+Midpoint Explicit         | -                         | -                         | -                         | 3.40                      | 24.67                     | 1.61                      | 26.91                     | 1.66                     
+Midpoint Fixed            | -                         | -                         | -                         | 3.54                      | 24.72                     | 1.64                      | 26.92                     | 1.70                     
+RK4                       | -                         | -                         | -                         | 3.49                      | 25.05                     | 1.98                      | 27.49                     | 2.09                     
+FD - L Convection         | -                         | -                         | -                         | 2.33                      | 24.42                     | 1.34                      | 26.58                     | 1.43                     
+FD - NL Convection        | -                         | -                         | -                         | 2.50                      | 24.51                     | 1.35                      | 26.71                     | 1.43                     
+FD - Poisson              | -                         | -                         | -                         | 3.99                      | 24.62                     | 1.70                      | 26.94                     | 1.81                     
+FD - Laplace              | -                         | -                         | -                         | 5.23                      | 24.85                     | 1.74                      | 27.22                     | 1.84                     
+M-D                       | -                         | -                         | -                         | 5.82                      | 25.34                     | 2.33                      | 27.42                     | 2.41                     
+Splines                   | -                         | -                         | -                         | 0.58                      | 24.72                     | 1.62                      | 27.11                     | 1.76                     
+
+## Execution time
+Algorithm                 | python                    | pythran_gnu               | pythran_intel             | numba                     | pyccel_gnu_c              | pyccel_gnu_fortran        | pyccel_intel_c            | pyccel_intel_fortran     
+------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- | -------------------------
+Ackermann (ms)            | 296.00                    | -                         | -                         | 19.00                     | 2.22                      | 2.27                      | 12.10                     | 15.20                    
+Bellman Ford (ms)         | 1760.00                   | -                         | -                         | 4.54                      | 4.19                      | 3.21                      | 5.85                      | 3.52                     
+Dijkstra (ms)             | 4500.00                   | -                         | -                         | 27.20                     | 45.20                     | 26.10                     | 53.80                     | 31.90                    
+Euler (ms)                | 3080.00                   | -                         | -                         | 85.30                     | 20.20                     | 10.10                     | 21.90                     | 9.53                     
+Midpoint Explicit (ms)    | 6360.00                   | -                         | -                         | 165.00                    | 37.70                     | 16.30                     | 39.60                     | 13.00                    
+Midpoint Fixed (ms)       | 32000.00                  | -                         | -                         | 590.00                    | 171.00                    | 67.60                     | 182.00                    | 45.00                    
+RK4 (ms)                  | 15900.00                  | -                         | -                         | 308.00                    | 77.70                     | 25.70                     | 84.90                     | 29.30                    
+FD - L Convection (ms)    | 1980.00                   | -                         | -                         | 2.10                      | 6.69                      | 1.51                      | 8.52                      | 1.40                     
+FD - NL Convection (ms)   | 2520.00                   | -                         | -                         | 2.44                      | 6.05                      | 1.43                      | 8.54                      | 1.41                     
+FD - Poisson (ms)         | 5920.00                   | -                         | -                         | 6.63                      | 8.56                      | 2.81                      | 13.20                     | 2.75                     
+FD - Laplace (ms)         | 573.00                    | -                         | -                         | 213.00                    | 202.00                    | 55.60                     | 399.00                    | 61.30                    
+M-D (ms)                  | 14200.00                  | -                         | -                         | 53.70                     | 89.10                     | 55.60                     | 56.30                     | 54.40                    
+Splines (ms)              | 1740.00                   | -                         | -                         | 18.20                     | 12.10                     | 17.00                     | 13.20                     | 26.80                    
 
 ![Development compilation results](./version_specific_results/devel_performance_311_compilation.svg)
 ![Development execution results](./version_specific_results/devel_performance_311_execution.svg)
