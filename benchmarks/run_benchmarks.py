@@ -236,7 +236,7 @@ for t in tests:
                 idx_str, language = idx_str.split('_')
                 idx = int(idx_str)
                 my_file = pyccel_configs[idx]
-                cmd = ['pyccel', f'--compiler-config={my_file}', f'--language={language}', '--verbose', basename]
+                cmd = ['pyccel', 'compile', f'--compiler-config={my_file}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
                 idx = int(idx_str)
                 my_file = pythran_configs[idx]
@@ -332,7 +332,7 @@ for t in tests:
                 run_units.append(possible_units.index(units))
 
         if create_shared_lib:
-            subprocess.run([shutil.which('pyccel-clean'), '-s'])
+            subprocess.run([shutil.which('pyccel'), 'clean', '-s'])
 
     if time_compilation:
         row = cell_splitter[output_format].join('{0: <25}'.format(s) for s in comp_times)
