@@ -32,6 +32,7 @@ parser.add_argument('--no_execution', action='store_false', dest='execution', \
                         help="Don't time the execution step")
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
 parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
+parser.add_argument('--no_jax', action='store_true', help="Don't run jax tests")
 parser.add_argument('--pythran-config-files', type=str, nargs='*', help='Provide configuration files for pythran', default = [])
 parser.add_argument('--pyccel-config-files', type=str, nargs='*', help='Provide configuration files for pyccel', default = [])
 parser.add_argument('--output', choices=('latex', 'markdown'), \
@@ -61,6 +62,9 @@ for i,f in enumerate(pythran_configs):
 if not args.no_numba:
     test_cases.append('numba')
     test_case_names.append('numba')
+if not args.no_jax:
+    test_cases.append('jax')
+    test_case_names.append('jax')
 n_configs = 0
 for i,f in enumerate(pyccel_configs):
     name = os.path.splitext(os.path.basename(f))[0]
@@ -205,11 +209,16 @@ for t in tests:
     numba_testname = 'numba_'+testname
     numba_test_file = os.path.join(os.path.dirname(test_file), numba_basename)
 
+    jax_basename = 'jax_'+basename
+    jax_testname = 'jax_'+testname
+    jax_test_file = os.path.join(os.path.dirname(test_file), numba_basename)
+
     new_folder = os.path.join('tmp',t.imports[0])
 
     os.makedirs(new_folder, exist_ok=True)
     shutil.copyfile(test_file, os.path.join(new_folder, basename))
     shutil.copyfile(numba_test_file, os.path.join(new_folder, numba_basename))
+    shutil.copyfile(jax_test_file, os.path.join(new_folder, jax_basename))
     os.chdir(new_folder)
 
     import_funcs = ', '.join(t.imports)
@@ -221,9 +230,11 @@ for t in tests:
     run_units = []
 
     for case in test_cases:
-        setup_cmd = 'from {testname} import {funcs};'.format(
-                testname = numba_testname if case == 'numba' else testname,
-                funcs = import_funcs)
+        if case == 'numba':
+            testname = numba_testname
+        elif case == 'jax':
+            testname = jax_testname
+        setup_cmd = f'from {testname} import {import_funcs};'
         setup_cmd += t.setup.replace('\n','')
         print("-------------------", file=log_file, flush=True)
         print("   ",case, file=log_file, flush=True)
@@ -264,7 +275,7 @@ for t in tests:
                 print("Compilation CPU time : ", cpu_time, file=log_file)
                 comp_times.append('{:.2f}'.format(float(cpu_time)))
 
-        elif time_compilation and case == "numba":
+        elif time_compilation and case in ("numba", "jax"):
             cmd = ['pypy'] if case=='pypy' else ['python3']
             run_str = "{setup}import resource; t0 = resource.getrusage(resource.RUSAGE_SELF); {run}; t1 = resource.getrusage(resource.RUSAGE_SELF); {run}; t2 = resource.getrusage(resource.RUSAGE_SELF); print(2*t1.ru_utime-t0.ru_utime-t2.ru_utime + 2*t1.ru_stime-t0.ru_stime-t2.ru_stime)".format(
                     setup=setup_cmd,
