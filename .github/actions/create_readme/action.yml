@@ -15,13 +15,13 @@ runs:
         cat readme/test_details.md >> README.md
         VERSION=${{ inputs.version }}
         echo "## Development branch results" >> README.md
-        FILE=version_specific_results/devel_performance_311
+        FILE=version_specific_results/devel_performance_312
         cat ${FILE}.md >> README.md
         echo "" >> README.md
         echo "![Development compilation results](./${FILE}_compilation.svg)" >> README.md
         echo "![Development execution results](./${FILE}_execution.svg)" >> README.md
 
-        for py_version in "9" "10" "11" "12" "13"
+        for py_version in "10" "11" "12" "13" "14"
         do
           echo "## Python 3.${py_version} results" >> README.md
           FILE=version_specific_results/pypi_performance_3${py_version}_${VERSION}.md
