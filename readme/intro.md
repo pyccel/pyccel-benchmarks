@@ -1,6 +1,6 @@
 # Benchmarks
 
-Several tests are available for the user to benchmark Pyccel against other common accelerators, notably [pythran](https://pythran.readthedocs.io/en/latest/) and [numba](https://numba.pydata.org/).
+Several tests are available for the user to benchmark Pyccel against other common accelerators, notably [pythran](https://pythran.readthedocs.io/en/latest/), [numba](https://numba.pydata.org/) and [jax](https://docs.jax.dev/en/latest/index.html).
 The same code is used for all tests, only the decorators change.
 
 The dependencies can be installed using the command `python3 -m pip install .`

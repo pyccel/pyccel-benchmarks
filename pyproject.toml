@@ -3,6 +3,7 @@ requires = [
     "setuptools",
     "pyccel",
     "pythran",
+    "jax",
     "numba",
     "pyperf",
     "numpy",
