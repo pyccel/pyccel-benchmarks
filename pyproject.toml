@@ -1,6 +1,14 @@
 [build-system]
-requires = [
-    "setuptools",
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="pyccel-benchmarks"
+authors = [
+    { name = "Pyccel development team" },
+]
+version="0.0.0"
+dependencies = [
     "pyccel",
     "pythran",
     "jax",
@@ -9,4 +17,7 @@ requires = [
     "numpy",
     "matplotlib",
 ]
-build-backend = "setuptools.build_meta"
+requires-python = ">= 3.10"
+
+[tool.setuptools]
+py-modules = []
