@@ -8,11 +8,11 @@ Functions for solving a Poisson equation. The code is adapted from examples writ
 To be accelerated with numba
 """
 
-from numba import njit
+from jax import jit
 import numpy as np
 
 
-@njit(fastmath=True)
+@jit
 def poisson_2d(nx: int, ny: int, nt: int):
     """
     Solve the 2D poisson equation for phi(x, y) on the rectangular

@@ -5,9 +5,9 @@
 #------------------------------------------------------------------------------------------#
 """ Module containing functions for testing the ackerman algorithm using numba
 """
-from numba import njit
+from jax import jit
 
-@njit(fastmath=True)
+@jit
 def ackermann(m : int, n : int) -> int:
     """  Total computable function that is not primitive recursive.
     This function is useful for testing recursion
