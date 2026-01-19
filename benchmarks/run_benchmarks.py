@@ -211,7 +211,7 @@ for t in tests:
 
     jax_basename = 'jax_'+basename
     jax_testname = 'jax_'+testname
-    jax_test_file = os.path.join(os.path.dirname(test_file), numba_basename)
+    jax_test_file = os.path.join(os.path.dirname(test_file), jax_basename)
 
     new_folder = os.path.join('tmp',t.imports[0])
 
@@ -278,7 +278,7 @@ for t in tests:
                 comp_times.append('{:.2f}'.format(float(cpu_time)))
 
         elif time_compilation and case in ("numba", "jax"):
-            cmd = ['pypy'] if case=='pypy' else ['python3']
+            cmd = ['pypy'] if case=='pypy' else [sys.executable]
             run_str = "{setup}import resource; t0 = resource.getrusage(resource.RUSAGE_SELF); {run}; t1 = resource.getrusage(resource.RUSAGE_SELF); {run}; t2 = resource.getrusage(resource.RUSAGE_SELF); print(2*t1.ru_utime-t0.ru_utime-t2.ru_utime + 2*t1.ru_stime-t0.ru_stime-t2.ru_stime)".format(
                     setup=setup_cmd,
                     run=exec_cmd)
@@ -304,7 +304,7 @@ for t in tests:
             comp_times.append('-')
 
         if time_execution:
-            cmd = ['pypy'] if case=='pypy' else ['python3']
+            cmd = ['pypy'] if case=='pypy' else [sys.executable]
             cmd += ['-m'] + timeit_cmd + ['-s', setup_cmd, exec_cmd]
 
             if verbose:
