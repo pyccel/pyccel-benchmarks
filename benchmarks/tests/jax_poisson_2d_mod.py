@@ -8,11 +8,11 @@ Functions for solving a Poisson equation. The code is adapted from examples writ
 To be accelerated with numba
 """
 
-from numba import njit
-import numpy as np
+
+import jax.numpy as np
 
 
-@njit(fastmath=True)
+
 def poisson_2d(nx: int, ny: int, nt: int):
     """
     Solve the 2D poisson equation for phi(x, y) on the rectangular
@@ -46,13 +46,13 @@ def poisson_2d(nx: int, ny: int, nt: int):
 
     Returns
     -------
-    x : numpy.ndarray[nx]
+    x : jax.numpy.ndarray[nx]
         Computational grid along x axis.
 
-    y : numpy.ndarray[ny]
+    y : jax.numpy.ndarray[ny]
         Computational grid along y axis.
 
-    phi : numpy.ndarray[ny, nx]
+    phi : jax.numpy.ndarray[ny, nx]
         Numerical solution on the computational grid.
 
     """

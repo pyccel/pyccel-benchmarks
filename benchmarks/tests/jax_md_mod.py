@@ -7,14 +7,14 @@
 Functions for running a small molecular dynamics simulation. The code is adapted from examples written by [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html)
 To be accelerated with numba
 """
-from numba import njit
-from numpy import zeros
-from numpy import sqrt
-from numpy import pi
-from numpy import sin
+
+from jax.numpy import zeros
+from jax.numpy import sqrt
+from jax.numpy import pi
+from jax.numpy import sin
 
 # ================================================================
-@njit(fastmath=True)
+
 def compute_kinetic_energy(vel: 'double[:,:]', mass: float):
     """ Compute the kinetic energy associated with the current configuration.
     """
@@ -28,7 +28,7 @@ def compute_kinetic_energy(vel: 'double[:,:]', mass: float):
     return 0.5 * mass * kinetic
 
 # ================================================================
-@njit(fastmath=True)
+
 def compute(mass: float, pos: 'double[:,:]', vel: 'double[:,:]',
         force: 'double[:,:]'):
     """
@@ -71,7 +71,7 @@ def compute(mass: float, pos: 'double[:,:]', vel: 'double[:,:]',
     return potential
 
 # ================================================================
-@njit(fastmath=True)
+
 def update(dt: float, mass: float, force: 'double[:,:]',
            pos: 'double[:,:]', vel: 'double[:,:]', acc: 'double[:,:]'):
 
@@ -93,7 +93,7 @@ def update(dt: float, mass: float, force: 'double[:,:]',
     acc[:] = force * rmass
 
 # ================================================================
-@njit(fastmath=True)
+
 def r8mat_uniform_ab(r: 'double[:, :]', a: float, b: float, seed: int):
     """ Fill r with random numbers with a uniform distribution
     """
@@ -121,7 +121,7 @@ def r8mat_uniform_ab(r: 'double[:, :]', a: float, b: float, seed: int):
     return seed
 
 # ================================================================
-@njit(fastmath=True)
+
 def initialize(pos: 'double[:,:]'):
     """ Initialise the positions of the particles
     """
@@ -130,7 +130,7 @@ def initialize(pos: 'double[:,:]'):
     seed = r8mat_uniform_ab(pos, 0.0, 10.0, seed)
 
 # ================================================================
-@njit(fastmath=True)
+
 def md(d_num: int, p_num: int, step_num: int, dt: float):
     """
     Run a molecular dynamics simulation. This consists of an N-body

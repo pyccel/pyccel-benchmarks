@@ -8,10 +8,10 @@ Functions for solving a linear convection equation. The code is adapted from exa
 To be accelerated with numba
 """
 
-from numba import njit
-import numpy as np
 
-@njit(fastmath=True)
+import jax.numpy as np
+
+
 def linearconv_1d(nx: int, dt: float, nt: int):
     """
     Compute an approximation of the solution u(t, x) to the 1D
@@ -41,10 +41,10 @@ def linearconv_1d(nx: int, dt: float, nt: int):
 
     Returns
     -------
-    x : numpy.ndarray of nx floats
+    x : jax.numpy.ndarray of nx floats
         Spatial grid where solution is computed.
 
-    u : numpy.ndarray of nx floats
+    u : jax.numpy.ndarray of nx floats
         Numerical solution u at final time.
 
     """

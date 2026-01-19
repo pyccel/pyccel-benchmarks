@@ -6,11 +6,11 @@
 """ Module containing functions for testing the Bellman-Ford algorithm using numba
 """
 
-from numba import njit
-import numpy as np
+
+import jax.numpy as np
 
 
-@njit(fastmath=True)
+
 def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight: 'float[:]',
                    v_weight: 'float[:]', predecessor: 'int[:]' ):
     """ Calculate the shortest paths from a source vertex to all other
@@ -49,7 +49,7 @@ def bellman_ford ( v_num: int, e_num: int, source: int, e: 'int[:,:]', e_weight:
     return 0
 
 
-@njit(fastmath=True)
+
 
 def bellman_ford_test():
     """ Test bellman ford's algorithm

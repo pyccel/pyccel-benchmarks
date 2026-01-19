@@ -1,4 +1,4 @@
-import numpy as np
+import jax.numpy as np
 from numba import int64, float64    # import the types
 from numba.experimental import jitclass
 

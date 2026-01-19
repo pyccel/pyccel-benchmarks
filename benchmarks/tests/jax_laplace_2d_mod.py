@@ -8,10 +8,10 @@ Functions for solving a Laplace equation. The code is adapted from examples writ
 [J. Burkardt](https://people.sc.fsu.edu/~jburkardt/py_src/py_src.html).
 To be accelerated with numba
 """
-from numba import njit
-import numpy as np
 
-@njit(fastmath=True)
+import jax.numpy as np
+
+
 def laplace_2d(nx: int, ny: int, rtol: float, maxiter: int):
     """
     Solve the 2D Laplace equation for phi(x, y) on the rectangular
@@ -44,13 +44,13 @@ def laplace_2d(nx: int, ny: int, rtol: float, maxiter: int):
 
     Returns
     -------
-    x : numpy.ndarray[nx]
+    x : jax.numpy.ndarray[nx]
         Computational grid along x axis.
 
-    y : numpy.ndarray[ny]
+    y : jax.numpy.ndarray[ny]
         Computational grid along y axis.
 
-    phi : numpy.ndarray[ny, nx]
+    phi : jax.numpy.ndarray[ny, nx]
         Numerical solution on the computational grid.
 
     niter : int
