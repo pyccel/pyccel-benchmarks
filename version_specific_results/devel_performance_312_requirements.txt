@@ -18,13 +18,13 @@ packaging==25.0
 pillow==12.1.0
 ply==3.11
 psutil==7.2.1
-pyccel @ git+https://github.com/pyccel/pyccel@371a14872c662a508d799c2dcca22be5b9668b11
+pyccel @ git+https://github.com/pyccel/pyccel@6784191f4391bd1c23499035704e3ec3784df93b
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
-pyparsing==3.3.1
+pyparsing==3.3.2
 pyperf==2.9.0
 python-dateutil==2.9.0.post0
 pythran==0.18.1
-setuptools==80.9.0
+setuptools==80.10.1
 six==1.17.0
 sympy==1.14.0
 termcolor==3.3.0
