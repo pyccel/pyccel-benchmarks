@@ -30,6 +30,7 @@ runs:
       working-directory: ./benchmarks
     - name: Register default pyccel configurations
       run: |
+        source $INTEL_SOURCE_FILE
         pyccel config register pyccel_gnu pyccel_gnu.json
         pyccel config register pyccel_intel pyccel_intel.json
       shell: bash
