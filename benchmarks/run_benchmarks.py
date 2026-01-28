@@ -33,7 +33,7 @@ parser.add_argument('--no_execution', action='store_false', dest='execution', \
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
 parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
 parser.add_argument('--pythran-config-files', type=str, nargs='*', help='Provide configuration files for pythran', default = [])
-parser.add_argument('--pyccel-config-files', type=str, nargs='*', help='Provide configuration files for pyccel', default = [])
+parser.add_argument('--pyccel-config-families', type=str, nargs='*', help='Provide (default or registered) configuration families for pyccel', default = [])
 parser.add_argument('--output', choices=('latex', 'markdown'), \
                         help='Format of the output table (default=markdown)',default='markdown')
 parser.add_argument('--verbose', action='store_true', help='Enables verbose mode.')
@@ -46,7 +46,7 @@ output_format = args.output
 pyperf = args.pyperf
 time_compilation = args.compilation
 time_execution = args.execution
-pyccel_configs = [os.path.abspath(f) for f in args.pyccel_config_files]
+pyccel_configs = args.pyccel_config_families
 pythran_configs = [os.path.abspath(f) for f in args.pythran_config_files]
 
 
@@ -62,11 +62,8 @@ if not args.no_numba:
     test_cases.append('numba')
     test_case_names.append('numba')
 n_configs = 0
-for i,f in enumerate(pyccel_configs):
-    name = os.path.splitext(os.path.basename(f))[0]
-    with open(f) as config:
-        languages = json.load(config).keys()
-    for l in languages:
+for i,name in enumerate(pyccel_configs):
+    for l in ('c', 'fortran'):
         test_cases.append(f'pyccel_{i}_{l}')
         test_case_names.append(f'{name}_{l}')
         n_configs += 1
@@ -235,13 +232,13 @@ for t in tests:
             if tag == 'pyccel':
                 idx_str, language = idx_str.split('_')
                 idx = int(idx_str)
-                my_file = pyccel_configs[idx]
-                cmd = ['pyccel', 'compile', f'--compiler-config={my_file}', f'--language={language}', '--verbose', basename]
+                config = pyccel_configs[idx]
+                cmd = ['pyccel', 'compile', f'--compiler-family={config}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
                 idx = int(idx_str)
-                my_file = pythran_configs[idx]
+                config = pythran_configs[idx]
                 cmd = ['pythran', '-v', basename]
-                env['PYTHRANRC'] = my_file
+                env['PYTHRANRC'] = config
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
