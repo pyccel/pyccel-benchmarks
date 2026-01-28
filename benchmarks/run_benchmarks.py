@@ -63,7 +63,7 @@ if not args.no_numba:
     test_case_names.append('numba')
 n_configs = 0
 for i,name in enumerate(pyccel_configs):
-    for l in languages:
+    for l in ('c', 'fortran'):
         test_cases.append(f'pyccel_{i}_{l}')
         test_case_names.append(f'{name}_{l}')
         n_configs += 1
