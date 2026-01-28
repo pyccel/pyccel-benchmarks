@@ -33,7 +33,7 @@ parser.add_argument('--no_execution', action='store_false', dest='execution', \
 parser.add_argument('--pypy', action='store_true', help='Run test cases with pypy')
 parser.add_argument('--no_numba', action='store_true', help="Don't run numba tests")
 parser.add_argument('--pythran-config-files', type=str, nargs='*', help='Provide configuration files for pythran', default = [])
-parser.add_argument('--pyccel-config-families', type=str, nargs='*', help='Provide configuration files for pyccel', default = [])
+parser.add_argument('--pyccel-config-families', type=str, nargs='*', help='Provide (default or registered) configuration families for pyccel', default = [])
 parser.add_argument('--output', choices=('latex', 'markdown'), \
                         help='Format of the output table (default=markdown)',default='markdown')
 parser.add_argument('--verbose', action='store_true', help='Enables verbose mode.')
@@ -232,8 +232,8 @@ for t in tests:
             if tag == 'pyccel':
                 idx_str, language = idx_str.split('_')
                 idx = int(idx_str)
-                my_file = pyccel_configs[idx]
-                cmd = ['pyccel', 'compile', f'--compiler-family={my_file}', f'--language={language}', '--verbose', basename]
+                my_config = pyccel_configs[idx]
+                cmd = ['pyccel', 'compile', f'--compiler-family={my_config}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
                 idx = int(idx_str)
                 my_file = pythran_configs[idx]
