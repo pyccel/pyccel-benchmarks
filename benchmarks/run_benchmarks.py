@@ -232,13 +232,13 @@ for t in tests:
             if tag == 'pyccel':
                 idx_str, language = idx_str.split('_')
                 idx = int(idx_str)
-                my_config = pyccel_configs[idx]
-                cmd = ['pyccel', 'compile', f'--compiler-family={my_config}', f'--language={language}', '--verbose', basename]
+                config = pyccel_configs[idx]
+                cmd = ['pyccel', 'compile', f'--compiler-family={config}', f'--language={language}', '--verbose', basename]
             elif tag == 'pythran':
                 idx = int(idx_str)
-                my_file = pythran_configs[idx]
+                config = pythran_configs[idx]
                 cmd = ['pythran', '-v', basename]
-                env['PYTHRANRC'] = my_file
+                env['PYTHRANRC'] = config
 
             if verbose:
                 print(cmd, file=log_file, flush=True)
