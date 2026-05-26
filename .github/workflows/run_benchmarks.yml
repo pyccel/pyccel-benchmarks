@@ -10,7 +10,7 @@ jobs:
       version: ${{ steps.check_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Check version
         id: check_version
         run: |
@@ -22,9 +22,9 @@ jobs:
     if: contains(github.event.head_commit.message, 'Benchmark of pyccel')
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Install dependencies
@@ -55,7 +55,7 @@ jobs:
         run: echo "Devel branch benchmarks failed on python 3.12!" > version_specific_results/devel_performance_312.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         if: ${{ always() }}
         with:
           message: 'Update performance comparison'
@@ -69,13 +69,13 @@ jobs:
     needs: [ Check_Pyccel_Version, Benchmark_main]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Write README
         uses: ./.github/actions/create_readme
         with:
           version: "${{ needs.Check_Pyccel_Version.outputs.version }}"
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           message: 'Update README and version'
           add: "['README.md']"

@@ -12,9 +12,9 @@ jobs:
       new_version: ${{ steps.check_version.outputs.new_version }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: '3.10'
       - name: Install pyccel
@@ -40,9 +40,9 @@ jobs:
         python-minor-version: [10, 11, 12, 13, 14]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Set up Python 3.${{ matrix.python-minor-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: 3.${{ matrix.python-minor-version }}
       - name: Install dependencies
@@ -70,7 +70,7 @@ jobs:
         run: echo "Python 3.${{ matrix.python-minor-version }} benchmarks failed!" > version_specific_results/pypi_performance_3${{ matrix.python-minor-version }}.md
         if: ${{ failure() }}
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         if: ${{ always() }}
         with:
           message: 'Update performance comparison'
@@ -83,7 +83,7 @@ jobs:
     needs: [Check_Pyccel_Version, Benchmark]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Write README
         uses: ./.github/actions/create_readme
         with:
@@ -92,7 +92,7 @@ jobs:
         run:
           echo "${{needs.Check_Pyccel_Version.outputs.new_version }}" > current_version.txt
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           message: 'Update README and version'
           add: "['README.md', 'current_version.txt']"
