@@ -32,7 +32,7 @@ jobs:
       - name: Install development version of pyccel from GitHub
         run: |
           pip3 install --upgrade pip
-          pip3 install 'pyccel @ git+https://github.com/pyccel/pyccel@devel-issue2558'
+          pip3 install 'pyccel @ git+https://github.com/pyccel/pyccel@ebourne_c_slicing_performance'
       - name: Install python dependencies
         run: |
           pip3 install .
