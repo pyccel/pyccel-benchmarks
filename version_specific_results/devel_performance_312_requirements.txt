@@ -7,19 +7,19 @@ fonttools==4.63.0
 gast==0.6.0
 immutabledict==4.3.1
 kiwisolver==1.5.0
-llvmlite==0.47.0
+llvmlite==0.48.0
 matplotlib==3.11.0
 meson==1.11.1
 mpmath==1.3.0
 ninja==1.13.0
-numba==0.65.1
+numba==0.66.0
 numpy==2.4.6
 packaging==26.2
 pillow==12.3.0
 ply==3.11
 psutil==7.2.2
 pybind11==3.0.4
-pyccel @ git+https://github.com/pyccel/pyccel@8759399356e799b22b5297552c757a21358d1140
+pyccel @ git+https://github.com/pyccel/pyccel@f8177bd4871912dcf6d1aa104d383132fd6fe9af
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.3.2
 pyperf==2.10.0
