@@ -20,7 +20,7 @@ pluggy==1.6.0
 ply==3.11
 psutil==7.2.2
 pybind11==3.0.4
-pyccel @ git+https://github.com/pyccel/pyccel@da483d14a23e24590f8a995649729e77c803ff20
+pyccel @ git+https://github.com/pyccel/pyccel@a6fd376e7965ff2abb843cab0ed20c17e397d53f
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.3.2
 pyperf==2.10.0
