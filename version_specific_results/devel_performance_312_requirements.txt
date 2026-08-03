@@ -2,7 +2,7 @@ Arpeggio==2.0.3
 beniget==0.4.2.post1
 contourpy==1.3.3
 cycler==0.12.1
-filelock==3.32.0
+filelock==3.32.2
 fonttools==4.63.0
 gast==0.6.0
 immutabledict==4.3.1
@@ -20,7 +20,7 @@ pluggy==1.6.0
 ply==3.11
 psutil==7.2.2
 pybind11==3.0.4
-pyccel @ git+https://github.com/pyccel/pyccel@a6fd376e7965ff2abb843cab0ed20c17e397d53f
+pyccel @ git+https://github.com/pyccel/pyccel@0ccf9ec3e964e071b933947b75767a052c9692f4
 pyccel-benchmarks @ file:///home/runner/work/pyccel-benchmarks/pyccel-benchmarks
 pyparsing==3.3.2
 pyperf==2.10.0
